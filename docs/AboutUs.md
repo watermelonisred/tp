@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "About Us"
+layout: default.md
+title: "About Us"
 ---
 
 # About Us
@@ -11,15 +11,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### ChuckYang123
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/chuckyang123.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://chuckyang123.github.io/)]
+[[github](https://github.com/chuckyang123)]
+[[portfolio](team/chuckyang123.md)]
 
-* Role: Project Advisor
+* Role: Deliverables and deadlines & Scheduling and tracking
+* Responsibilities: Data
 
 ### Jane Doe
 
