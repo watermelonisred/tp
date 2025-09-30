@@ -351,10 +351,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The GroupName is missing.
     * 2a1. System shows error message: `Missing required field: GroupName`.
+
       Use case ends.
 
 * 2b. The GroupName is a duplicate.
     * 2b1. System shows error message: `Invalid Team Name`.
+
       Use case ends.
 
 
