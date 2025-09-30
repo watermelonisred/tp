@@ -336,8 +336,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 5.
 
--
-
 **Use case: Create and manage student groups**
 
 **MSS**
@@ -359,7 +357,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. System shows error message: `Invalid Team Name`.
       Use case ends.
 
--
 
 **Use case: Add student to a group**
 
