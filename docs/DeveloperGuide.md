@@ -317,15 +317,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-##### 1. Data Requirements
-###### NFR-D1: Data Size
-Maximum 500 students per course
-Maximum 50 tutorial slots per course
-Support 13 weeks of attendance data (weeks 3-13)
-Support at least 10 assignments per course
-Store consultation history for entire semester
+#### 1. Data Requirements
+##### NFR-D1: Data Size
+- Maximum 500 students per course
+- Maximum 50 tutorial slots per course
+- Support 13 weeks of attendance data (weeks 3-13)
+- Support at least 10 assignments per course
+- Store consultation history for entire semester
 
-###### NFR-D2: Data Volatility
+##### NFR-D2: Data Volatility
 **High Volatility Data** (changes very frequently):
 - Attendance records: updated every tutorial session (weekly)
 - Homework completion status: updated as TAs mark assignments throughout the week
@@ -340,20 +340,20 @@ Store consultation history for entire semester
 - Student directory (names, NusNET IDs): mostly stable after add/drop period
 - Tutorial slot assignments: fixed after first few weeks
 
-###### NFR-D3: Data Persistence
+##### NFR-D3: Data Persistence
 - All student data must persist between application sessions
 - Attendance, homework, and consultation records must be permanent until explicitly deleted
 - System must auto-save after every successful command
 - Historical data (eg.assessment performance) must persist across semesters
 
-##### 2. Environment/Technical Requirements
-###### NFR-E1: Operating System Compatibility
+#### 2. Environment/Technical Requirements
+##### NFR-E1: Operating System Compatibility
 - Must run on Windows, Linux, and OS-X platforms
 - Must work on both 32-bit and 64-bit environments
 - No OS-dependent libraries or OS-specific features allowed
 - Cross-platform compatibility without any modifications to codebase
 
-###### NFR-E2: Software Dependencies
+##### NFR-E2: Software Dependencies
 - Requires Java 17 only (no other Java version required or installed)
 - Must work without internet connection (offline-first design)
 - No external database server required
@@ -363,65 +363,65 @@ Store consultation history for entire semester
   - Not require user account creation on third-party services
   - Approved by teaching team prior to use
 
-###### NFR-E3: Hardware Requirements(To be finalized later)
+##### NFR-E3: Hardware Requirements(To be finalized later)
 
 
-##### 3. Performance Requirements
-###### NFR-P1: Response Time
+#### 3. Performance Requirements
+##### NFR-P1: Response Time
 - Basic commands (add, delete, mark) must complete within 2 seconds
 - Search and filter operations must return results within 1 second
 - Tab switching must occur within 1 second
 - PDF export must complete within 5 seconds for up to 200 students
 
-###### NFR-P2: Startup Time
+##### NFR-P2: Startup Time
 - Application must launch within 3 seconds on standard hardware
 - Onboarding guide must appear within 1 second of first launch
 
 
-##### 4. Scalability Requirements
-###### NFR-S1: User Scalability
+#### 4. Scalability Requirements
+##### NFR-S1: User Scalability
 - Support TAs managing multiple tutorial slots simultaneously
 
-###### NFR-S2: Data Scalability
+##### NFR-S2: Data Scalability
 - Performance must not degrade noticeably up to 100 students
 - Support unlimited consultation bookings per student
 
 
-##### 5. Usability Requirements
-###### NFR-U1: Learnability
+#### 5. Usability Requirements
+##### NFR-U1: Learnability
 - First-time TA users must be able to add a student and mark attendance within 10 minutes using the onboarding guide
 - The onboarding guide must be completable in under 5 minutes
 - Help command must provide examples for all commands
 
-###### NFR-U2: Efficiency
+##### NFR-U2: Efficiency
 - Experienced users should be able to mark attendance for 30 students in under 2 minutes
 - Common tasks should require fewer than 10 commands
 - All primary functions must be accessible via keyboard commands without requiring mouse
 
-###### NFR-U3: Error Handling
+##### NFR-U3: Error Handling
 - Error messages must be specific and actionable (e.g., "Missing required field: email" not "Error 404")
 - System must provide confirmation prompts for destructive operations (delete student, bulk delete)
 - No technical jargon in error messages - use plain language
 
-###### NFR-U4: Consistency
+##### NFR-U4: Consistency
 - Command syntax must be consistent across all features using the same prefix style (i/, n/, e/, t/, s/, w/, a/)
 - All command names follow verb-noun format: `add_student`, `mark_attendance`, `delete_student`
 - Parameter handling behavior must be consistent (e.g., last occurrence wins for duplicate prefixes)
 
-###### NFR-U5: Visual Design
+##### NFR-U5: Visual Design
 - Minimum font size: 12pt for readability
 - UI must be usable on minimum resolution 1280x720
 - Clear visual separation between tabs (Students, Attendance, Homework, Groups)
 - Tables must have alternating row colors for scannabilityRetryClaude can make mistakes. Please double-check responses.Research Sonnet 4.5
 
 
-##### 6.Constraints
-###### NFR-C1: Constraint-Single-User
+#### 6.Constraints
+##### NFR-C1: Constraint-Single-User
 - The product should be for a single user i.e., (not a multi-user product).
 - Not allowed: Application running in a shared computer and different people using it at different times.
 - Not allowed: The data file created by one user being accessed by another user during regular operations (e.g., through a shared file storage mechanism).
 
-###### NFR-C2: NoDBMS
+##### NFR-C2: NoDBMS
 - Do not use a DBMS to store data.
 
 
