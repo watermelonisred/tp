@@ -336,7 +336,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 5.
 
-### Use case: Create and manage student groups
+**Use case: Create and manage student groups**
 
 **MSS**
 
@@ -351,11 +351,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The GroupName is missing.
     * 2a1. System shows error message: `Missing required field: GroupName`.
-    * Use case ends.
+      Use case ends.
 
 * 2b. The GroupName is a duplicate.
     * 2b1. System shows error message: `Invalid Team Name`.
-    * Use case ends.
+      Use case ends.
 
 ---
 
@@ -376,15 +376,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The GroupName is missing or invalid.
     * 2a1. System shows error message: `Missing required field: GroupName` or `Invalid Team Name`.
-    * Use case ends.
+      Use case ends.
 
-* 3a. The student email is missing or invalid.
+* 3a. The student's email is missing or invalid.
     * 3a1. System shows error message: `Missing required field: Email` or `Student does not exist`.
-    * Use case ends.
+      Use case ends.
 
 * 4a. The student is already in the group.
     * 4a1. System shows error message: `Student already in this group`.
-    * Use case ends.
+      Use case ends.
 
 ### Non-Functional Requirements
 
