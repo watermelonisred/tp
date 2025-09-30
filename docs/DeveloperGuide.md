@@ -319,22 +319,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The student with the given NUSNET ID does not exist.
     * 2a1. Homework Tracker shows error message: `Student not found`.
   
-  Use case ends.
+      Use case ends.
 
 * 3a. The given assignment ID is invalid (not between 0–2).
     * 3a1. Homework Tracker shows error message: `Assignment not found`.
   
-  Use case ends.
+      Use case ends.
 
 * 4a. The given status is invalid (not one of complete / incomplete / late).
     * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
   
-  Use case ends.
+      Use case ends.
 
 * 4b. The student already has a status recorded for this assignment.
     * 4b1. Homework Tracker updates the record with the new status (last write wins).
 
-  Use case resumes at step 5.
+      Use case resumes at step 5.
 
 ### Non-Functional Requirements
 
