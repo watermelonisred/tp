@@ -300,32 +300,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SocTAssist` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Mark assignment completion**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to mark an assignment status for a student using their NUSNET ID.
+2. Homework Tracker locates the student record.
+3. Homework Tracker verifies the assignment ID.
+4. Homework Tracker updates the assignment status (complete / incomplete / late).
+5. Homework Tracker shows a confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The student with the given NUSNET ID does not exist.
+    * 2a1. Homework Tracker shows error message: `Student not found`.
+    Use case ends.
 
-  Use case ends.
+* 3a. The given assignment ID is invalid (not between 0–2).
+    * 3a1. Homework Tracker shows error message: `Assignment not found`.
+    Use case ends.
 
-* 3a. The given index is invalid.
+* 4a. The given status is invalid (not one of complete / incomplete / late).
+    * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
+    Use case ends.
 
-    * 3a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
-
-*{More to be added}*
+* 4b. The student already has a status recorded for this assignment.
+    * 4b1. Homework Tracker updates the record with the new status (last write wins).
+    Use case resumes at step 5.
 
 ### Non-Functional Requirements
 
