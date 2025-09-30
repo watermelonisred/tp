@@ -377,14 +377,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The GroupName is missing or invalid.
     * 2a1. System shows error message: `Missing required field: GroupName` or `Invalid Team Name`.
+
       Use case ends.
 
 * 3a. The student's email is missing or invalid.
     * 3a1. System shows error message: `Missing required field: Email` or `Student does not exist`.
+
       Use case ends.
 
 * 4a. The student is already in the group.
     * 4a1. System shows error message: `Student already in this group`.
+
       Use case ends.
 
 ### Non-Functional Requirements
