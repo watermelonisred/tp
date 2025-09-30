@@ -336,6 +336,56 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case resumes at step 5.
 
+### Use case: Create and manage student groups
+
+**MSS**
+
+1. User requests to create a new group with a specified GroupName.
+2. Homework Tracker validates the GroupName.
+3. System creates the group.
+4. System shows confirmation message: `Group <GroupName> is created.`
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The GroupName is missing.
+    * 2a1. System shows error message: `Missing required field: GroupName`.
+    * Use case ends.
+
+* 2b. The GroupName is a duplicate.
+    * 2b1. System shows error message: `Invalid Team Name`.
+    * Use case ends.
+
+---
+
+**Use case: Add student to a group**
+
+**MSS**
+
+1. User requests to add a student to an existing group using the student’s email and GroupName.
+2. System verifies the group exists.
+3. System verifies the student exists.
+4. System checks whether the student is already in the group.
+5. System adds the student to the group.
+6. System shows confirmation message: `Alice is added to Group <GroupName>.`
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The GroupName is missing or invalid.
+    * 2a1. System shows error message: `Missing required field: GroupName` or `Invalid Team Name`.
+    * Use case ends.
+
+* 3a. The student email is missing or invalid.
+    * 3a1. System shows error message: `Missing required field: Email` or `Student does not exist`.
+    * Use case ends.
+
+* 4a. The student is already in the group.
+    * 4a1. System shows error message: `Student already in this group`.
+    * Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
