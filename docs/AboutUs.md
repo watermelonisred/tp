@@ -22,41 +22,42 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Deliverables and deadlines & Scheduling and tracking
 * Responsibilities: Data
 
-### Jane Doe
+### Junrong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/junronggg.png">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/Junronggg)]
+[[portfolio](https://junronggg.github.io/)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: UI/UX design & deadlines tracking
+* Responsibilities: UI/UX and Data
 
-### Johnny Doe
+### Jiayi 
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/broccoli0616.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/broccoli0616)] [[portfolio](https://broccoli0616.github.io/Zhang-Jiayi-page/)]
 
 * Role: Developer
 * Responsibilities: Data
 
 ### Jean Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/fisherskyi.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[homepage](https://fisherskyi.github.io/)]
+[[github](https://github.com/FisherSkyi)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Testing + Integration
 
-### James Doe
+### Yu Xin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/watermelonisred.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/watermelonisred)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Documentation
