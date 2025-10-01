@@ -204,3 +204,7 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
+
+## Glossary
+* **NETS id**: A unique identifier assigned to each student by the National University of Singapore (NUS) during matriculation. It is used for logging into various NUS systems.
+* **NUS email**: The official email address assigned to each student by NUS, typically in the format `<NETS id>@u.nus.edu`.
