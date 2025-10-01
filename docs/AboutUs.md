@@ -42,13 +42,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jean Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/fisherskyi.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[homepage](https://fisherskyi.github.io/)]
+[[github](https://github.com/FisherSkyi)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Testing + Integration
 
 ### James Doe
 
