@@ -300,32 +300,95 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SocTAssist` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Mark assignment completion**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to mark an assignment status for a student using their NUSNET ID.
+2. Homework Tracker locates the student record.
+3. Homework Tracker verifies the assignment ID.
+4. Homework Tracker updates the assignment status (complete / incomplete / late).
+5. Homework Tracker shows a confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The student with the given NUSNET ID does not exist.
+    * 2a1. Homework Tracker shows error message: `Student not found`.
+  
+      Use case ends.
 
-  Use case ends.
+* 3a. The given assignment ID is invalid (not between 0–2).
+    * 3a1. Homework Tracker shows error message: `Assignment not found`.
+  
+      Use case ends.
 
-* 3a. The given index is invalid.
+* 4a. The given status is invalid (not one of complete / incomplete / late).
+    * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
+  
+      Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+* 4b. The student already has a status recorded for this assignment.
+    * 4b1. Homework Tracker updates the record with the new status (last write wins).
 
-      Use case resumes at step 2.
+      Use case resumes at step 5.
 
-*{More to be added}*
+**Use case: Create and manage student groups**
+
+**MSS**
+
+1. User requests to create a new group with a specified GroupName.
+2. Homework Tracker validates the GroupName.
+3. System creates the group.
+4. System shows confirmation message: `Group <GroupName> is created.`
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The GroupName is missing.
+    * 2a1. System shows error message: `Missing required field: GroupName`.
+
+      Use case ends.
+
+* 2b. The GroupName is a duplicate.
+    * 2b1. System shows error message: `Invalid Team Name`.
+
+      Use case ends.
+
+
+**Use case: Add student to a group**
+
+**MSS**
+
+1. User requests to add a student to an existing group using the student’s email and GroupName.
+2. System verifies the group exists.
+3. System verifies the student exists.
+4. System checks whether the student is already in the group.
+5. System adds the student to the group.
+6. System shows confirmation message: `Alice is added to Group <GroupName>.`
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The GroupName is missing or invalid.
+    * 2a1. System shows error message: `Missing required field: GroupName` or `Invalid Team Name`.
+
+      Use case ends.
+
+* 3a. The student's email is missing or invalid.
+    * 3a1. System shows error message: `Missing required field: Email` or `Student does not exist`.
+
+      Use case ends.
+
+* 4a. The student is already in the group.
+    * 4a1. System shows error message: `Student already in this group`.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 
