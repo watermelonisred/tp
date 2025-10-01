@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
 
 # AB-3 Developer Guide
@@ -302,6 +302,65 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `SocTAssist` and the **Actor** is the `user`, unless specified otherwise)
 
+
+**Use case: Add a student**
+
+**MSS**
+
+1. User requests to add a student by specifying full name, preferred name, email, Telegram handle, and slot ID.
+
+2. AddressBook validates all fields.
+
+3. AddressBook adds the student into the directory.
+
+4. AddressBook shows the updated student list in the UI table.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. One or more required fields are missing.
+
+    * 2a1. AddressBook shows error: Missing required field: <field>.
+
+        Use case ends.
+
+* 2b. Email format is invalid.
+
+    * 2b1. AddressBook shows error: Invalid email format. Use RFC-5322 pattern.
+
+        Use case ends.
+
+* 2c. Telegram handle format is invalid.
+
+    * 2c1. AddressBook shows error message.
+
+        Use case ends.
+
+* 2d. Slot ID format is invalid.
+
+    * 2d1. AddressBook shows error message.
+
+        Use case ends.
+
+* 2e. A student with the same email already exists.
+
+    * 2e1. AddressBook shows error: Student with this email already exists.
+
+       Use case ends.
+
+**Use case: Edit a student**
+
+**MSS**
+
+1. User requests to edit a student by specifying the email and updated fields.
+
+2. AddressBook validates that the student exists.
+
+3. AddressBook updates the student's details.
+
+4. AddressBook shows confirmation message with updated student details.
+
 **Use case: Mark assignment completion**
 
 **MSS**
@@ -316,6 +375,46 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
+* 2a. Student email does not exist.
+
+    * 2a1. AddressBook shows error: Student not found.
+
+         Use case ends.
+
+* 2b. Edited email duplicates another existing student’s email.
+
+    * 2b1. AddressBook shows error: Email already in use.
+
+         Use case ends.
+
+* 2c. Any updated field is invalid.
+
+    * 2c1. AddressBook shows corresponding validation error.
+
+         Use case ends.
+
+**Use case: Delete a student**
+
+**MSS**
+
+1. User requests to list students.
+
+2. AddressBook shows a list of students.
+
+3. User requests to delete a specific student in the list.
+
+4. AddressBook deletes the student.
+
+5. AddressBook UI updated.
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    Use case ends.
+
 * 2a. The student with the given NUSNET ID does not exist.
     * 2a1. Homework Tracker shows error message: `Student not found`.
   
@@ -326,10 +425,141 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
       Use case ends.
 
+
 * 4a. The given status is invalid (not one of complete / incomplete / late).
     * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
   
       Use case ends.
+
+  * 3a1. AddressBook shows an error message.
+
+       Use case resumes at step 2.
+
+**Use case: Add a consultation**
+
+**MSS**
+
+1. User requests to add a consultation by specifying student email, date, start time, and end time.
+
+2. AddressBook validates the student email, date, and times.
+
+3. AddressBook creates the consultation booking for the student.
+
+4. AddressBook shows success message with consultation details.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Student email does not exist in the directory.
+
+  * 2a1. AddressBook shows error: Student not found.
+
+       Use case ends.
+
+* 2b. End time is not after start time.
+
+    * 2b1. AddressBook shows error: End time must be after start time.
+
+         Use case ends.
+
+* 2c. The new consultation overlaps with an existing one.
+
+    * 2c1. AddressBook shows error: Time conflict with existing booking.
+
+         Use case ends.
+
+* 2d. A consultation with identical date and time already exists.
+
+    * 2d1. AddressBook shows error: Duplicate consultation booking.
+
+         Use case ends.
+
+**Use case: List consultations**
+
+**MSS**
+
+1. User requests to list all consultations (optionally filtered by date).
+
+2. AddressBook retrieves the consultations that match the criteria.
+
+3. AddressBook displays the consultations in the UI.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No consultations exist.
+
+    * 2a1. AddressBook shows message: No consultations found.
+
+         Use case ends.
+
+* 2b. No consultations exist for the specified date.
+
+    * 2b1. AddressBook shows message: No consultations found for <date>.
+
+         Use case ends.
+
+**Use case: Mark attendance**
+
+**MSS**
+
+1. User requests to mark attendance for a student by specifying student email, date, and attendance status.
+
+2. AddressBook validates that the student exists and the date/status are valid.
+
+3. AddressBook records the attendance for the student.
+
+4. AddressBook shows confirmation message with details.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Student email does not exist.
+
+    * 2a1. AddressBook shows error: Student not found.
+
+         Use case ends.
+
+* 2b. Attendance status is invalid (not Present or Absent).
+
+    * 2b1. AddressBook shows error: Invalid attendance status.
+
+         Use case ends.
+
+* 2c. Attendance for this student and date already exists.
+
+     * 2c1. AddressBook shows error: Attendance already marked for this student on <date>.
+
+         Use case ends.
+
+**Use case: List attendance**
+
+**MSS**
+
+1. User requests to list attendance records (optionally filtered by date or student).
+
+2. AddressBook retrieves the relevant attendance records.
+
+3. AddressBook displays the attendance in a table view (e.g., Student | Date | Status).
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No attendance records exist.
+
+    * 2a1. AddressBook shows message: No attendance records found.
+
+         Use case ends.
+
+* 2b. No attendance records match the filter (date or student).
+
+    * 2b1. AddressBook shows message: No attendance records found for <criteria>.
+
+         Use case ends.
 
 * 4b. The student already has a status recorded for this assignment.
     * 4b1. Homework Tracker updates the record with the new status (last write wins).
@@ -389,6 +619,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. System shows error message: `Student already in this group`.
 
       Use case ends.
+
 
 ### Non-Functional Requirements
 
