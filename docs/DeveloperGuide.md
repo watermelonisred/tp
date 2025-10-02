@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
 
 # AB-3 Developer Guide
@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -300,40 +300,436 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SocTAssist` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+
+**Use case: Add a student**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a student by specifying full name, preferred name, email, Telegram handle, and slot ID.
 
+2. AddressBook validates all fields.
+
+3. AddressBook adds the student into the directory.
+
+4. AddressBook shows the updated student list in the UI table.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. One or more required fields are missing.
+
+    * 2a1. AddressBook shows error: Missing required field: <field>.
+
+        Use case ends.
+
+* 2b. Email format is invalid.
+
+    * 2b1. AddressBook shows error: Invalid email format. Use RFC-5322 pattern.
+
+        Use case ends.
+
+* 2c. Telegram handle format is invalid.
+
+    * 2c1. AddressBook shows error message.
+
+        Use case ends.
+
+* 2d. Slot ID format is invalid.
+
+    * 2d1. AddressBook shows error message.
+
+        Use case ends.
+
+* 2e. A student with the same email already exists.
+
+    * 2e1. AddressBook shows error: Student with this email already exists.
+
+       Use case ends.
+
+**Use case: Edit a student**
+
+**MSS**
+
+1. User requests to edit a student by specifying the email and updated fields.
+
+2. AddressBook validates that the student exists.
+
+3. AddressBook updates the student's details.
+
+4. AddressBook shows confirmation message with updated student details.
+
+**Use case: Mark assignment completion**
+
+**MSS**
+
+1. User requests to mark an assignment status for a student using their NUSNET ID.
+2. Homework Tracker locates the student record.
+3. Homework Tracker verifies the assignment ID.
+4. Homework Tracker updates the assignment status (complete / incomplete / late).
+5. Homework Tracker shows a confirmation message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Student email does not exist.
+
+    * 2a1. AddressBook shows error: Student not found.
+
+         Use case ends.
+
+* 2b. Edited email duplicates another existing student’s email.
+
+    * 2b1. AddressBook shows error: Email already in use.
+
+         Use case ends.
+
+* 2c. Any updated field is invalid.
+
+    * 2c1. AddressBook shows corresponding validation error.
+
+         Use case ends.
+
+**Use case: Delete a student**
+
+**MSS**
+
+1. User requests to list students.
+
+2. AddressBook shows a list of students.
+
+3. User requests to delete a specific student in the list.
+
+4. AddressBook deletes the student.
+
+5. AddressBook UI updated.
+    
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
 
-  Use case ends.
+    Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The student with the given NUSNET ID does not exist.
+    * 2a1. Homework Tracker shows error message: `Student not found`.
+  
+      Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+* 3a. The given assignment ID is invalid (not between 0–2).
+    * 3a1. Homework Tracker shows error message: `Assignment not found`.
+  
+      Use case ends.
 
-      Use case resumes at step 2.
 
-*{More to be added}*
+* 4a. The given status is invalid (not one of complete / incomplete / late).
+    * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
+  
+      Use case ends.
+
+  * 3a1. AddressBook shows an error message.
+
+       Use case resumes at step 2.
+
+**Use case: Add a consultation**
+
+**MSS**
+
+1. User requests to add a consultation by specifying student email, date, start time, and end time.
+
+2. AddressBook validates the student email, date, and times.
+
+3. AddressBook creates the consultation booking for the student.
+
+4. AddressBook shows success message with consultation details.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Student email does not exist in the directory.
+
+  * 2a1. AddressBook shows error: Student not found.
+
+       Use case ends.
+
+* 2b. End time is not after start time.
+
+    * 2b1. AddressBook shows error: End time must be after start time.
+
+         Use case ends.
+
+* 2c. The new consultation overlaps with an existing one.
+
+    * 2c1. AddressBook shows error: Time conflict with existing booking.
+
+         Use case ends.
+
+* 2d. A consultation with identical date and time already exists.
+
+    * 2d1. AddressBook shows error: Duplicate consultation booking.
+
+         Use case ends.
+
+**Use case: List consultations**
+
+**MSS**
+
+1. User requests to list all consultations (optionally filtered by date).
+
+2. AddressBook retrieves the consultations that match the criteria.
+
+3. AddressBook displays the consultations in the UI.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No consultations exist.
+
+    * 2a1. AddressBook shows message: No consultations found.
+
+         Use case ends.
+
+* 2b. No consultations exist for the specified date.
+
+    * 2b1. AddressBook shows message: No consultations found for <date>.
+
+         Use case ends.
+
+**Use case: Mark attendance**
+
+**MSS**
+
+1. User requests to mark attendance for a student by specifying student email, date, and attendance status.
+
+2. AddressBook validates that the student exists and the date/status are valid.
+
+3. AddressBook records the attendance for the student.
+
+4. AddressBook shows confirmation message with details.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Student email does not exist.
+
+    * 2a1. AddressBook shows error: Student not found.
+
+         Use case ends.
+
+* 2b. Attendance status is invalid (not Present or Absent).
+
+    * 2b1. AddressBook shows error: Invalid attendance status.
+
+         Use case ends.
+
+* 2c. Attendance for this student and date already exists.
+
+     * 2c1. AddressBook shows error: Attendance already marked for this student on <date>.
+
+         Use case ends.
+
+**Use case: List attendance**
+
+**MSS**
+
+1. User requests to list attendance records (optionally filtered by date or student).
+
+2. AddressBook retrieves the relevant attendance records.
+
+3. AddressBook displays the attendance in a table view (e.g., Student | Date | Status).
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No attendance records exist.
+
+    * 2a1. AddressBook shows message: No attendance records found.
+
+         Use case ends.
+
+* 2b. No attendance records match the filter (date or student).
+
+    * 2b1. AddressBook shows message: No attendance records found for <criteria>.
+
+         Use case ends.
+
+* 4b. The student already has a status recorded for this assignment.
+    * 4b1. Homework Tracker updates the record with the new status (last write wins).
+
+      Use case resumes at step 5.
+
+**Use case: Create and manage student groups**
+
+**MSS**
+
+1. User requests to create a new group with a specified GroupName.
+2. Homework Tracker validates the GroupName.
+3. System creates the group.
+4. System shows confirmation message: `Group <GroupName> is created.`
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The GroupName is missing.
+    * 2a1. System shows error message: `Missing required field: GroupName`.
+
+      Use case ends.
+
+* 2b. The GroupName is a duplicate.
+    * 2b1. System shows error message: `Invalid Team Name`.
+
+      Use case ends.
+
+
+**Use case: Add student to a group**
+
+**MSS**
+
+1. User requests to add a student to an existing group using the student’s email and GroupName.
+2. System verifies the group exists.
+3. System verifies the student exists.
+4. System checks whether the student is already in the group.
+5. System adds the student to the group.
+6. System shows confirmation message: `Alice is added to Group <GroupName>.`
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The GroupName is missing or invalid.
+    * 2a1. System shows error message: `Missing required field: GroupName` or `Invalid Team Name`.
+
+      Use case ends.
+
+* 3a. The student's email is missing or invalid.
+    * 3a1. System shows error message: `Missing required field: Email` or `Student does not exist`.
+
+      Use case ends.
+
+* 4a. The student is already in the group.
+    * 4a1. System shows error message: `Student already in this group`.
+
+      Use case ends.
+
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+#### 1. Data Requirements
+##### NFR-D1: Data Size
+- Maximum 500 students per course
+- Maximum 50 tutorial slots per course
+- Support 13 weeks of attendance data (weeks 3-13)
+- Support at least 10 assignments per course
+- Store consultation history for entire semester
 
-*{More to be added}*
+##### NFR-D2: Data Volatility
+**High Volatility Data** (changes very frequently):
+- Attendance records: updated every tutorial session (weekly)
+- Homework completion status: updated as TAs mark assignments throughout the week
+- Consultation slot bookings: students book and cancel constantly, especially before assessments
+
+**Medium Volatility Data** (changes occasionally):
+- Student contact information: might change once or twice per semester
+- Group assignments: adjusted a few times during the semester
+- TA availability: changes periodically but not daily
+
+**Low Volatility Data** (rarely changes):
+- Student directory (names, NusNET IDs): mostly stable after add/drop period
+- Tutorial slot assignments: fixed after first few weeks
+
+##### NFR-D3: Data Persistence
+- All student data must persist between application sessions
+- Attendance, homework, and consultation records must be permanent until explicitly deleted
+- System must auto-save after every successful command
+- Historical data (eg.assessment performance) must persist across semesters
+
+#### 2. Environment/Technical Requirements
+##### NFR-E1: Operating System Compatibility
+- Must run on Windows, Linux, and OS-X platforms
+- Must work on both 32-bit and 64-bit environments
+- No OS-dependent libraries or OS-specific features allowed
+- Cross-platform compatibility without any modifications to codebase
+
+##### NFR-E2: Software Dependencies
+- Requires Java 17 only (no other Java version required or installed)
+- Must work without internet connection (offline-first design)
+- No external database server required
+- Third-party libraries must be:
+  - Free and open-source with permissive licenses
+  - Packaged within the JAR file (no separate installation required)
+  - Not require user account creation on third-party services
+  - Approved by teaching team prior to use
+
+##### NFR-E3: Hardware Requirements(To be finalized later)
+
+
+#### 3. Performance Requirements
+##### NFR-P1: Response Time
+- Basic commands (add, delete, mark) must complete within 2 seconds
+- Search and filter operations must return results within 1 second
+- Tab switching must occur within 1 second
+- PDF export must complete within 5 seconds for up to 200 students
+
+##### NFR-P2: Startup Time
+- Application must launch within 3 seconds on standard hardware
+- Onboarding guide must appear within 1 second of first launch
+
+
+#### 4. Scalability Requirements
+##### NFR-S1: User Scalability
+- Support TAs managing multiple tutorial slots simultaneously
+
+##### NFR-S2: Data Scalability
+- Performance must not degrade noticeably up to 100 students
+- Support unlimited consultation bookings per student
+
+
+#### 5. Usability Requirements
+##### NFR-U1: Learnability
+- First-time TA users must be able to add a student and mark attendance within 10 minutes using the onboarding guide
+- The onboarding guide must be completable in under 5 minutes
+- Help command must provide examples for all commands
+
+##### NFR-U2: Efficiency
+- Experienced users should be able to mark attendance for 30 students in under 2 minutes
+- Common tasks should require fewer than 10 commands
+- All primary functions must be accessible via keyboard commands without requiring mouse
+
+##### NFR-U3: Error Handling
+- Error messages must be specific and actionable (e.g., "Missing required field: email" not "Error 404")
+- System must provide confirmation prompts for destructive operations (delete student, bulk delete)
+- No technical jargon in error messages - use plain language
+
+##### NFR-U4: Consistency
+- Command syntax must be consistent across all features using the same prefix style (i/, n/, e/, t/, s/, w/, a/)
+- All command names follow verb-noun format: `add_student`, `mark_attendance`, `delete_student`
+- Parameter handling behavior must be consistent (e.g., last occurrence wins for duplicate prefixes)
+
+##### NFR-U5: Visual Design
+- Minimum font size: 12pt for readability
+- UI must be usable on minimum resolution 1280x720
+- Clear visual separation between tabs (Students, Attendance, Homework, Groups)
+- Tables must have alternating row colors for scannabilityRetryClaude can make mistakes. Please double-check responses.Research Sonnet 4.5
+
+
+#### 6.Constraints
+##### NFR-C1: Constraint-Single-User
+- The product should be for a single user i.e., (not a multi-user product).
+- Not allowed: Application running in a shared computer and different people using it at different times.
+- Not allowed: The data file created by one user being accessed by another user during regular operations (e.g., through a shared file storage mechanism).
+
+##### NFR-C2: NoDBMS
+- Do not use a DBMS to store data.
+
 
 ### Glossary
 
