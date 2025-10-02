@@ -274,29 +274,43 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+Teaching assistants (TAs) for Computer Science courses at the National University of Singapore (NUS) who
+* needs to manage a group of students (e.g., a tutorial class), with the following responsibilities:
+  * mark attendance
+  * schedule consultations with students
+  * grade homework/assignments
+  * track students' progress
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: a one-stop solution for TAs to manage their students more easily than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​             | I want to …​                                          | So that I can…​                                                           |
+|----------|---------------------|-------------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *`  | TA                  | add a new student                                     |                                                                           |
+| `* * *`  | TA                  | delete a student                                      | remove entries I no longer need or added by mistake                       |
+| `* * *`  | TA                  | mark students' attendance                             | record all students' tutorial attendance                                  |
+| `* * *`  | TA                  | track each individual student's homework completeness | view their learning progress and identify students who are falling behind |                                                          |
+| `* *`    | new user            | have a step-by-step usage instruction guide           | learn how to use the app                                                  |
+| `* *`    | course coordinator  | view all TAs' availability                            | assign TAs to their preferred tutorial slot                               |
+| `* *`    | head TA             | create subgroups within the course                    | assign students and TAs to their respective tutorial groups               |
+| `* *`    | head TA             | key in students' scores                               | update students' scores after every exam                                  |
+| `* *`    | head TA             | view overall course feedback from students            | gather data to perform course analysis                                    |
+| `* *`    | TA                  | search for a specific student                         | view his/her contact details and progress                                 |
+| `* *`    | TA                  | create subgroups within the tutorial group            | assign students to their project groups                                   |
+| `* *`    | TA                  | add consultation slots                                | schedule consultations with students                                      |
+| `* *`    | TA                  | check students' scores                                | track students' performance                                               |
+| `* *`    | TA                  | view students' feedback                               | gain insights on my teaching style and method                             |
+| `* *`    | TA                  | update my availability                                | update my consultation schedule                                           |
+| `*`      | TA                  | copy contact information onto my clipboard            | save time from manually copying students' contact details                 |
+| `*`      | TA                  | export student list as PDF                            | print it out for marking attendance                                       |
 
 ### Use cases
 
