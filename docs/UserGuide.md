@@ -210,3 +210,5 @@ Action     | Format, Examples
 during matriculation. It is used for logging into various NUS systems.
 * **NUS email**: The official email address assigned to each student by NUS, typically 
 in the format `<NETS id>@u.nus.edu`.
+* **CLI**: Command Line Interface. A text-based interface used to interact with software applications by typing commands.
+* **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
