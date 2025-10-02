@@ -210,5 +210,22 @@ Action     | Format, Examples
 during matriculation. It is used for logging into various NUS systems.
 * **NUS email**: The official email address assigned to each student by NUS, typically 
 in the format `<NETS id>@u.nus.edu`.
-* **CLI**: Command Line Interface. A text-based interface used to interact with software applications by typing commands.
+* **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
+by typing commands.
 * **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
+* **Assessment/Homework**: Work need to be done and submitted by mentees, graded by tutors.
+* **Consultation**: A session where mentees can seek help from tutors regarding their academic work or other 
+related matters.
+* **Mentor (TA)/Mentee**: A mentor (TA) is a senior student who provides guidance and support to a junior student, 
+known as a mentee.
+* **OOP**: Object-Oriented Programming. A programming paradigm that uses "objects" to represent data and methods 
+to manipulate that data.
+* **GUI**: Graphical User Interface. A visual interface that allows users to interact with software applications 
+using graphical elements such as windows, icons, and buttons.
+* **JSON**: JavaScript Object Notation. A lightweight data interchange format that is easy for humans to read and write
+, and easy for machines to parse and generate.
+* **JDK**: Java Development Kit. A software development environment used for developing Java applications.
+* **Jar file**: A Java ARchive file. A package file format used to aggregate many Java class files and associated 
+metadata and resources into one file for distribution.
+* **KLoC**: Kilo Lines of Code. A measure of software size, representing 1,000 lines of code.
+* **CD**: Command Directory. The current directory in which the command terminal is operating.
