@@ -25,9 +25,9 @@ public class SampleDataUtil {
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@u.nus.edu"),
                 new Nusnetid("E1234560"), new Telegram("@davidddd"), new Slot("T15")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@u.nus.edu"),
-                new Nusnetid("E1234562"),  new Telegram("@ibraccccc"), new Slot("T12")),
+                new Nusnetid("E1234562"), new Telegram("@ibraccccc"), new Slot("T12")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@u.nus.edu"),
-                new Nusnetid("E1234563"),  new Telegram("@Royy"), new Slot("T09"))
+                new Nusnetid("E1234563"), new Telegram("@Royy"), new Slot("T09"))
         };
     }
 
