@@ -31,7 +31,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@@u.nus.edu i/E1234567` : Adds a contact named `John Doe` to the Address Book.
+   * `add_student n/John Doe p/98765432 e/johnd@@u.nus.edu i/E1234567` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -50,7 +50,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add_student n/NAME`, `NAME` is a parameter which can be used as `add_student n/John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -76,11 +76,11 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a person: `add_student`
 
 Adds a person to the NUSNETID book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID [t/TAG]…​`
+Format: `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID tg/TELEGRAM s/SLOT [t/TAG]…​`
 
 <box type="tip" seamless>
 
@@ -88,8 +88,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@u.nus.edu i/E1234567`
-* `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu i/E1234562 p/1234567 t/criminal`
+* `add_student n/John Doe p/98765432 e/johnd@u.nus.edu i/E1234567 tg/@handle s/T01`
+* `add_student n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu i/E1234562 p/1234567 tg/@betsy s/T02`
 
 ### Listing all persons : `list`
 
@@ -97,7 +97,7 @@ Shows a list of all persons in the ADDRESS book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a person : `edit_student`
 
 Edits an existing person in the ADDRESS book.
 
@@ -111,8 +111,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/NUSNETID] [t/TAG]…​`
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@u.nus.edu` Edits the phone number and email ADDRESS of the 1st person to be `91234567` and `johndoe@u.nus.edu` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit_student 1 p/91234567 e/johndoe@u.nus.edu` Edits the phone number and email ADDRESS of the 1st person to be `91234567` and `johndoe@u.nus.edu` respectively.
+*  `edit_student 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
 
@@ -197,10 +197,10 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@u.nus.edu i/E1234567 t/friend t/colleague`
+**Add**    | `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID tg/TELEGRAM s/SLOT [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@u.nus.edu i/E1234567 tg/@jame s/T02 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/NUSNETID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
+**Edit**   | `edit_student INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/NUSNETID] [tg/TELEGRAm] [s/SLOT] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
