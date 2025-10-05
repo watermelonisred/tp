@@ -15,8 +15,8 @@ public class NusnetidTest {
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidNUSnetid = "";
-        assertThrows(IllegalArgumentException.class, () -> new Nusnetid(invalidNUSnetid));
+        String invalidNusnetid = "";
+        assertThrows(IllegalArgumentException.class, () -> new Nusnetid(invalidNusnetid));
     }
 
     @Test
@@ -27,10 +27,10 @@ public class NusnetidTest {
         // invalid addresses
         assertFalse(Nusnetid.isValidNusnetid("")); // empty string
         assertFalse(Nusnetid.isValidNusnetid(" ")); // spaces only
-        assertFalse(Nusnetid.isValidNusnetid("e1234567"));//starts with "e"
-        assertFalse(Nusnetid.isValidNusnetid("E123456"));//only 6 digits
-        assertFalse(Nusnetid.isValidNusnetid("E12345678"));//8 digits
-        // valid addresses
+        assertFalse(Nusnetid.isValidNusnetid("e1234567")); //starts with "e"
+        assertFalse(Nusnetid.isValidNusnetid("E123456")); //only 6 digits
+        assertFalse(Nusnetid.isValidNusnetid("E12345678")); //8 digits
+        // valid nusnetids
         assertTrue(Nusnetid.isValidNusnetid("E1234567"));
     }
 
