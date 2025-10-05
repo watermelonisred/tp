@@ -104,25 +104,25 @@ public class ParserUtilTest {
 
     @Test
     public void parseNUSnetid_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseNUSnetid((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNusnetid((String) null));
     }
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseNUSnetid(INVALID_ADDRESS));
+        assertThrows(ParseException.class, () -> ParserUtil.parseNusnetid(INVALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsNUSnetid() throws Exception {
         Nusnetid expectedNusnetid = new Nusnetid(VALID_ADDRESS);
-        assertEquals(expectedNusnetid, ParserUtil.parseNUSnetid(VALID_ADDRESS));
+        assertEquals(expectedNusnetid, ParserUtil.parseNusnetid(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedNUSnetid() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Nusnetid expectedNusnetid = new Nusnetid(VALID_ADDRESS);
-        assertEquals(expectedNusnetid, ParserUtil.parseNUSnetid(addressWithWhitespace));
+        assertEquals(expectedNusnetid, ParserUtil.parseNusnetid(addressWithWhitespace));
     }
 
     @Test

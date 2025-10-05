@@ -68,7 +68,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code NUSnetid} of the {@code Person} that we are building.
      */
-    public PersonBuilder withNUSnetid(String nusnetid) {
+    public PersonBuilder withNusnetid(String nusnetid) {
         this.nusnetid = new Nusnetid(nusnetid);
         return this;
     }

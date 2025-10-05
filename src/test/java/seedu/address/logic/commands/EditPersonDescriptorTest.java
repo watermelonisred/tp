@@ -49,7 +49,7 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withNUSnetid(VALID_NUSNETID_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withNusnetid(VALID_NUSNETID_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

@@ -66,7 +66,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code NUSneuid} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withNUSnetid(String nusnetid) {
+    public EditPersonDescriptorBuilder withNusnetid(String nusnetid) {
         descriptor.setNusnetid(new Nusnetid(nusnetid));
         return this;
     }

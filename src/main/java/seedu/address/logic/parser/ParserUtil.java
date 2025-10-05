@@ -71,13 +71,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code nusnetid} is invalid.
      */
-    public static Nusnetid parseNUSnetid(String nusnetid) throws ParseException {
+    public static Nusnetid parseNusnetid(String nusnetid) throws ParseException {
         requireNonNull(nusnetid);
-        String trimmedNUSnetid = nusnetid.trim();
-        if (!Nusnetid.isValidNusnetid(trimmedNUSnetid)) {
+        String trimmedNusnetid = nusnetid.trim();
+        if (!Nusnetid.isValidNusnetid(trimmedNusnetid)) {
             throw new ParseException(Nusnetid.MESSAGE_CONSTRAINTS);
         }
-        return new Nusnetid(trimmedNUSnetid);
+        return new Nusnetid(trimmedNusnetid);
     }
 
     /**
