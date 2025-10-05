@@ -15,7 +15,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NUSNETID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.SLOT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SLOT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -24,9 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NUSNETID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SLOT_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SLOT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TELEGRAM_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TELEGRAM_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -196,8 +193,9 @@ public class EditCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NUSNETID, PREFIX_TELEGRAM, PREFIX_SLOT));
 
         // multiple invalid values
-        userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_NUSNETID_DESC + INVALID_EMAIL_DESC
-                + INVALID_PHONE_DESC + INVALID_NUSNETID_DESC + INVALID_EMAIL_DESC;
+        userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_NUSNETID_DESC
+                + INVALID_EMAIL_DESC + INVALID_PHONE_DESC + INVALID_NUSNETID_DESC
+                + INVALID_EMAIL_DESC;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NUSNETID));

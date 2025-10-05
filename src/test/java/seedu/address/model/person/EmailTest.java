@@ -81,6 +81,6 @@ public class EmailTest {
         assertFalse(email.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(email.equals(new Email("other.valid@u.nus.edu" )));
+        assertFalse(email.equals(new Email("other.valid@u.nus.edu")));
     }
 }

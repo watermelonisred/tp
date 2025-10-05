@@ -56,7 +56,8 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_NUSNETID_DESC = " " + PREFIX_NUSNETID; // empty string not allowed for NUSnetid
+    public static final String INVALID_NUSNETID_DESC = " "
+            + PREFIX_NUSNETID; // empty string not allowed for NUSnetid
     public static final String INVALID_TELEGRAM_DESC = " " + PREFIX_TELEGRAM + "133"; // string without @ not allowed for telegram
     public static final String INVALID_SLOT_DESC = " " + PREFIX_SLOT + "02"; // string without T not allowed for slot
 

@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NUSNETID_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TELEGRAM_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SLOT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TELEGRAM_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NUSNETID_DESC_AMY;
@@ -16,12 +16,10 @@ import static seedu.address.logic.commands.CommandTestUtil.NUSNETID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.SLOT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SLOT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SLOT_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -37,7 +35,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
@@ -207,7 +204,7 @@ public class AddCommandParserTest {
                 + TELEGRAM_DESC_BOB + SLOT_DESC_BOB, Nusnetid.MESSAGE_CONSTRAINTS);
 
         // invalid telegram
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB +EMAIL_DESC_BOB + NUSNETID_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + NUSNETID_DESC_BOB
                 + INVALID_TELEGRAM_DESC + SLOT_DESC_BOB, Telegram.MESSAGE_CONSTRAINTS);
 
         // invalid slot

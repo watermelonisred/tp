@@ -28,7 +28,7 @@ public class TelegramTest {
         assertFalse(Telegram.isValidTelegram("")); // empty string
         assertFalse(Telegram.isValidTelegram(" ")); // spaces only
         assertFalse(Telegram.isValidTelegram("91")); // no@
-        assertFalse(Telegram.isValidTelegram("@"));//only@
+        assertFalse(Telegram.isValidTelegram("@")); //only@
 
         // valid phone numbers
         assertTrue(Telegram.isValidTelegram("@1")); // exactly 1 numbers

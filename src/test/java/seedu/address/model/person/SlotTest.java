@@ -28,7 +28,7 @@ public class SlotTest {
         assertFalse(Slot.isValidSlot("")); // empty string
         assertFalse(Slot.isValidSlot(" ")); // spaces only
         assertFalse(Slot.isValidSlot("91")); //no T
-        assertFalse(Slot.isValidSlot("T"));//onlyT
+        assertFalse(Slot.isValidSlot("T")); //onlyT
         // valid phone numbers
         assertTrue(Slot.isValidSlot("T1")); // exactly 1 numbers
         assertTrue(Slot.isValidSlot("T124293842033123")); // long phone numbers

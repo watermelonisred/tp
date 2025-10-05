@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
@@ -39,7 +36,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         nusnetid = new Nusnetid(DEFAULT_NUSNETID);
-        telegram =  new Telegram(DEFAULT_TELEGRAM);
+        telegram = new Telegram(DEFAULT_TELEGRAM);
         slot = new Slot(DEFAULT_SLOT);
     }
 
