@@ -190,7 +190,8 @@ public class EditCommandParserTest {
                 + TELEGRAM_DESC_AMY + TELEGRAM_DESC_BOB + NUSNETID_DESC_BOB + EMAIL_DESC_BOB;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NUSNETID, PREFIX_TELEGRAM, PREFIX_SLOT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_NUSNETID, PREFIX_TELEGRAM, PREFIX_SLOT));
 
         // multiple invalid values
         userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_NUSNETID_DESC
