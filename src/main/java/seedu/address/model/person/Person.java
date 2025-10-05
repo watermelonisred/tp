@@ -2,14 +2,9 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-
-import javax.swing.text.html.HTML;
 
 /**
  * Represents a Person in the address book.
@@ -54,9 +49,14 @@ public class Person {
         return nusnetid;
     }
 
-    public Telegram getTelegram() {return telegram;}
+    public Telegram getTelegram() {
+        return telegram;
+    }
 
-    public Slot getSlot() {return slot;}
+    public Slot getSlot() {
+        return slot;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
