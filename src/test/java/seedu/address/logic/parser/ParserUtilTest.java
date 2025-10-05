@@ -103,7 +103,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseNUSnetid_null_throwsNullPointerException() {
+    public void parseNusnetid_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseNusnetid((String) null));
     }
 
