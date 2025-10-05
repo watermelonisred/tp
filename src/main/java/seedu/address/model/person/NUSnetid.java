@@ -1,0 +1,64 @@
+package seedu.address.model.person;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
+/**
+ * Represents a Person's NUSnetid in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidNUSnetid(String)}
+ */
+public class NUSnetid {
+
+    public static final String MESSAGE_CONSTRAINTS = "NUSnetid can start with E and has 7 numbers, and it should not be blank";
+
+    /*
+     * The first character of the NUSnetid must be a E and follow by 7 numbers.
+     */
+    private static final String VALIDATION_REGEX = "E\\d{7}";
+
+    public final String value;
+
+    /**
+     * Constructs an {@code NUSnetid}.
+     *
+     * @param nusnetid A valid NUSnetid.
+     */
+    public NUSnetid(String nusnetid) {
+        requireNonNull(nusnetid);
+        checkArgument(isValidNUSnetid(nusnetid), MESSAGE_CONSTRAINTS);
+        value = nusnetid;
+    }
+
+    /**
+     * Returns true if a given string is a valid NUSNETID.
+     */
+    public static boolean isValidNUSnetid(String test) {
+        return test != null && test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof NUSnetid)) {
+            return false;
+        }
+
+        NUSnetid otherNUSnetid = (NUSnetid) other;
+        return value.equals(otherNUSnetid.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+}
