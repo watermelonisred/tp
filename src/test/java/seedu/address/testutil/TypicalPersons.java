@@ -24,29 +24,29 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withNusnetid("E1234567").withEmail("alice@example.com")
+            .withNusnetid("E1234567").withEmail("alice@u.nus.edu")
             .withPhone("94351253")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withNusnetid("E1234568")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withEmail("johnd@u.nus.edu").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withNusnetid("E1234569").build();
+            .withEmail("heinz@u.nus.edu").withNusnetid("E1234569").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withNusnetid("E1234566").withTags("friends").build();
+            .withEmail("cornelia@u.nus.edu").withNusnetid("E1234566").withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withNusnetid("E1234562").build();
+            .withEmail("werner@u.nus.edu").withNusnetid("E1234562").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withNusnetid("E1234561").build();
+            .withEmail("lydia@u.nus.edu").withNusnetid("E1234561").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withNusnetid("E1234560").build();
+            .withEmail("anna@u.nus.edu").withNusnetid("E1234560").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withNusnetid("E1234565").build();
+            .withEmail("stefan@u.nus.edu").withNusnetid("E1234565").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withNusnetid("E1234564").build();
+            .withEmail("hans@u.nus.edu").withNusnetid("E1234564").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

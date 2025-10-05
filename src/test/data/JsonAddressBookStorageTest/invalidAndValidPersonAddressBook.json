@@ -2,12 +2,12 @@
   "persons": [ {
     "name": "Valid Person",
     "phone": "9482424",
-    "email": "hans@example.com",
+    "email": "hans@u.nus.edu",
     "nusnetid": "E1234567"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
-    "email": "hans@example.com",
+    "email": "hans@u.nus.edu",
     "nusnetid": "E1234567"
   } ]
 }
