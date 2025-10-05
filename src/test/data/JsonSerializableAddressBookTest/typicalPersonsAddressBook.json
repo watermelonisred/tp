@@ -5,42 +5,49 @@
     "phone" : "94351253",
     "email" : "alice@u.nus.edu",
     "nusnetid": "E1234567",
-    "tags" : [ "friends" ]
+    "telegram": "@alicece",
+    "slot": "T01"
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@u.nus.edu",
     "nusnetid": "E1234568",
-    "tags" : [ "owesMoney", "friends" ]
+    "telegram": "@benson",
+    "slot": "T02"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@u.nus.edu",
     "nusnetid": "E1234569",
-    "tags" : [ ]
+    "telegram": "@carllll",
+    "slot": "T15"
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@u.nus.edu",
     "nusnetid": "E1234566",
-    "tags" : [ "friends" ]
+    "telegram": "@ddddddanial",
+    "slot": "T11"
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@u.nus.edu",
     "nusnetid": "E1234562",
-    "tags" : [ ]
+    "telegram": "@_meyer",
+    "slot": "T18"
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@u.nus.edu",
     "nusnetid": "E1234561",
-    "tags" : [ ]
+    "telegram": "@KKK0",
+    "slot": "T12"
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@u.nus.edu",
     "nusnetid": "E1234560",
-    "tags" : [ ]
+    "telegram": "@besttttttt",
+    "slot": "T048"
   } ]
 }

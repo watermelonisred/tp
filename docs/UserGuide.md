@@ -31,7 +31,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add_student n/John Doe p/98765432 e/johnd@@u.nus.edu i/E1234567` : Adds a contact named `John Doe` to the Address Book.
+   * `add_student n/John Doe p/98765432 e/johnd@@u.nus.edu i/E1234567 t/@john s/T01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -53,10 +53,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
   e.g. in `add_student n/NAME`, `NAME` is a parameter which can be used as `add_student n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g `n/NAME [t/TELEGRAM]` can be used as `n/John Doe t/@john` or as `n/John Doe`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -80,7 +77,7 @@ Format: `help`
 
 Adds a person to the NUSNETID book.
 
-Format: `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID tg/TELEGRAM s/SLOT [t/TAG]…​`
+Format: `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID t/TELEGRAM s/SLOT`
 
 <box type="tip" seamless>
 
@@ -88,8 +85,8 @@ Format: `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID tg/TELEGRAM s/SLOT
 </box>
 
 Examples:
-* `add_student n/John Doe p/98765432 e/johnd@u.nus.edu i/E1234567 tg/@handle s/T01`
-* `add_student n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu i/E1234562 p/1234567 tg/@betsy s/T02`
+* `add_student n/John Doe p/98765432 e/johnd@u.nus.edu i/E1234567 t/@handle s/T01`
+* `add_student n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu i/E1234562 p/1234567 t/@betsy s/T02`
 
 ### Listing all persons : `list`
 
@@ -101,7 +98,7 @@ Format: `list`
 
 Edits an existing person in the ADDRESS book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/NUSNETID] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/NUSNETID]  [t/TELEGRAM] [s/SLOT]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -112,7 +109,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/NUSNETID] [t/TAG]…​`
 
 Examples:
 *  `edit_student 1 p/91234567 e/johndoe@u.nus.edu` Edits the phone number and email ADDRESS of the 1st person to be `91234567` and `johndoe@u.nus.edu` respectively.
-*  `edit_student 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit_student 2 n/Betsy Crower ` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Locating persons by name: `find`
 
@@ -197,10 +194,10 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID tg/TELEGRAM s/SLOT [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@u.nus.edu i/E1234567 tg/@jame s/T02 t/friend t/colleague`
+**Add**    | `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID t/TELEGRAM s/SLOT ` <br> e.g., `add n/James Ho p/22224444 e/jamesho@u.nus.edu i/E1234567 tg/@jame s/T02 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit_student INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/NUSNETID] [tg/TELEGRAm] [s/SLOT] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
+**Edit**   | `edit_student INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/NUSNETID] [t/TELEGRAm] [s/SLOT]`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`

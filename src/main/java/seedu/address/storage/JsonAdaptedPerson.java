@@ -1,11 +1,5 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,8 +9,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-
+import seedu.address.model.person.Slot;
+import seedu.address.model.person.Telegram;
 /**
  * Jackson-friendly version of {@link Person}.
  */
@@ -28,7 +22,8 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String nusnetid;
-    private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String slot;
+    private final String telegram;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -36,14 +31,13 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
-        if (tags != null) {
-            this.tags.addAll(tags);
-        }
+        this.slot = slot;
+        this.telegram = telegram;
     }
 
     /**
@@ -54,9 +48,8 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         nusnetid = source.getNusnetid().value;
-        tags.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        slot = source.getSlot().value;
+        telegram = source.getTelegram().value;
     }
 
     /**
@@ -65,10 +58,6 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
-        }
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -81,7 +70,7 @@ class JsonAdaptedPerson {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+        if (!Phone.isValidSlot(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
@@ -103,8 +92,25 @@ class JsonAdaptedPerson {
         }
         final Nusnetid modelNusnetid = new Nusnetid(nusnetid);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTags);
+        if (slot == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Slot.class.getSimpleName()));
+        }
+        if (!Slot.isValidSlot(slot)) {
+            throw new IllegalValueException(Slot.MESSAGE_CONSTRAINTS);
+        }
+        final Slot modelSlot = new Slot(slot);
+
+        if (telegram == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Telegram.class.getSimpleName()));
+        }
+        if (!Telegram.isValidTelegram(telegram)) {
+            throw new IllegalValueException(Telegram.MESSAGE_CONSTRAINTS);
+        }
+        final Telegram modelTelegram = new Telegram(telegram);
+
+        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot);
     }
 
 }

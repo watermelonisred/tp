@@ -43,8 +43,10 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; NUSnetid: ")
                 .append(person.getNusnetid())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+                .append("; Telegram: ")
+                .append(person.getTelegram())
+                .append("; Slot: ")
+                .append(person.getSlot());
         return builder.toString();
     }
 

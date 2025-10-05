@@ -4,11 +4,14 @@
     "phone": "94351253",
     "email": "alice@u.nus.edu",
     "nusnetid": "E1234566",
-    "tags": [ "friends" ]
+    "telegram": "@valid",
+    "slot": "T01"
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@u.nus.edu",
-    "nusnetid": "E1234563"
+    "nusnetid": "E1234563",
+    "telegram": "@valid",
+    "slot": "T01"
   } ]
 }

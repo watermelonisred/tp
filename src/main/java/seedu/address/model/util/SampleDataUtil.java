@@ -11,7 +11,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Slot;
+import seedu.address.model.person.Telegram;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -20,23 +21,17 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeo@u.nus.edu"),
-                new Nusnetid("E1234567"),
-                getTagSet("friends")),
+                new Nusnetid("E1234567"), new Telegram("@alex"), new Slot("T01")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@u.nus.edu"),
-                new Nusnetid("E1234568"),
-                getTagSet("colleagues", "friends")),
+                new Nusnetid("E1234568"), new Telegram("@bernice_yu"), new Slot("T02")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@u.nus.edu"),
-                new Nusnetid("E1234569"),
-                getTagSet("neighbours")),
+                new Nusnetid("E1234569"), new Telegram("@oliv"), new Slot("T01")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@u.nus.edu"),
-                new Nusnetid("E1234560"),
-                getTagSet("family")),
+                new Nusnetid("E1234560"), new Telegram("@davidddd"), new Slot("T15")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@u.nus.edu"),
-                new Nusnetid("E1234562"),
-                getTagSet("classmates")),
+                new Nusnetid("E1234562"),  new Telegram("@ibraccccc"), new Slot("T12")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@u.nus.edu"),
-                new Nusnetid("E1234563"),
-                getTagSet("colleagues"))
+                new Nusnetid("E1234563"),  new Telegram("@Royy"), new Slot("T09"))
         };
     }
 
@@ -47,14 +42,4 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
-
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
-    }
-
 }

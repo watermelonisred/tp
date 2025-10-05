@@ -8,7 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
+
+import javax.swing.text.html.HTML;
 
 /**
  * Represents a Person in the address book.
@@ -20,21 +21,21 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-
-    // Data fields
     private final Nusnetid nusnetid;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Telegram telegram;
+    private final Slot slot;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, nusnetid, tags);
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, slot);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
-        this.tags.addAll(tags);
+        this.telegram = telegram;
+        this.slot = slot;
     }
 
     public Name getName() {
@@ -53,14 +54,9 @@ public class Person {
         return nusnetid;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
+    public Telegram getTelegram() {return telegram;}
 
+    public Slot getSlot() {return slot;}
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -94,13 +90,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && nusnetid.equals(otherPerson.nusnetid)
-                && tags.equals(otherPerson.tags);
+                && telegram.equals(otherPerson.telegram)
+                && slot.equals(otherPerson.slot);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, nusnetid, tags);
+        return Objects.hash(name, phone, email, nusnetid, telegram, slot);
     }
 
     @Override
@@ -110,7 +107,8 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("NUSnetid", nusnetid)
-                .add("tags", tags)
+                .add("telegram", telegram)
+                .add("slot", slot)
                 .toString();
     }
 

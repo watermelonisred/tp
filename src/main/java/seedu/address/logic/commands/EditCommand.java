@@ -5,7 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SLOT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -26,7 +27,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Slot;
+import seedu.address.model.person.Telegram;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -43,7 +45,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_NUSNETID + "NUSNETID] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TELEGRAM + "TELEGRAM]"
+            + "[" + PREFIX_SLOT + "SLOT]" + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@u.nus.edu";
@@ -99,9 +102,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Nusnetid updatedNusnetid = editPersonDescriptor.getNusnetid().orElse(personToEdit.getNusnetid());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
+        Slot updatedSlot = editPersonDescriptor.getSlot().orElse(personToEdit.getSlot());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTelegram, updatedSlot);
     }
 
     @Override
@@ -137,7 +141,8 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Nusnetid nusnetid;
-        private Set<Tag> tags;
+        private Telegram telegram;
+        private Slot slot;
 
         public EditPersonDescriptor() {}
 
@@ -150,14 +155,15 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setNusnetid(toCopy.nusnetid);
-            setTags(toCopy.tags);
+            setTelegram(toCopy.telegram);
+            setSlot(toCopy.slot);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, nusnetid, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, nusnetid, telegram, slot);
         }
 
         public void setName(Name name) {
@@ -191,22 +197,20 @@ public class EditCommand extends Command {
         public Optional<Nusnetid> getNusnetid() {
             return Optional.ofNullable(nusnetid);
         }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public Optional<Telegram> getTelegram() {
+            return Optional.ofNullable(telegram);
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public void setTelegram(Telegram telegram) {
+            this.telegram = telegram;
+        }
+
+        public Optional<Slot> getSlot() {
+            return Optional.ofNullable(slot);
+        }
+
+        public void setSlot(Slot slot) {
+            this.slot = slot;
         }
 
         @Override
@@ -225,7 +229,8 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(nusnetid, otherEditPersonDescriptor.nusnetid)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(telegram, otherEditPersonDescriptor.telegram)
+                    && Objects.equals(slot, otherEditPersonDescriptor.slot);
         }
 
         @Override
@@ -235,7 +240,8 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("nusnetid", nusnetid)
-                    .add("tags", tags)
+                    .add("telegram", telegram)
+                    .add("slot", slot)
                     .toString();
         }
     }
