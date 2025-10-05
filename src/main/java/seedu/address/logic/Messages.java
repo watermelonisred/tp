@@ -42,7 +42,7 @@ public class Messages {
                 .append("; Email: ")
                 .append(person.getEmail())
                 .append("; NUSnetid: ")
-                .append(person.getNUSnetid())
+                .append(person.getNusnetid())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();

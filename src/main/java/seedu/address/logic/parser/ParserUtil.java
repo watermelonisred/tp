@@ -9,9 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NUSnetid;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -71,13 +71,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code nusnetid} is invalid.
      */
-    public static NUSnetid parseNUSnetid(String nusnetid) throws ParseException {
+    public static Nusnetid parseNUSnetid(String nusnetid) throws ParseException {
         requireNonNull(nusnetid);
         String trimmedNUSnetid = nusnetid.trim();
-        if (!NUSnetid.isValidNUSnetid(trimmedNUSnetid)) {
-            throw new ParseException(NUSnetid.MESSAGE_CONSTRAINTS);
+        if (!Nusnetid.isValidNusnetid(trimmedNUSnetid)) {
+            throw new ParseException(Nusnetid.MESSAGE_CONSTRAINTS);
         }
-        return new NUSnetid(trimmedNUSnetid);
+        return new Nusnetid(trimmedNUSnetid);
     }
 
     /**

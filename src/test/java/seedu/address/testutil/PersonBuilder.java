@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.NUSnetid;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -24,7 +24,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private NUSnetid nusnetid;
+    private Nusnetid nusnetid;
     private Set<Tag> tags;
 
     /**
@@ -34,7 +34,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        nusnetid = new NUSnetid(DEFAULT_NUSNETID);
+        nusnetid = new Nusnetid(DEFAULT_NUSNETID);
         tags = new HashSet<>();
     }
 
@@ -45,7 +45,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
-        nusnetid = personToCopy.getNUSnetid();
+        nusnetid = personToCopy.getNusnetid();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -69,7 +69,7 @@ public class PersonBuilder {
      * Sets the {@code NUSnetid} of the {@code Person} that we are building.
      */
     public PersonBuilder withNUSnetid(String nusnetid) {
-        this.nusnetid = new NUSnetid(nusnetid);
+        this.nusnetid = new Nusnetid(nusnetid);
         return this;
     }
 

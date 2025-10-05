@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.NUSnetid;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -53,7 +53,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        nusnetid = source.getNUSnetid().value;
+        nusnetid = source.getNusnetid().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -95,15 +95,16 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (nusnetid == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, NUSnetid.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Nusnetid.class.getSimpleName()));
         }
-        if (!NUSnetid.isValidNUSnetid(nusnetid)) {
-            throw new IllegalValueException(NUSnetid.MESSAGE_CONSTRAINTS);
+        if (!Nusnetid.isValidNusnetid(nusnetid)) {
+            throw new IllegalValueException(Nusnetid.MESSAGE_CONSTRAINTS);
         }
-        final NUSnetid modelNUSnetid = new NUSnetid(nusnetid);
+        final Nusnetid modelNusnetid = new Nusnetid(nusnetid);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelNUSnetid, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTags);
     }
 
 }

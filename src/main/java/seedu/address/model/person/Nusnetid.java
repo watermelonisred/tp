@@ -5,11 +5,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's NUSnetid in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidNUSnetid(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidNusnetid(String)}
  */
-public class NUSnetid {
+public class Nusnetid {
 
-    public static final String MESSAGE_CONSTRAINTS = "NUSnetid can start with E and has 7 numbers, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "NUSnetid can start with E and has 7 numbers, and it should not be blank";
 
     /*
      * The first character of the NUSnetid must be a E and follow by 7 numbers.
@@ -23,16 +24,16 @@ public class NUSnetid {
      *
      * @param nusnetid A valid NUSnetid.
      */
-    public NUSnetid(String nusnetid) {
+    public Nusnetid(String nusnetid) {
         requireNonNull(nusnetid);
-        checkArgument(isValidNUSnetid(nusnetid), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidNusnetid(nusnetid), MESSAGE_CONSTRAINTS);
         value = nusnetid;
     }
 
     /**
      * Returns true if a given string is a valid NUSNETID.
      */
-    public static boolean isValidNUSnetid(String test) {
+    public static boolean isValidNusnetid(String test) {
         return test != null && test.matches(VALIDATION_REGEX);
     }
 
@@ -48,12 +49,12 @@ public class NUSnetid {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NUSnetid)) {
+        if (!(other instanceof Nusnetid)) {
             return false;
         }
 
-        NUSnetid otherNUSnetid = (NUSnetid) other;
-        return value.equals(otherNUSnetid.value);
+        Nusnetid otherNusnetid = (Nusnetid) other;
+        return value.equals(otherNusnetid.value);
     }
 
     @Override

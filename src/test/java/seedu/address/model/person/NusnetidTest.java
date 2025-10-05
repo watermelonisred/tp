@@ -6,40 +6,40 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class NUSnetidTest {
+public class NusnetidTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new NUSnetid(null));
+        assertThrows(NullPointerException.class, () -> new Nusnetid(null));
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidNUSnetid = "";
-        assertThrows(IllegalArgumentException.class, () -> new NUSnetid(invalidNUSnetid));
+        assertThrows(IllegalArgumentException.class, () -> new Nusnetid(invalidNUSnetid));
     }
 
     @Test
     public void isValidAddress() {
         // null address
-        assertThrows(NullPointerException.class, () -> NUSnetid.isValidNUSnetid(null));
+        assertThrows(NullPointerException.class, () -> Nusnetid.isValidNusnetid(null));
 
         // invalid addresses
-        assertFalse(NUSnetid.isValidNUSnetid("")); // empty string
-        assertFalse(NUSnetid.isValidNUSnetid(" ")); // spaces only
-        assertFalse(NUSnetid.isValidNUSnetid("e1234567"));//starts with "e"
-        assertFalse(NUSnetid.isValidNUSnetid("E123456"));//only 6 digits
-        assertFalse(NUSnetid.isValidNUSnetid("E12345678"));//8 digits
+        assertFalse(Nusnetid.isValidNusnetid("")); // empty string
+        assertFalse(Nusnetid.isValidNusnetid(" ")); // spaces only
+        assertFalse(Nusnetid.isValidNusnetid("e1234567"));//starts with "e"
+        assertFalse(Nusnetid.isValidNusnetid("E123456"));//only 6 digits
+        assertFalse(Nusnetid.isValidNusnetid("E12345678"));//8 digits
         // valid addresses
-        assertTrue(NUSnetid.isValidNUSnetid("E1234567"));
+        assertTrue(Nusnetid.isValidNusnetid("E1234567"));
     }
 
     @Test
     public void equals() {
-        NUSnetid nusnetid = new NUSnetid("E1234567");
+        Nusnetid nusnetid = new Nusnetid("E1234567");
 
         // same values -> returns true
-        assertTrue(nusnetid.equals(new NUSnetid("E1234567")));
+        assertTrue(nusnetid.equals(new Nusnetid("E1234567")));
 
         // same object -> returns true
         assertTrue(nusnetid.equals(nusnetid));
@@ -51,6 +51,6 @@ public class NUSnetidTest {
         assertFalse(nusnetid.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(nusnetid.equals(new NUSnetid("E1234568")));
+        assertFalse(nusnetid.equals(new Nusnetid("E1234568")));
     }
 }

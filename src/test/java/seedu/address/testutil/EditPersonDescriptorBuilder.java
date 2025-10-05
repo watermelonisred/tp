@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.NUSnetid;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -35,7 +35,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
-        descriptor.setNUSnetid(person.getNUSnetid());
+        descriptor.setNusnetid(person.getNusnetid());
         descriptor.setTags(person.getTags());
     }
 
@@ -67,7 +67,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code NUSneuid} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withNUSnetid(String nusnetid) {
-        descriptor.setNUSnetid(new NUSnetid(nusnetid));
+        descriptor.setNusnetid(new Nusnetid(nusnetid));
         return this;
     }
 

@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -21,9 +22,10 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.NUSnetid;
+
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -98,10 +100,10 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        NUSnetid updatedNUSnetid = editPersonDescriptor.getNUSnetid().orElse(personToEdit.getNUSnetid());
+        Nusnetid updatedNusnetid = editPersonDescriptor.getNusnetid().orElse(personToEdit.getNusnetid());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNUSnetid, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTags);
     }
 
     @Override
@@ -136,7 +138,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private NUSnetid nusnetid;
+        private Nusnetid nusnetid;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -149,7 +151,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setNUSnetid(toCopy.nusnetid);
+            setNusnetid(toCopy.nusnetid);
             setTags(toCopy.tags);
         }
 
@@ -184,11 +186,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setNUSnetid(NUSnetid nusnetid) {
+        public void setNusnetid(Nusnetid nusnetid) {
             this.nusnetid = nusnetid;
         }
 
-        public Optional<NUSnetid> getNUSnetid() {
+        public Optional<Nusnetid> getNusnetid() {
             return Optional.ofNullable(nusnetid);
         }
 

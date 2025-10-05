@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NUSnetid;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -114,15 +114,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsNUSnetid() throws Exception {
-        NUSnetid expectedNUSnetid = new NUSnetid(VALID_ADDRESS);
-        assertEquals(expectedNUSnetid, ParserUtil.parseNUSnetid(VALID_ADDRESS));
+        Nusnetid expectedNusnetid = new Nusnetid(VALID_ADDRESS);
+        assertEquals(expectedNusnetid, ParserUtil.parseNUSnetid(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedNUSnetid() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        NUSnetid expectedNUSnetid = new NUSnetid(VALID_ADDRESS);
-        assertEquals(expectedNUSnetid, ParserUtil.parseNUSnetid(addressWithWhitespace));
+        Nusnetid expectedNusnetid = new Nusnetid(VALID_ADDRESS);
+        assertEquals(expectedNusnetid, ParserUtil.parseNUSnetid(addressWithWhitespace));
     }
 
     @Test
