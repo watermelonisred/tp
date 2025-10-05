@@ -23,13 +23,13 @@ import seedu.address.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_NUSNETID = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_NUSNETID = "E1234567";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -109,19 +109,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseNusnetid(INVALID_ADDRESS));
+        assertThrows(ParseException.class, () -> ParserUtil.parseNusnetid(INVALID_NUSNETID));
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsNusnetid() throws Exception {
-        Nusnetid expectedNusnetid = new Nusnetid(VALID_ADDRESS);
-        assertEquals(expectedNusnetid, ParserUtil.parseNusnetid(VALID_ADDRESS));
+        Nusnetid expectedNusnetid = new Nusnetid(VALID_NUSNETID);
+        assertEquals(expectedNusnetid, ParserUtil.parseNusnetid(VALID_NUSNETID));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedNusnetid() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Nusnetid expectedNusnetid = new Nusnetid(VALID_ADDRESS);
+        String addressWithWhitespace = WHITESPACE + VALID_NUSNETID + WHITESPACE;
+        Nusnetid expectedNusnetid = new Nusnetid(VALID_NUSNETID);
         assertEquals(expectedNusnetid, ParserUtil.parseNusnetid(addressWithWhitespace));
     }
 
