@@ -205,7 +205,7 @@ Action     | Format, Examples
 ## Glossary
 * **NETS id**: A unique identifier assigned to each student by the National University of Singapore (NUS) 
 during matriculation. It is used for logging into various NUS systems.
-* **NUS email**: The official email NUSNETID assigned to each student by NUS, typically 
+* **NUS email**: The official email address assigned to each student by NUS, typically 
 in the format `<NETS id>@u.nus.edu`.
 * **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
 by typing commands.
