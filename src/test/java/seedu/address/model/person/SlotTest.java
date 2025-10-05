@@ -53,5 +53,4 @@ public class SlotTest {
         // different values -> returns false
         assertFalse(slot.equals(new Slot("T995")));
     }
-
 }

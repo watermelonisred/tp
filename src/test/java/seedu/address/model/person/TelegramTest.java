@@ -54,5 +54,4 @@ public class TelegramTest {
         // different values -> returns false
         assertFalse(telegram.equals(new Telegram("@995")));
     }
-
 }
