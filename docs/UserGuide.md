@@ -31,7 +31,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add_student n/John Doe p/98765432 e/johnd@@u.nus.edu i/E1234567 t/@john s/T01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -50,13 +50,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add_student n/NAME`, `NAME` is a parameter which can be used as `add_student n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g `n/NAME [t/TELEGRAM]` can be used as `n/John Doe t/@john` or as `n/John Doe`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -76,11 +73,11 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a person: `add_student`
 
-Adds a person to the address book.
+Adds a person to the NUSNETID book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID t/TELEGRAM s/SLOT`
 
 <box type="tip" seamless>
 
@@ -88,20 +85,20 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add_student n/John Doe p/98765432 e/johnd@u.nus.edu i/E1234567 t/@handle s/T01`
+* `add_student n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu i/E1234562 p/1234567 t/@betsy s/T02`
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in the ADDRESS book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a person : `edit_student`
 
-Edits an existing person in the address book.
+Edits an existing person in the ADDRESS book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/NUSNETID]  [t/TELEGRAM] [s/SLOT]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -111,8 +108,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit_student 1 p/91234567 e/johndoe@u.nus.edu` Edits the phone number and email ADDRESS of the 1st person to be `91234567` and `johndoe@u.nus.edu` respectively.
+*  `edit_student 2 n/Betsy Crower ` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Locating persons by name: `find`
 
@@ -134,7 +131,7 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the ADDRESS book.
 
 Format: `delete INDEX`
 
@@ -143,12 +140,12 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `list` followed by `delete 2` deletes the 2nd person in the ADDRESS book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the ADDRESS book.
 
 Format: `clear`
 
@@ -197,10 +194,35 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID t/TELEGRAM s/SLOT ` <br> e.g., `add n/James Ho p/22224444 e/jamesho@u.nus.edu i/E1234567 tg/@jame s/T02 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit**   | `edit_student INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/NUSNETID] [t/TELEGRAm] [s/SLOT]`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
+
+## Glossary
+* **NETS id**: A unique identifier assigned to each student by the National University of Singapore (NUS) 
+during matriculation. It is used for logging into various NUS systems.
+* **NUS email**: The official email address assigned to each student by NUS, typically 
+in the format `<NETS id>@u.nus.edu`.
+* **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
+by typing commands.
+* **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
+* **Assessment/Homework**: Work need to be done and submitted by mentees, graded by tutors.
+* **Consultation**: A session where mentees can seek help from tutors regarding their academic work or other 
+related matters.
+* **Mentor (TA)/Mentee**: A mentor (TA) is a senior student who provides guidance and support to a junior student, 
+known as a mentee.
+* **OOP**: Object-Oriented Programming. A programming paradigm that uses "objects" to represent data and methods 
+to manipulate that data.
+* **GUI**: Graphical User Interface. A visual interface that allows users to interact with software applications 
+using graphical elements such as windows, icons, and buttons.
+* **JSON**: JavaScript Object Notation. A lightweight data interchange format that is easy for humans to read and write
+, and easy for machines to parse and generate.
+* **JDK**: Java Development Kit. A software development environment used for developing Java applications.
+* **Jar file**: A Java ARchive file. A package file format used to aggregate many Java class files and associated 
+metadata and resources into one file for distribution.
+* **KLoC**: Kilo Lines of Code. A measure of software size, representing 1,000 lines of code.
+* **CD**: Command Directory. The current directory in which the command terminal is operating.

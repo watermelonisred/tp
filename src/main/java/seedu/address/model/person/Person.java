@@ -2,13 +2,9 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -20,21 +16,21 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-
-    // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Nusnetid nusnetid;
+    private final Telegram telegram;
+    private final Slot slot;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, slot);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
     }
 
     public Name getName() {
@@ -49,16 +45,16 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Nusnetid getNusnetid() {
+        return nusnetid;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Telegram getTelegram() {
+        return telegram;
+    }
+
+    public Slot getSlot() {
+        return slot;
     }
 
     /**
@@ -93,14 +89,15 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && nusnetid.equals(otherPerson.nusnetid)
+                && telegram.equals(otherPerson.telegram)
+                && slot.equals(otherPerson.slot);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, nusnetid, telegram, slot);
     }
 
     @Override
@@ -109,8 +106,9 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
+                .add("NUSnetid", nusnetid)
+                .add("telegram", telegram)
+                .add("slot", slot)
                 .toString();
     }
 
