@@ -4,30 +4,31 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's slot number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidSlot(String)}
  */
-public class Phone {
+public class Slot {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Slot numbers should only be T and numbers, and it should be at least 1 digits long";
+    public static final String VALIDATION_REGEX = "T\\d{1,}";
+
     public final String value;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Slot}.
      *
-     * @param phone A valid phone number.
+     * @param slot A valid slot number.
      */
-    public Phone(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidSlot(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+    public Slot(String slot) {
+        requireNonNull(slot);
+        checkArgument(isValidSlot(slot), MESSAGE_CONSTRAINTS);
+        value = slot;
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid slot number.
      */
     public static boolean isValidSlot(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -45,12 +46,12 @@ public class Phone {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Phone)) {
+        if (!(other instanceof Slot)) {
             return false;
         }
 
-        Phone otherPhone = (Phone) other;
-        return value.equals(otherPhone.value);
+        Slot otherSlot = (Slot) other;
+        return value.equals(otherSlot.value);
     }
 
     @Override
