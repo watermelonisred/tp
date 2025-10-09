@@ -19,18 +19,22 @@ public class Person {
     private final Nusnetid nusnetid;
     private final Telegram telegram;
     private final Slot slot;
+    private final HomeworkTracker homeworkTracker;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot) {
-        requireAllNonNull(name, phone, email, nusnetid, telegram, slot);
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.telegram = telegram;
         this.slot = slot;
+        this.homeworkTracker = new HomeworkTracker();
     }
 
     public Name getName() {
@@ -56,6 +60,22 @@ public class Person {
     public Slot getSlot() {
         return slot;
     }
+
+    public HomeworkTracker getHomeworkTracker() {
+        return homeworkTracker;
+    }
+
+    public Person withAddedHomework(int assignmentId) {
+        HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
+        return new Person(name, phone, email, nusnetid, telegram, slot, updated);
+    }
+
+    /** Returns a new Person with updated homework status for the given assignment. */
+    public Person withUpdatedHomework(int assignmentId, String status) {
+        HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
+    }
+
 
     /**
      * Returns true if both persons have the same name.

@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
@@ -52,7 +53,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Telegram telegram = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         Slot slot = ParserUtil.parseSlot(argMultimap.getValue(PREFIX_SLOT).get());
 
-        Person person = new Person(name, phone, email, nusnetid, telegram, slot);
+        Person person = new Person(name, phone, email, nusnetid, telegram, slot, new HomeworkTracker());
 
         return new AddCommand(person);
     }

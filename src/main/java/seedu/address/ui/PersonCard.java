@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 
 /**
@@ -39,6 +40,8 @@ public class PersonCard extends UiPart<Region> {
     private Label telegram;
     @FXML
     private Label slot;
+    @FXML
+    private VBox homeworkContainer;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -53,5 +56,26 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
+        showHomework();
+    }
+
+    private void showHomework() {
+        if (person.getHomeworkTracker() == null) {
+            return;
+        }
+
+        // If no homework exists yet
+        if (person.getHomeworkTracker().asMap().isEmpty()) {
+            Label placeholder = new Label("No homework yet");
+            placeholder.setStyle("-fx-font-size: 11px; -fx-font-style: italic; -fx-text-fill: #666;");
+            homeworkContainer.getChildren().add(placeholder);
+            return;
+        }
+
+        person.getHomeworkTracker().asMap().forEach((assignmentId, status) -> {
+            Label hwLabel = new Label("HW" + assignmentId + ": " + status);
+            hwLabel.setStyle("-fx-font-size: 11px;"); // optional styling
+            homeworkContainer.getChildren().add(hwLabel);
+        });
     }
 }

@@ -102,7 +102,7 @@ public class EditCommand extends Command {
         Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
         Slot updatedSlot = editPersonDescriptor.getSlot().orElse(personToEdit.getSlot());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTelegram, updatedSlot);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTelegram, updatedSlot, personToEdit.getHomeworkTracker());
     }
 
     @Override
