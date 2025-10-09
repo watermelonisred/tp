@@ -13,8 +13,8 @@ import seedu.address.model.person.Nusnetid;
  * Guarantees: week is between 3 and 13 (inclusive), attendanceStatus is valid
  */
 public class AttendanceSheet {
-    private final int Min = 3;
-    private final int Max = 13;
+    private final int min = 3;
+    private final int max = 13;
     private final Map<Integer, Map<Nusnetid, AttendanceStatus>> attendanceMap;
 
     public AttendanceSheet() {
@@ -40,7 +40,7 @@ public class AttendanceSheet {
     }
 
     public boolean isValidWeek(int week) {
-        return week >= Min && week <= Max;
+        return week >= min && week <= max;
     }
 
 
