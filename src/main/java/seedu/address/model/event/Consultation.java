@@ -15,7 +15,6 @@ import seedu.address.model.person.Nusnetid;
  */
 public class Consultation {
     public static final String MESSAGE_CONSTRAINTS = "Consultation end time must be after start time";
-    
     private final Nusnetid nusnetid;
     private final LocalDateTime from;
     private final LocalDateTime to;
