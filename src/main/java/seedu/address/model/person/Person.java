@@ -34,7 +34,7 @@ public class Person {
         this.nusnetid = nusnetid;
         this.telegram = telegram;
         this.slot = slot;
-        this.homeworkTracker = new HomeworkTracker();
+        this.homeworkTracker = homeworkTracker;
     }
 
     public Name getName() {

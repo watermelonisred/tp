@@ -55,6 +55,9 @@ public class HomeworkTracker {
         if (assignmentId < 0 || assignmentId >= MAX_ASSIGNMENTS) {
             throw new IllegalArgumentException("Assignment ID must be between 0 and 2.");
         }
+        if (statuses.containsKey(assignmentId)) {
+            return this; // already exists
+        }
         Map<Integer, Homework> updated = new HashMap<>(statuses);
         updated.put(assignmentId, new Homework(assignmentId, Homework.STATUS_INCOMPLETE));
         return new HomeworkTracker(updated);
