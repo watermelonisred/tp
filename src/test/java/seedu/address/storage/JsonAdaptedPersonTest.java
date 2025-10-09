@@ -148,7 +148,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullSlot_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                VALID_TELEGRAM, null, convertToJsonMap(VALID_HOMEWORK_TRACKER));
+                null, VALID_TELEGRAM, convertToJsonMap(VALID_HOMEWORK_TRACKER));
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Slot.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -157,7 +157,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidTelegram_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                        INVALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER));
+                        VALID_SLOT, INVALID_TELEGRAM, convertToJsonMap(VALID_HOMEWORK_TRACKER));
         String expectedMessage = Telegram.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -165,7 +165,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullTelegram_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                null, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER));
+                VALID_SLOT, null, convertToJsonMap(VALID_HOMEWORK_TRACKER));
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Telegram.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
