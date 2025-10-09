@@ -31,7 +31,7 @@ class JsonAdaptedPerson {
     private final String nusnetid;
     private final String slot;
     private final String telegram;
-    private final Map<String, JsonAdaptedHomework> homework;
+    private final Map<Integer, JsonAdaptedHomework> homework;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -40,7 +40,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
-                             @JsonProperty("homework") Map<String, JsonAdaptedHomework> homework) {
+                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -58,10 +58,10 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         nusnetid = source.getNusnetid().value;
-        slot = source.getSlot().value;
         telegram = source.getTelegram().value;
+        slot = source.getSlot().value;
         homework = new HashMap<>();
-        source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(String.valueOf(id),
+        source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(id,
                 new JsonAdaptedHomework(hw))
         );
     }
@@ -125,8 +125,8 @@ class JsonAdaptedPerson {
         final Telegram modelTelegram = new Telegram(telegram);
 
         Map<Integer, Homework> homeworkMap = new HashMap<>();
-        for (Map.Entry<String, JsonAdaptedHomework> entry : homework.entrySet()) {
-            homeworkMap.put(Integer.parseInt(entry.getKey()), entry.getValue().toModelType());
+        for (Map.Entry<Integer, JsonAdaptedHomework> entry : homework.entrySet()) {
+            homeworkMap.put(entry.getKey(), entry.getValue().toModelType());
         }
 
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);

@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
@@ -26,6 +27,7 @@ public class PersonBuilder {
     private Nusnetid nusnetid;
     private Telegram telegram;
     private Slot slot;
+    private HomeworkTracker homeworkTracker;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -37,6 +39,7 @@ public class PersonBuilder {
         nusnetid = new Nusnetid(DEFAULT_NUSNETID);
         telegram = new Telegram(DEFAULT_TELEGRAM);
         slot = new Slot(DEFAULT_SLOT);
+        homeworkTracker = new HomeworkTracker();
     }
 
     /**
@@ -49,6 +52,7 @@ public class PersonBuilder {
         nusnetid = personToCopy.getNusnetid();
         telegram = personToCopy.getTelegram();
         slot = personToCopy.getSlot();
+        homeworkTracker = personToCopy.getHomeworkTracker();
     }
 
     /**
@@ -100,8 +104,24 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code HomeworkTracker} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withHomeworkTracker(HomeworkTracker homeworkTracker) {
+        this.homeworkTracker = homeworkTracker;
+        return this;
+    }
+
+    /**
+     * Convenience method to add a homework assignment to the {@code Person} being built.
+     */
+    public PersonBuilder withAddedHomework(int assignmentId) {
+        this.homeworkTracker = this.homeworkTracker.addHomework(assignmentId);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, nusnetid, telegram, slot);
+        return new Person(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
     }
 
 }
