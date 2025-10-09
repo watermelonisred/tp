@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,13 +56,14 @@ public class Messages {
      * Formats the {@code consultation} for display to the user.
      */
     public static String format(Consultation consultation) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         final StringBuilder builder = new StringBuilder();
         builder.append("NUSnetid: ")
                 .append(consultation.getNusnetid())
                 .append("; From: ")
-                .append(consultation.getFrom())
+                .append(consultation.getFrom().format(formatter))
                 .append(" To: ")
-                .append(consultation.getTo());
+                .append(consultation.getTo().format(formatter));
         return builder.toString();
     }
 }

@@ -14,10 +14,7 @@ import seedu.address.model.person.Nusnetid;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Consultation {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Consultation end time should be after start time";
-
-    // Identity fields
+    public static final String MESSAGE_CONSTRAINTS = "Consultation end time must be after start time";
     private final Nusnetid nusnetid;
     private final LocalDateTime from;
     private final LocalDateTime to;

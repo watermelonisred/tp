@@ -24,12 +24,12 @@ public class ConsultationCommand extends Command {
             + PREFIX_FROM + "CONSULTATION START TIME "
             + PREFIX_TO + "CONSULTATION END TIME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NUSNETID + "E1234567"
-            + PREFIX_FROM + "2025-10-10 14:00 "
-            + PREFIX_TO + "2025-10-10 16:00";
+            + PREFIX_NUSNETID + "E1234567 "
+            + PREFIX_FROM + "20251010 1400 "
+            + PREFIX_TO + "20251010 1600";
 
-    public static final String MESSAGE_SUCCESS = "New consultation slot added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CONSULTATION = "Consultation slot already exists";
+    public static final String MESSAGE_SUCCESS = "New consultation added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CONSULTATION = "Consultation already exists";
 
     private final Consultation toAdd;
 
