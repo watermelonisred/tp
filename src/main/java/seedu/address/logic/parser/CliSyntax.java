@@ -12,5 +12,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_NUSNETID = new Prefix("i/");
     public static final Prefix PREFIX_TELEGRAM = new Prefix("t/");
     public static final Prefix PREFIX_SLOT = new Prefix("s/");
-
+    public static final Prefix PREFIX_GROUP = new Prefix("g/");
 }
