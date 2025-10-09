@@ -2,6 +2,16 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a single homework assignment for a student.
+ * <p>
+ * Each {@code Homework} object contains an assignment ID and its completion status.
+ * The class is immutable; updating the status creates a new {@code Homework} instance.
+ * </p>
+ *
+ * <p>Valid statuses are defined by {@link #STATUS_COMPLETE}, {@link #STATUS_INCOMPLETE}, and {@link #STATUS_LATE}.</p>
+ * Assignment IDs are integers from 1 to 3.
+ */
 public class Homework {
     public static final String STATUS_COMPLETE = "complete";
     public static final String STATUS_INCOMPLETE = "incomplete";
