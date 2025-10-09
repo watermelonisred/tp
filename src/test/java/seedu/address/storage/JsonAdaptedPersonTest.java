@@ -1,25 +1,23 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Homework;
 import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
