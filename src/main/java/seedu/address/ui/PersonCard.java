@@ -67,8 +67,8 @@ public class PersonCard extends UiPart<Region> {
         // If no homework exists yet
         if (person.getHomeworkTracker().asMap().isEmpty()) {
             Label placeholder = new Label("No homework yet");
-            placeholder.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-padding: 5 10 5 10; " +
-                    "-fx-background-radius: 5;");
+            placeholder.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-padding: 5 10 5 10; "
+                    + "-fx-background-radius: 5;");
             homeworkContainer.getChildren().add(placeholder);
             return;
         }
@@ -80,11 +80,13 @@ public class PersonCard extends UiPart<Region> {
             switch (hw.getStatus().toLowerCase()) {
             case "complete":
                 hwLabel = new Label("HW " + hw.getId() + ": Complete");
-                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;" + "-fx-background-color: green;");
+                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;"
+                        + "-fx-background-color: green;");
                 break;
             case "late":
                 hwLabel = new Label("HW " + hw.getId() + ": Late");
-                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;" + "-fx-background-color: yellow; -fx-text-fill: grey;");
+                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;"
+                        + "-fx-background-color: yellow; -fx-text-fill: grey;");
                 break;
             default: // incomplete
                 hwLabel.setStyle(hwLabel.getStyle() + "-fx-background-color: red;");

@@ -1,5 +1,8 @@
 package seedu.address.storage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,8 +17,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -60,8 +61,8 @@ class JsonAdaptedPerson {
         slot = source.getSlot().value;
         telegram = source.getTelegram().value;
         homework = new HashMap<>();
-        source.getHomeworkTracker().asMap().forEach(
-                (id, hw) -> homework.put(String.valueOf(id), new JsonAdaptedHomework(hw))
+        source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(String.valueOf(id),
+                new JsonAdaptedHomework(hw))
         );
     }
 
@@ -130,7 +131,8 @@ class JsonAdaptedPerson {
 
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
 
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker);
+        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot,
+                modelHomeworkTracker);
     }
 
 }

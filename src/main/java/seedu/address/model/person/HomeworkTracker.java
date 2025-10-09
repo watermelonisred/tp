@@ -52,7 +52,7 @@ public class HomeworkTracker {
 
     /** Add a new homework with status incomplete by default. */
     public HomeworkTracker addHomework(int assignmentId) {
-        if (assignmentId < 0 || assignmentId >= MAX_ASSIGNMENTS) {
+        if (assignmentId < 0 || assignmentId > MAX_ASSIGNMENTS) {
             throw new IllegalArgumentException("Assignment ID must be between 0 and 2.");
         }
         if (statuses.containsKey(assignmentId)) {
@@ -124,13 +124,22 @@ public class HomeworkTracker {
      * @return {@code true} if valid, {@code false} otherwise
      */
     public static boolean isValidStatus(String s) {
-        if (s == null) return false;
+        if (s == null) {
+            return false;
+        }
         String[] validStatuses = {Homework.STATUS_COMPLETE, Homework.STATUS_INCOMPLETE, Homework.STATUS_LATE};
         for (String v : validStatuses) {
-            if (v.equalsIgnoreCase(s)) return true;
+            if (v.equalsIgnoreCase(s)) {
+                return true;
+            }
         }
         return false;
     }
+
+    public boolean hasAssignment(int assignmentId) {
+        return statuses.containsKey(assignmentId);
+    }
+
 
 
     /**
@@ -153,8 +162,12 @@ public class HomeworkTracker {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HomeworkTracker)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof HomeworkTracker)) {
+            return false;
+        }
         HomeworkTracker other = (HomeworkTracker) o;
         return statuses.equals(other.statuses);
     }

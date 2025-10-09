@@ -61,10 +61,25 @@ public class Person {
         return slot;
     }
 
+    /**
+     * Returns the {@link HomeworkTracker} associated with this student.
+     *
+     * @return the {@code HomeworkTracker} object containing this student's homework statuses
+     */
     public HomeworkTracker getHomeworkTracker() {
         return homeworkTracker;
     }
 
+    /**
+     * Returns a new {@code Person} instance with a new homework added to the homework tracker.
+     * <p>
+     * The new homework is added with the specified assignment ID. The original {@code Person} object
+     * remains unchanged because {@link HomeworkTracker} follows an immutable design.
+     * </p>
+     *
+     * @param assignmentId the ID of the assignment to add (usually 1–3)
+     * @return a new {@code Person} object with the updated {@link HomeworkTracker}
+     */
     public Person withAddedHomework(int assignmentId) {
         HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
         return new Person(name, phone, email, nusnetid, telegram, slot, updated);

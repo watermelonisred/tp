@@ -1,17 +1,42 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.MarkHomeworkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input arguments and creates a new {@link MarkHomeworkCommand} object.
+ * <p>
+ * The expected input format is:
+ * <pre>{@code
+ * i/<nusnetId> a/<assignmentId> status/<complete|incomplete|late>
+ * }</pre>
+ * Assignment IDs must be integers between 0 and 2, and the status must be one of
+ * "complete", "incomplete", or "late".
+ * </p>
+ *
+ * <p>Example usage:</p>
+ * <pre>{@code
+ * mark i/E1234567 a/0 status/complete    // marks assignment 0 for student E1234567 as complete
+ * }</pre>
+ */
 public class MarkHomeworkCommandParser implements Parser<MarkHomeworkCommand> {
     private static final Pattern MARK_COMMAND_FORMAT = Pattern.compile(
-            "i/(?<NusnetId>\\S+)\\s+a/(?<assignmentId>\\d+)\\s+status/(?<status>\\S+)", Pattern.CASE_INSENSITIVE);
+            "i/(?<nusnetId>\\S+)\\s+a/(?<assignmentId>\\d+)\\s+status/(?<status>\\S+)", Pattern.CASE_INSENSITIVE);
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the MarkHomeworkCommand
+     * and returns a {@link MarkHomeworkCommand} object for execution.
+     *
+     * @param args the input arguments string
+     * @return a {@link MarkHomeworkCommand} representing the parsed input
+     * @throws ParseException if the input does not conform to the expected format,
+     *                        or if the assignment ID is not a valid integer
+     */
     @Override
     public MarkHomeworkCommand parse(String args) throws ParseException {
         final Matcher matcher = MARK_COMMAND_FORMAT.matcher(args.trim());
@@ -19,7 +44,7 @@ public class MarkHomeworkCommandParser implements Parser<MarkHomeworkCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkHomeworkCommand.MESSAGE_USAGE));
         }
 
-        String NusnetId = matcher.group("NusnetId");
+        String nusnetId = matcher.group("nusnetId");
         int assignmentId;
         try {
             assignmentId = Integer.parseInt(matcher.group("assignmentId"));
@@ -28,6 +53,6 @@ public class MarkHomeworkCommandParser implements Parser<MarkHomeworkCommand> {
         }
         String status = matcher.group("status").toLowerCase();
 
-        return new MarkHomeworkCommand(NusnetId, assignmentId, status);
+        return new MarkHomeworkCommand(nusnetId, assignmentId, status);
     }
 }

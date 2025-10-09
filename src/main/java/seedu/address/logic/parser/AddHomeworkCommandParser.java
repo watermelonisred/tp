@@ -1,19 +1,45 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddHomeworkCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.AddHomeworkCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new {@link AddHomeworkCommand} object.
+ * <p>
+ * The expected format of the input is either:
+ * <ul>
+ *     <li>{@code i/<nusnetId> a/<assignmentId>} to add homework to a specific student</li>
+ *     <li>{@code all a/<assignmentId>} to add homework to all students</li>
+ * </ul>
+ * Assignment IDs must be integers between 1 and 3.
+ * </p>
+ *
+ * <p>Example usage:</p>
+ * <pre>{@code
+ * addhw i/E1234567 a/1    // adds assignment 1 to student E1234567
+ * addhw all a/2           // adds assignment 2 to all students
+ * }</pre>
+ */
 public class AddHomeworkCommandParser implements Parser<AddHomeworkCommand> {
 
     private static final Pattern ADDHW_PATTERN = Pattern.compile(
-            "(i/(?<NusnetId>\\S+)|all)\\s+a/(?<assignmentId>\\d+)", Pattern.CASE_INSENSITIVE
+            "(i/(?<nusnetId>\\S+)|all)\\s+a/(?<assignmentId>\\d+)", Pattern.CASE_INSENSITIVE
     );
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddHomeworkCommand
+     * and returns an {@link AddHomeworkCommand} object for execution.
+     *
+     * @param args the input arguments string
+     * @return an {@link AddHomeworkCommand} representing the parsed input
+     * @throws ParseException if the input does not conform to the expected format,
+     *                        or if the assignment ID is invalid
+     */
     @Override
     public AddHomeworkCommand parse(String args) throws ParseException {
         final Matcher matcher = ADDHW_PATTERN.matcher(args.trim());
@@ -23,9 +49,9 @@ public class AddHomeworkCommandParser implements Parser<AddHomeworkCommand> {
                     AddHomeworkCommand.MESSAGE_USAGE));
         }
 
-        String NusnetId = matcher.group("NusnetId");
-        if (NusnetId == null) {
-            NusnetId = "all";
+        String nusnetId = matcher.group("nusnetId");
+        if (nusnetId == null) {
+            nusnetId = "all";
         }
 
         int assignmentId;
@@ -39,6 +65,6 @@ public class AddHomeworkCommandParser implements Parser<AddHomeworkCommand> {
             throw new ParseException("Assignment id must be between 1 and 3.");
         }
 
-        return new AddHomeworkCommand(NusnetId, assignmentId);
+        return new AddHomeworkCommand(nusnetId, assignmentId);
     }
 }

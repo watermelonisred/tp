@@ -6,6 +6,24 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+/**
+ * Adds a homework assignment to a specific student or to all students.
+ * <p>
+ * This command supports two modes:
+ * <ul>
+ *     <li>Adding a homework to a single student identified by their NUSNET ID.</li>
+ *     <li>Adding a homework to all students using the keyword "all".</li>
+ * </ul>
+ * The default status of any newly added homework is "incomplete".
+ * </p>
+ *
+ * <p>Example usage:</p>
+ * <pre>{@code
+ * addhw i/E1234567 a/1    // adds assignment 1 to student E1234567
+ * addhw all a/1           // adds assignment 1 to all students
+ * }</pre>
+ */
+
 public class AddHomeworkCommand extends Command {
 
     public static final String COMMAND_WORD = "addhw";
@@ -19,19 +37,36 @@ public class AddHomeworkCommand extends Command {
     public static final String MESSAGE_SUCCESS_ALL = "Added assignment %d for all students (default incomplete).";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
 
-    private final String NusnetId;  // can be "all" for all students
+    private final String nusnetId; // can be "all" for all students
     private final int assignmentId;
 
-    public AddHomeworkCommand(String NusnetId, int assignmentId) {
-        this.NusnetId = NusnetId;
+    /**
+     * Creates an {@code AddHomeworkCommand} to add a homework to a student or all students.
+     *
+     * @param nusnetId the nusnetId ID of the target student, or "all" to apply to all students
+     * @param assignmentId the ID of the assignment to add
+     */
+    public AddHomeworkCommand(String nusnetId, int assignmentId) {
+        this.nusnetId = nusnetId;
         this.assignmentId = assignmentId;
     }
 
+    /**
+     * Executes the {@code AddHomeworkCommand}.
+     * <p>
+     * If the {@code NusnetId} is "all", the assignment is added to every student in the model.
+     * Otherwise, it is added only to the student with the matching NUSNET ID.
+     * </p>
+     *
+     * @param model the model containing the student data
+     * @return a {@code CommandResult} containing a success message
+     * @throws CommandException if the target student is not found
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (NusnetId.equalsIgnoreCase("all")) {
+        if (nusnetId.equalsIgnoreCase("all")) {
             // add homework for every student
             for (Person p : model.getFilteredPersonList()) {
                 model.setPerson(p, p.withAddedHomework(assignmentId));
@@ -39,7 +74,7 @@ public class AddHomeworkCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, assignmentId));
         } else {
             Person target = model.getFilteredPersonList().stream()
-                    .filter(p -> p.getNusnetid().value.equalsIgnoreCase(NusnetId)) // replace getNetId() with your implementation
+                    .filter(p -> p.getNusnetid().value.equalsIgnoreCase(nusnetId))
                     .findFirst()
                     .orElse(null);
 
