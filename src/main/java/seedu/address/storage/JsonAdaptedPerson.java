@@ -47,7 +47,7 @@ class JsonAdaptedPerson {
         this.nusnetid = nusnetid;
         this.slot = slot;
         this.telegram = telegram;
-        this.homework = homework == null ? homework : new HashMap<>();
+        this.homework = homework == null ? new HashMap<>() : homework;
     }
 
     /**
