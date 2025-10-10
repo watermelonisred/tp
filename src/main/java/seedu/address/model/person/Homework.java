@@ -33,7 +33,7 @@ public class Homework {
         requireNonNull(status);
         // homework id is form 1 to 3 (assume only 3 homeworks)
         if (id < 1 || id > 3) {
-            throw new IllegalArgumentException("Assignment ID must be between 0 and 2.");
+            throw new IllegalArgumentException("Assignment ID must be between 1 and 3.");
         }
         if (!isValidStatus(status)) {
             throw new IllegalArgumentException("Please enter complete/incomplete/late only.");

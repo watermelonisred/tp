@@ -28,7 +28,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AddHomeworkCommandParser implements Parser<AddHomeworkCommand> {
 
     private static final Pattern ADDHW_PATTERN = Pattern.compile(
-            "(i/(?<nusnetId>\\S+)|all)\\s+a/(?<assignmentId>\\d+)", Pattern.CASE_INSENSITIVE
+            "^(?:i/(?<nusnetId>\\S+)\\s+a/(?<assignmentId>\\d+)|all\\s+a/(?<assignmentIdAll>\\d+))$",
+            Pattern.CASE_INSENSITIVE
     );
 
     /**
@@ -50,15 +51,24 @@ public class AddHomeworkCommandParser implements Parser<AddHomeworkCommand> {
         }
 
         String nusnetId = matcher.group("nusnetId");
-        if (nusnetId == null) {
-            nusnetId = "all";
-        }
 
         int assignmentId;
-        try {
-            assignmentId = Integer.parseInt(matcher.group("assignmentId"));
-        } catch (NumberFormatException e) {
-            throw new ParseException("Assignment id must be an integer between 1 and 3.");
+        if (nusnetId != null) {
+            // Case 1: i/<netid> matched
+            // nusnetId is already captured
+            try {
+                assignmentId = Integer.parseInt(matcher.group("assignmentId"));
+            } catch (NumberFormatException e) {
+                throw new ParseException("Assignment id must be an integer between 1 and 3.");
+            }
+        } else {
+            // Case 2: all matched
+            nusnetId = "all";
+            try {
+                assignmentId = Integer.parseInt(matcher.group("assignmentIdAll"));
+            } catch (NumberFormatException e) {
+                throw new ParseException("Assignment id must be an integer between 1 and 3.");
+            }
         }
 
         if (assignmentId < 1 || assignmentId > 3) {

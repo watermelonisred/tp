@@ -24,8 +24,8 @@ import java.util.Objects;
  */
 public class HomeworkTracker {
 
-    /** The maximum number of assignments a person can have (IDs range from 0 to MAX_ASSIGNMENTS - 1). */
-    public static final int MAX_ASSIGNMENTS = 3; // 0..2
+    /** The maximum number of assignments a person can have (IDs range from 1 to MAX_ASSIGNMENTS). */
+    public static final int MAX_ASSIGNMENTS = 3; // 1..3
 
     /** Internal map storing assignment IDs and their corresponding statuses. */
     private final Map<Integer, Homework> statuses;
@@ -53,7 +53,7 @@ public class HomeworkTracker {
     /** Add a new homework with status incomplete by default. */
     public HomeworkTracker addHomework(int assignmentId) {
         if (assignmentId < 0 || assignmentId > MAX_ASSIGNMENTS) {
-            throw new IllegalArgumentException("Assignment ID must be between 0 and 2.");
+            throw new IllegalArgumentException("Assignment ID must be between 1 and 3.");
         }
         if (statuses.containsKey(assignmentId)) {
             return this; // already exists
@@ -69,7 +69,7 @@ public class HomeworkTracker {
      * If the assignment ID or status is invalid, an {@link IllegalArgumentException} is thrown.
      * </p>
      *
-     * @param assignmentId the assignment ID to update (must be between 0 and {@link #MAX_ASSIGNMENTS} - 1)
+     * @param assignmentId the assignment ID to update (must be between 1 and {@link #MAX_ASSIGNMENTS})
      * @param status       the new status to set ("complete", "incomplete", or "late")
      * @return a new {@code HomeworkTracker} with the updated status
      * @throws IllegalArgumentException if the assignment ID or status is invalid
@@ -114,7 +114,7 @@ public class HomeworkTracker {
      * @return {@code true} if valid, {@code false} otherwise
      */
     public static boolean isValidAssignmentId(int id) {
-        return id >= 0 && id < MAX_ASSIGNMENTS;
+        return id > 0 && id <= MAX_ASSIGNMENTS;
     }
 
     /**

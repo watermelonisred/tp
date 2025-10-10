@@ -21,7 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  *
  * <p>Example usage:</p>
  * <pre>{@code
- * mark i/E1234567 a/0 status/complete    // marks assignment 0 for student E1234567 as complete
+ * mark i/E1234567 a/1 status/complete    // marks assignment 0 for student E1234567 as complete
  * }</pre>
  */
 public class MarkHomeworkCommandParser implements Parser<MarkHomeworkCommand> {
@@ -48,6 +48,9 @@ public class MarkHomeworkCommandParser implements Parser<MarkHomeworkCommand> {
         int assignmentId;
         try {
             assignmentId = Integer.parseInt(matcher.group("assignmentId"));
+            if (assignmentId < 1 || assignmentId > 3) {
+                throw new ParseException("Assignment id must be between 1 and 3.");
+            }
         } catch (NumberFormatException e) {
             throw new ParseException("Assignment id must be an integer between 0 and 2.");
         }
