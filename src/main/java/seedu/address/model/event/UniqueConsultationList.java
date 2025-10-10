@@ -126,7 +126,8 @@ public class UniqueConsultationList implements Iterable<Consultation> {
             return false;
         }
 
-        seedu.address.model.event.UniqueConsultationList otherUniqueConsultationList = (seedu.address.model.event.UniqueConsultationList) other;
+        seedu.address.model.event.UniqueConsultationList otherUniqueConsultationList =
+                (seedu.address.model.event.UniqueConsultationList) other;
         return internalList.equals(otherUniqueConsultationList.internalList);
     }
 
