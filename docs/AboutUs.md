@@ -24,7 +24,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Junrong
 
-<img src="images/junronggg.png">
+<img src="images/junronggg.png" width="200px">
 
 [[github](http://github.com/Junronggg)]
 [[portfolio](https://junronggg.github.io/)]
