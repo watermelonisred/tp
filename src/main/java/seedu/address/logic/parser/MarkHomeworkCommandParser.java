@@ -52,10 +52,12 @@ public class MarkHomeworkCommandParser implements Parser<MarkHomeworkCommand> {
                 throw new ParseException("Assignment id must be between 1 and 3.");
             }
         } catch (NumberFormatException e) {
-            throw new ParseException("Assignment id must be an integer between 0 and 2.");
+            throw new ParseException("Assignment id must be an integer between 1 and 3.");
         }
         String status = matcher.group("status").toLowerCase();
-
+        if (!status.equals("complete") && !status.equals("incomplete") && !status.equals("late")) {
+            throw new ParseException("Status must be one of: complete, incomplete, late.");
+        }
         return new MarkHomeworkCommand(nusnetId, assignmentId, status);
     }
 }
