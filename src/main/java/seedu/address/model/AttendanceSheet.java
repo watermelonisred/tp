@@ -35,6 +35,7 @@ public class AttendanceSheet {
         if (!isValidWeek(week)) {
             throw new IllegalArgumentException("Invalid Week");
         }
+        // computeIfAbsent is used to initialize the inner map if it does **not** exist
         this.attendanceMap.computeIfAbsent(week, k -> new HashMap<>()).put(nusnetid, attendanceStatus);
 
     }

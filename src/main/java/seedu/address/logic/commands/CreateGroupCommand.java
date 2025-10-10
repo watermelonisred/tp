@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Creates a group with a given name.
  */
-public class CreatGroupCommand extends Command {
+public class CreateGroupCommand extends Command {
     public static final String COMMAND_WORD = "create_group";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a group with the specified name. "
@@ -20,7 +20,7 @@ public class CreatGroupCommand extends Command {
     /**
      * Creates a CreatGroupCommand to add the specified {@code groupName}
      */
-    public CreatGroupCommand(String groupName) {
+    public CreateGroupCommand(String groupName) {
         requireNonNull(groupName);
         this.groupName = groupName;
     }
