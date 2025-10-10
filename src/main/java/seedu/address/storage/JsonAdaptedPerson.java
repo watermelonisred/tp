@@ -1,16 +1,23 @@
 package seedu.address.storage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Homework;
+import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
+
+
 /**
  * Jackson-friendly version of {@link Person}.
  */
@@ -24,6 +31,7 @@ class JsonAdaptedPerson {
     private final String nusnetid;
     private final String slot;
     private final String telegram;
+    private final Map<Integer, JsonAdaptedHomework> homework;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -31,13 +39,15 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
-            @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram) {
+            @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
+                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.slot = slot;
         this.telegram = telegram;
+        this.homework = homework == null ? new HashMap<>() : homework;
     }
 
     /**
@@ -48,8 +58,12 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         nusnetid = source.getNusnetid().value;
-        slot = source.getSlot().value;
         telegram = source.getTelegram().value;
+        slot = source.getSlot().value;
+        homework = new HashMap<>();
+        source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(id,
+                new JsonAdaptedHomework(hw))
+        );
     }
 
     /**
@@ -110,7 +124,15 @@ class JsonAdaptedPerson {
         }
         final Telegram modelTelegram = new Telegram(telegram);
 
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot);
+        Map<Integer, Homework> homeworkMap = new HashMap<>();
+        for (Map.Entry<Integer, JsonAdaptedHomework> entry : homework.entrySet()) {
+            homeworkMap.put(entry.getKey(), entry.getValue().toModelType());
+        }
+
+        HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
+
+        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot,
+                modelHomeworkTracker);
     }
 
 }

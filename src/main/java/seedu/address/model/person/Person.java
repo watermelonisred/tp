@@ -19,18 +19,22 @@ public class Person {
     private final Nusnetid nusnetid;
     private final Telegram telegram;
     private final Slot slot;
+    private final HomeworkTracker homeworkTracker;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot) {
-        requireAllNonNull(name, phone, email, nusnetid, telegram, slot);
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.telegram = telegram;
         this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
     }
 
     public Name getName() {
@@ -56,6 +60,37 @@ public class Person {
     public Slot getSlot() {
         return slot;
     }
+
+    /**
+     * Returns the {@link HomeworkTracker} associated with this student.
+     *
+     * @return the {@code HomeworkTracker} object containing this student's homework statuses
+     */
+    public HomeworkTracker getHomeworkTracker() {
+        return homeworkTracker;
+    }
+
+    /**
+     * Returns a new {@code Person} instance with a new homework added to the homework tracker.
+     * <p>
+     * The new homework is added with the specified assignment ID. The original {@code Person} object
+     * remains unchanged because {@link HomeworkTracker} follows an immutable design.
+     * </p>
+     *
+     * @param assignmentId the ID of the assignment to add (usually 1–3)
+     * @return a new {@code Person} object with the updated {@link HomeworkTracker}
+     */
+    public Person withAddedHomework(int assignmentId) {
+        HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
+        return new Person(name, phone, email, nusnetid, telegram, slot, updated);
+    }
+
+    /** Returns a new Person with updated homework status for the given assignment. */
+    public Person withUpdatedHomework(int assignmentId, String status) {
+        HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
+    }
+
 
     /**
      * Returns true if both persons have the same name.

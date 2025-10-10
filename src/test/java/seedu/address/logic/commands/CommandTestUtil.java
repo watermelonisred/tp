@@ -77,6 +77,19 @@ public class CommandTestUtil {
                 .withTelegram(VALID_TELEGRAM_BOB).withSlot(VALID_SLOT_BOB).build();
     }
 
+    //for homework testing:
+    public static final String VALID_ID_AMY = VALID_NUSNETID_AMY;
+    public static final String VALID_ID_BOB = VALID_NUSNETID_BOB;
+    public static final int VALID_ASSIGNMENT_1 = 1;
+    public static final int VALID_ASSIGNMENT_2 = 2;
+
+    public static final String ID_DESC_AMY = " i/" + VALID_ID_AMY;
+    public static final String ID_DESC_BOB = " i/" + VALID_ID_BOB;
+    public static final String ASSIGNMENT_DESC_1 = " a/" + VALID_ASSIGNMENT_1;
+    public static final String ASSIGNMENT_DESC_2 = " a/" + VALID_ASSIGNMENT_2;
+
+    public static final String INVALID_ASSIGNMENT_DESC = " a/x"; // non-numeric
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
