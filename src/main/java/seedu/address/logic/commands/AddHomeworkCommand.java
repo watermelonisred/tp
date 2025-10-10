@@ -88,4 +88,22 @@ public class AddHomeworkCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS_ONE, assignmentId, target.getName()));
         }
     }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AddHomeworkCommand)) {
+            return false;
+        }
+        AddHomeworkCommand otherCommand = (AddHomeworkCommand) other;
+        return this.nusnetId.equals(otherCommand.nusnetId)
+                && this.assignmentId == otherCommand.assignmentId;
+    }
+
+    @Override
+    public int hashCode() {
+        return nusnetId.hashCode() * 31 + assignmentId;
+    }
+
 }
