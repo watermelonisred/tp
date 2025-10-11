@@ -94,8 +94,8 @@ public class PersonTest {
                 + ", NUSnetid=" + ALICE.getNusnetid()
                 + ", telegram=" + ALICE.getTelegram()
                 + ", slot=" + ALICE.getSlot()
-                +  ", phone=" + ALICE.getPhone().get()
-                + ", email=" + ALICE.getEmail().get() +"}";
+                + ", phone=" + ALICE.getPhone().get()
+                + ", email=" + ALICE.getEmail().get() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

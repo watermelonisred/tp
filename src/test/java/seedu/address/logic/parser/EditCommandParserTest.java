@@ -116,7 +116,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() +EMAIL_DESC_AMY + SLOT_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY + SLOT_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withEmail(VALID_EMAIL_AMY).withSlot(VALID_SLOT_AMY).build();
