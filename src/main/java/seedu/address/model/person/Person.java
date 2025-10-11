@@ -150,14 +150,18 @@ public class Person {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        ToStringBuilder builder = new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
-                .add("slot", slot)
-                .toString();
+                .add("slot", slot);
+        if (phone.isPresent()) {
+            builder.add("phone", phone.get());
+        }
+        if (email.isPresent()) {
+            builder.add("email", email.get());
+        }
+        return builder.toString();
     }
 
 }

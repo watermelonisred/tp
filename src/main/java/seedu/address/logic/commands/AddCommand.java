@@ -24,18 +24,18 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
             + PREFIX_NUSNETID + "NUSNETID "
             + PREFIX_TELEGRAM + "TELEGRAM HANDLE"
-            + PREFIX_SLOT + "SLOT \n"
+            + PREFIX_SLOT + "SLOT"
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_EMAIL + "EMAIL "+ " \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@u.nus.edu "
             + PREFIX_NUSNETID + "E1234567 "
             + PREFIX_TELEGRAM + "@john "
-            + PREFIX_SLOT + "T01";
+            + PREFIX_SLOT + "T01"
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_EMAIL + "johnd@u.nus.edu ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

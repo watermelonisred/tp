@@ -39,11 +39,11 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_NUSNETID + "NUSNETID] "
             + "[" + PREFIX_TELEGRAM + "TELEGRAM]"
-            + "[" + PREFIX_SLOT + "SLOT]" + "\n"
+            + "[" + PREFIX_SLOT + "SLOT]"
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] " + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@u.nus.edu";
@@ -96,8 +96,8 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone().orElse(null));
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail().orElse(null));
+        Phone updatedPhone = editPersonDescriptor.phone == null ? null : editPersonDescriptor.getPhone().orElse(personToEdit.getPhone().orElse(null));
+        Email updatedEmail = editPersonDescriptor.email == null ? null : editPersonDescriptor.getEmail().orElse(personToEdit.getEmail().orElse(null));
         Nusnetid updatedNusnetid = editPersonDescriptor.getNusnetid().orElse(personToEdit.getNusnetid());
         Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
         Slot updatedSlot = editPersonDescriptor.getSlot().orElse(personToEdit.getSlot());
@@ -161,7 +161,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, nusnetid, telegram, slot);
+            return CollectionUtil.isAnyNonNull(name, nusnetid, telegram, slot) || phone == null || email == null;
         }
 
         public void setName(Name name) {
