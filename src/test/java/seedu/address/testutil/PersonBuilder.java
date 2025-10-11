@@ -79,21 +79,11 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withoutPhone() {
-        this.phone = null;
-        return this;
-    }
-
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
         this.email = email == null ? null : new Email(email);
-        return this;
-    }
-
-    public PersonBuilder withoutEmail() {
-        this.email = null;
         return this;
     }
 

@@ -53,21 +53,11 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptorBuilder withoutPhone() {
-        descriptor.setPhone(null);
-        return this;
-    }
-
     /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(email == null ? null : new Email(email));
-        return this;
-    }
-
-    public EditPersonDescriptorBuilder withoutEmail() {
-        descriptor.setEmail(null);
         return this;
     }
 
