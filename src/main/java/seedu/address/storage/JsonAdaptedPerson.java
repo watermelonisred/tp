@@ -55,8 +55,8 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        phone = source.getPhone().isPresent() ? source.getPhone().get().value : null;
+        email = source.getEmail().isPresent() ? source.getEmail().get().value : null;
         nusnetid = source.getNusnetid().value;
         telegram = source.getTelegram().value;
         slot = source.getSlot().value;
@@ -81,21 +81,21 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        Phone modelPhone = null;
+        if (phone != null) {
+            if (!Phone.isValidSlot(phone)) {
+                throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            }
+            modelPhone = new Phone(phone);
         }
-        if (!Phone.isValidSlot(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        Email modelEmail = null;
+        if (email != null) {
+            if (!Email.isValidEmail(email)) {
+                throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+            }
+            modelEmail = new Email(email);
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
 
         if (nusnetid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -131,8 +131,7 @@ class JsonAdaptedPerson {
 
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
 
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot,
-                modelHomeworkTracker);
+        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker);
     }
 
 }

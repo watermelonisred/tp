@@ -51,9 +51,9 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        phone.setText(person.getPhone().map(p -> p.value).orElse("N/A"));
         nusnetid.setText(person.getNusnetid().value);
-        email.setText(person.getEmail().value);
+        email.setText(person.getEmail().map(e -> e.value).orElse("N/A"));
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
         showHomework();

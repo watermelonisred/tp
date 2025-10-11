@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
+
 
 import seedu.address.commons.util.ToStringBuilder;
 
@@ -14,8 +16,8 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Optional<Phone> phone;
+    private final Optional<Email> email;
     private final Nusnetid nusnetid;
     private final Telegram telegram;
     private final Slot slot;
@@ -23,9 +25,21 @@ public class Person {
 
 
     /**
-     * Every field must be present and not null.
+     * Some field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker) {
+        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        this.name = name;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
+    }
+
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Nusnetid nusnetid, Telegram telegram, Slot slot,
                   HomeworkTracker homeworkTracker) {
         requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
@@ -41,11 +55,11 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
+    public Optional<Phone> getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public Optional<Email> getEmail() {
         return email;
     }
 
@@ -100,7 +114,6 @@ public class Person {
         if (otherPerson == this) {
             return true;
         }
-
         return otherPerson != null
                 && otherPerson.getNusnetid().equals(getNusnetid());
     }
