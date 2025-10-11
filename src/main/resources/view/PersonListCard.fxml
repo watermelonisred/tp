@@ -25,17 +25,17 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <HBox spacing="10" alignment="CENTER_LEFT">
-        <HBox style="-fx-background-color: #e3f2fd; -fx-background-radius: 8; -fx-padding: 4 8;" visible="false" managed="false" fx:id="phoneBox">
-          <Label fx:id="phone" styleClass="cell_small_label" style="-fx-text-fill: black;" />
-        </HBox>
-        <HBox style="-fx-background-color: #ffe0b2; -fx-background-radius: 8; -fx-padding: 4 8;" visible="false" managed="false" fx:id="emailBox">
-          <Label fx:id="email" styleClass="cell_small_label" style="-fx-text-fill: black;" />
-        </HBox>
         <HBox style="-fx-background-color: #f8bbd0; -fx-background-radius: 8; -fx-padding: 4 8;" fx:id="telegramBox">
           <Label fx:id="telegram" styleClass="cell_small_label" style="-fx-text-fill: black;" />
         </HBox>
         <HBox style="-fx-background-color: #d1c4e9; -fx-background-radius: 8; -fx-padding: 4 8;" fx:id="slotBox">
           <Label fx:id="slot" styleClass="cell_small_label" style="-fx-text-fill: black;" />
+        </HBox>
+        <HBox style="-fx-background-color: #e3f2fd; -fx-background-radius: 8; -fx-padding: 4 8;" visible="false" managed="false" fx:id="phoneBox">
+          <Label fx:id="phone" styleClass="cell_small_label" style="-fx-text-fill: black;" />
+        </HBox>
+        <HBox style="-fx-background-color: #ffe0b2; -fx-background-radius: 8; -fx-padding: 4 8;" visible="false" managed="false" fx:id="emailBox">
+          <Label fx:id="email" styleClass="cell_small_label" style="-fx-text-fill: black;" />
         </HBox>
       </HBox>
       <VBox fx:id="homeworkContainer" spacing="2">
