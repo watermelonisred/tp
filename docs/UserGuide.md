@@ -77,16 +77,18 @@ Format: `help`
 
 Adds a person to the NUSNETID book.
 
-Format: `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID t/TELEGRAM s/SLOT`
+Format: `add_student n/NAME [p/PHONE_NUMBER] [e/EMAIL] i/NUSNETID t/TELEGRAM s/SLOT`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+**Tip:** Phone and email are optional. You can omit either or both when adding a person.
+A person can have any number of tags (including 0).
 </box>
 
 Examples:
+* `add_student n/John Doe i/E1234567 t/@handle s/T01` (no phone or email)
 * `add_student n/John Doe p/98765432 e/johnd@u.nus.edu i/E1234567 t/@handle s/T01`
-* `add_student n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu i/E1234562 p/1234567 t/@betsy s/T02`
+* `add_student n/Betsy Crowe e/betsycrowe@u.nus.edu i/E1234562 p/1234567 t/@betsy s/T02`
 
 ### Listing all persons : `list`
 
@@ -103,13 +105,13 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/NUSNETID]  [t/TELEGRAM] [s/S
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* Phone and email are optional. You can remove them by omitting these fields in your edit command.
+
 
 Examples:
 *  `edit_student 1 p/91234567 e/johndoe@u.nus.edu` Edits the phone number and email ADDRESS of the 1st person to be `91234567` and `johndoe@u.nus.edu` respectively.
-*  `edit_student 2 n/Betsy Crower ` Edits the name of the 2nd person to be `Betsy Crower`.
+*  `edit_student 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
+*  `edit_student 3` Removes phone and email from the 3rd person (if present).
 
 ### Locating persons by name: `find`
 
@@ -194,7 +196,7 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add_student n/NAME p/PHONE_NUMBER e/EMAIL i/NUSNETID t/TELEGRAM s/SLOT ` <br> e.g., `add n/James Ho p/22224444 e/jamesho@u.nus.edu i/E1234567 tg/@jame s/T02 t/friend t/colleague`
+**Add**    | `add_student n/NAME [p/PHONE_NUMBER] [e/EMAIL] i/NUSNETID t/TELEGRAM s/SLOT ` <br> e.g., `add n/James Ho [p/22224444] [e/jamesho@u.nus.edu] i/E1234567 tg/@jame s/T02 t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit_student INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/NUSNETID] [t/TELEGRAm] [s/SLOT]`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
