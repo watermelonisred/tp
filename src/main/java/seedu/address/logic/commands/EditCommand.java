@@ -96,8 +96,10 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.phone == null ? null : editPersonDescriptor.getPhone().orElse(personToEdit.getPhone().orElse(null));
-        Email updatedEmail = editPersonDescriptor.email == null ? null : editPersonDescriptor.getEmail().orElse(personToEdit.getEmail().orElse(null));
+        Phone updatedPhone = editPersonDescriptor.phone == null
+                ? null : editPersonDescriptor.getPhone().orElse(personToEdit.getPhone().orElse(null));
+        Email updatedEmail = editPersonDescriptor.email == null
+                ? null : editPersonDescriptor.getEmail().orElse(personToEdit.getEmail().orElse(null));
         Nusnetid updatedNusnetid = editPersonDescriptor.getNusnetid().orElse(personToEdit.getNusnetid());
         Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
         Slot updatedSlot = editPersonDescriptor.getSlot().orElse(personToEdit.getSlot());

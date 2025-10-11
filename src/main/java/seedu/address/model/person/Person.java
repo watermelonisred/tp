@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 import java.util.Optional;
 
-
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -38,9 +37,12 @@ public class Person {
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
     }
-
-    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Nusnetid nusnetid, Telegram telegram, Slot slot,
-                  HomeworkTracker homeworkTracker) {
+    /**
+     * Some field must be present and not null.
+     * Different from the other constructor as this one takes in Optional phone and email.
+     */
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email,
+                  Nusnetid nusnetid, Telegram telegram, Slot slot, HomeworkTracker homeworkTracker) {
         requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = phone;

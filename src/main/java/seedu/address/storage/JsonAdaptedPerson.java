@@ -131,7 +131,8 @@ class JsonAdaptedPerson {
 
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
 
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker);
+        return new Person(modelName, modelPhone, modelEmail,
+                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker);
     }
 
 }

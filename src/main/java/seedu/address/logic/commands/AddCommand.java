@@ -28,7 +28,7 @@ public class AddCommand extends Command {
             + PREFIX_TELEGRAM + "TELEGRAM HANDLE"
             + PREFIX_SLOT + "SLOT"
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "+ " \n"
+            + PREFIX_EMAIL + "EMAIL " + " \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NUSNETID + "E1234567 "
