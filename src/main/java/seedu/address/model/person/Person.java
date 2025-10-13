@@ -20,6 +20,7 @@ public class Person {
     private final Telegram telegram;
     private final Slot slot;
     private final HomeworkTracker homeworkTracker;
+    private final AttendanceSheet attendanceSheet;
 
 
     /**
@@ -35,6 +36,7 @@ public class Person {
         this.telegram = telegram;
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = new AttendanceSheet();
     }
 
     public Name getName() {
@@ -59,6 +61,9 @@ public class Person {
 
     public Slot getSlot() {
         return slot;
+    }
+    public AttendanceSheet getAttendanceSheet() {
+        return attendanceSheet;
     }
 
     /**
@@ -90,8 +95,6 @@ public class Person {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
         return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
     }
-
-
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
