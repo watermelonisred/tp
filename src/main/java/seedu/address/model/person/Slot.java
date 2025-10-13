@@ -11,8 +11,8 @@ public class Slot {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Slot numbers should only be T and numbers, and it should be at least 1 digits long";
-    public static final String VALIDATION_REGEX = "T\\d{1,}";
+            "Slot numbers should start with T or B (case-insensitive) and be followed by at least 1 digit.";
+    public static final String VALIDATION_REGEX = "[TtBb]\\d{1,}";
 
     public final String value;
 
@@ -24,7 +24,8 @@ public class Slot {
     public Slot(String slot) {
         requireNonNull(slot);
         checkArgument(isValidSlot(slot), MESSAGE_CONSTRAINTS);
-        value = slot;
+        char prefix = Character.toUpperCase(slot.charAt(0));
+        value = prefix + slot.substring(1);
     }
 
     /**

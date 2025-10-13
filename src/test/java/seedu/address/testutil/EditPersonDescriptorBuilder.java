@@ -30,8 +30,8 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
+        descriptor.setPhone(person.getPhone().orElse(null));
+        descriptor.setEmail(person.getEmail().orElse(null));
         descriptor.setNusnetid(person.getNusnetid());
         descriptor.setTelegram(person.getTelegram());
         descriptor.setSlot(person.getSlot());
@@ -49,7 +49,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+        descriptor.setPhone(phone == null ? null : new Phone(phone));
         return this;
     }
 
@@ -57,7 +57,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+        descriptor.setEmail(email == null ? null : new Email(email));
         return this;
     }
 
