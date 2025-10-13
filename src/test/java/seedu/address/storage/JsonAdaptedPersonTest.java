@@ -28,8 +28,8 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_TELEGRAM = "5dfr";
 
     private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
+    private static final String VALID_PHONE = BENSON.getPhone().get().toString();
+    private static final String VALID_EMAIL = BENSON.getEmail().get().toString();
     private static final String VALID_NUSNETID = BENSON.getNusnetid().toString();
     private static final String VALID_SLOT = BENSON.getSlot().toString();
     private static final String VALID_TELEGRAM = BENSON.getTelegram().toString();
@@ -92,13 +92,6 @@ public class JsonAdaptedPersonTest {
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
-    @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_NUSNETID,
-                VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER));
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
@@ -106,14 +99,6 @@ public class JsonAdaptedPersonTest {
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_NUSNETID,
                         VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER));
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_NUSNETID,
-                VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER));
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

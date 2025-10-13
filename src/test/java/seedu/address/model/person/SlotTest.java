@@ -32,6 +32,9 @@ public class SlotTest {
         // valid phone numbers
         assertTrue(Slot.isValidSlot("T1")); // exactly 1 numbers
         assertTrue(Slot.isValidSlot("T124293842033123")); // long phone numbers
+        assertTrue(Slot.isValidSlot("t1233123")); // start with lowercase t
+        assertTrue(Slot.isValidSlot("B1233123")); // start with B
+        assertTrue(Slot.isValidSlot("b1233123")); // start with lowercase b
     }
 
     @Test

@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
 
@@ -14,8 +15,8 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Optional<Phone> phone;
+    private final Optional<Email> email;
     private final Nusnetid nusnetid;
     private final Telegram telegram;
     private final Slot slot;
@@ -24,10 +25,25 @@ public class Person {
 
 
     /**
-     * Every field must be present and not null.
+     * Some field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
                   HomeworkTracker homeworkTracker) {
+        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        this.name = name;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
+    }
+    /**
+     * Some field must be present and not null.
+     * Different from the other constructor as this one takes in Optional phone and email.
+     */
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email,
+                  Nusnetid nusnetid, Telegram telegram, Slot slot, HomeworkTracker homeworkTracker) {
         requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = phone;
@@ -39,15 +55,16 @@ public class Person {
         this.attendanceSheet = new AttendanceSheet();
     }
 
+
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
+    public Optional<Phone> getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public Optional<Email> getEmail() {
         return email;
     }
 
@@ -96,16 +113,15 @@ public class Person {
         return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
     }
     /**
-     * Returns true if both persons have the same name.
+     * Returns true if both persons have the same nusnetid.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
-
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getNusnetid().equals(getNusnetid());
     }
 
     /**
@@ -140,14 +156,18 @@ public class Person {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        ToStringBuilder builder = new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
-                .add("slot", slot)
-                .toString();
+                .add("slot", slot);
+        if (phone.isPresent()) {
+            builder.add("phone", phone.get());
+        }
+        if (email.isPresent()) {
+            builder.add("email", email.get());
+        }
+        return builder.toString();
     }
 
 }
