@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 
+import seedu.address.model.Group;
 import seedu.address.model.Model;
+import seedu.address.model.person.Slot;
 
 /**
  * Creates a group with a given name.
@@ -15,7 +17,7 @@ public class CreateGroupCommand extends Command {
             + "Parameters: "
             + COMMAND_WORD + "GROUP_NAME\""
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_GROUP + "Erc Buddies";
+            + PREFIX_GROUP + "CS2103/T Buddies";
     private final String groupName;
     /**
      * Creates a CreatGroupCommand to add the specified {@code groupName}
@@ -26,6 +28,10 @@ public class CreateGroupCommand extends Command {
     }
     @Override
     public CommandResult execute(Model model) {
+        requireNonNull(model);
+        // Create a new group with the given name (using Slot as identifier)
+        Group newGroup = new Group(new Slot(groupName));
+        model.addGroup(newGroup);
         return new CommandResult(String.format("New group %s created", groupName));
     }
 }
