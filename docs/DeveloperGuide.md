@@ -375,37 +375,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 4. AddressBook shows confirmation message with updated student details.
 
-**Use case: Mark assignment completion**
-
-**MSS**
-
-1. User requests to mark an assignment status for a student using their NUSNET ID.
-2. Homework Tracker locates the student record.
-3. Homework Tracker verifies the assignment ID.
-4. Homework Tracker updates the assignment status (complete / incomplete / late).
-5. Homework Tracker shows a confirmation message.
-
     Use case ends.
-
-**Extensions**
-
-* 2a. Student email does not exist.
-
-    * 2a1. AddressBook shows error: Student not found.
-
-         Use case ends.
-
-* 2b. Edited email duplicates another existing student’s email.
-
-    * 2b1. AddressBook shows error: Email already in use.
-
-         Use case ends.
-
-* 2c. Any updated field is invalid.
-
-    * 2c1. AddressBook shows corresponding validation error.
-
-         Use case ends.
 
 **Use case: Delete a student**
 
@@ -448,6 +418,62 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. AddressBook shows an error message.
 
        Use case resumes at step 2.
+
+**Use Case: Create Assignment**
+
+**MSS**
+
+1. User enters a command to create a new assignment numbered 1 to 3 for a student using their NUSNET ID.
+2. Homework Tracker locates the student record.
+3. Homework Tracker validates the assignment ID.
+4. Homework Tracker creates the new assignment with an initial status of `incomplete`.
+5. Homework Tracker displays a success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. Student with the given NUSNET ID does not exist
+    * 2a1. Homework Tracker displays an error: `Student not found`.
+        Use case ends. 
+* 3a. Assignment ID already exists for this student
+  * 3a1. Homework Tracker displays an error: `Assignment ID already exists`.
+        Use case ends.
+* 3b. Assignment ID is invalid (not between 1–3)
+  * 3b1. Homework Tracker displays an error: `Assignment ID must be between 1 and 3`.
+        Use case ends.
+
+
+**Use case: Mark assignment completion**
+
+**MSS**
+
+1. User requests to mark an assignment status for a student using their NUSNET ID.
+2. Homework Tracker locates the student record.
+3. Homework Tracker verifies the assignment ID.
+4. Homework Tracker updates the assignment status (complete / incomplete / late).
+5. Homework Tracker shows a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Student email does not exist.
+
+    * 2a1. AddressBook shows error: Student not found.
+
+      Use case ends.
+
+* 2b. Edited email duplicates another existing student’s email.
+
+    * 2b1. AddressBook shows error: Email already in use.
+
+      Use case ends.
+
+* 2c. Any updated field is invalid.
+
+    * 2c1. AddressBook shows corresponding validation error.
+
+      Use case ends.
 
 **Use case: Add a consultation**
 
