@@ -8,30 +8,37 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Slot;
 
 /**
- * Creates a group with a given name.
+ * Creates a group with a given slot (used as group identifier).
  */
 public class CreateGroupCommand extends Command {
     public static final String COMMAND_WORD = "create_group";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a group with the specified name. "
-            + "Parameters: "
-            + COMMAND_WORD + "GROUP_NAME\""
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_GROUP + "CS2103/T Buddies";
-    private final String groupName;
+            + ": Creates a new group identified by the given slot. "
+            + "Parameters: " + PREFIX_GROUP + "SLOT "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_GROUP + "T12";
+
+    private final Slot groupSlot;
+
     /**
-     * Creates a CreatGroupCommand to add the specified {@code groupName}
+     * Creates a CreateGroupCommand to add the specified {@code groupSlot}
      */
-    public CreateGroupCommand(String groupName) {
-        requireNonNull(groupName);
-        this.groupName = groupName;
+    public CreateGroupCommand(Slot groupSlot) {
+        requireNonNull(groupSlot);
+        this.groupSlot = groupSlot;
     }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // Create a new group with the given name (using Slot as identifier)
-        Group newGroup = new Group(new Slot(groupName));
+        // Check for duplicate group slot
+        boolean duplicate = model.getGroupList().stream()
+            .anyMatch(g -> g.getSlot().equals(groupSlot));
+        if (duplicate) {
+            return new CommandResult(String.format("Group %s already exists!", groupSlot));
+        }
+        // Create a new group with the given slot
+        Group newGroup = new Group(groupSlot);
         model.addGroup(newGroup);
-        return new CommandResult(String.format("New group %s created", groupName));
+        return new CommandResult(String.format("New group %s created", groupSlot));
     }
 }

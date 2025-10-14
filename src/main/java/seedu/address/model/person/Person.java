@@ -130,27 +130,22 @@ public class Person {
         if (other == this) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
-
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && nusnetid.equals(otherPerson.nusnetid)
                 && telegram.equals(otherPerson.telegram)
-                && slot.equals(otherPerson.slot);
+                && slot.equals(otherPerson.slot)
+                && homeworkTracker.equals(otherPerson.homeworkTracker);
     }
-
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, nusnetid, telegram, slot);
+        return Objects.hash(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
     }
-
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this)

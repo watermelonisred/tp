@@ -16,6 +16,7 @@ import seedu.address.model.person.UniquePersonList;
 public class Group {
     private final Slot slot;
     private UniquePersonList students = new UniquePersonList();
+
     /**
      * Constructs a {@code Tutorial} with an empty AttendanceSheet.
      *
@@ -25,6 +26,12 @@ public class Group {
         requireNonNull(slot);
         this.slot = slot;
     }
+
+    /** Returns the Slot used to identify this group. */
+    public Slot getSlot() {
+        return slot;
+    }
+
     /**
      * Returns the list of students in this tutorial.
      */
@@ -60,10 +67,8 @@ public class Group {
      */
     public boolean hasStudent(Nusnetid nusnetid) {
         requireNonNull(nusnetid);
-        Iterator<Person> iterator = students.iterator();
-        while (iterator.hasNext()) {
-            Person person = iterator.next();
-            if (person.getNusnetid().equals(nusnetid)) {
+        for (Person p : students) {
+            if (p.getNusnetid().equals(nusnetid)) {
                 return true;
             }
         }
