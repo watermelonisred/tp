@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -41,7 +42,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label slot;
     @FXML
-    private VBox homeworkContainer;
+    private FlowPane homeworkContainer;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -64,34 +65,33 @@ public class PersonCard extends UiPart<Region> {
             return;
         }
 
-        // If no homework exists yet
         if (person.getHomeworkTracker().asMap().isEmpty()) {
-            Label placeholder = new Label("No homework yet");
-            placeholder.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-padding: 5 10 5 10; "
-                    + "-fx-background-radius: 5;");
+            Label placeholder = new Label("No homework");
+            placeholder.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; "
+                    + "-fx-padding: 3 6; -fx-background-radius: 6; -fx-font-size: 11px;");
             homeworkContainer.getChildren().add(placeholder);
             return;
         }
 
         person.getHomeworkTracker().asMap().forEach((id, hw) -> {
-            Label hwLabel = new Label("HW " + hw.getId() + ": Incomplete");
-            hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;");
+            Label hwLabel = new Label("HW" + hw.getId());
+            hwLabel.setStyle("-fx-padding: 3 8; -fx-background-radius: 6; -fx-font-size: 11px;");
 
             switch (hw.getStatus().toLowerCase()) {
             case "complete":
-                hwLabel = new Label("HW " + hw.getId() + ": Complete");
-                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;"
-                        + "-fx-background-color: green;");
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #b2fab4; -fx-text-fill: #2e7d32;"); // 🟢 soft green
                 break;
             case "late":
-                hwLabel = new Label("HW " + hw.getId() + ": Late");
-                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;"
-                        + "-fx-background-color: yellow; -fx-text-fill: grey;");
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #fff59d; -fx-text-fill: #996c00;"); // 🟡 soft yellow
                 break;
             default: // incomplete
-                hwLabel.setStyle(hwLabel.getStyle() + "-fx-background-color: red;");
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #ffcccb; -fx-text-fill: #b71c1c;"); // 🔴 light red
                 break;
             }
+
             homeworkContainer.getChildren().add(hwLabel);
         });
     }
