@@ -34,11 +34,19 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label nusnetid;
+    private HBox phoneBox;
     @FXML
     private Label email;
     @FXML
+    private HBox emailBox;
+    @FXML
     private Label telegram;
+    @FXML
+    private HBox telegramBox;
+    @FXML
+    private Label nusnetid;
+    @FXML
+    private HBox nusnetidBox;
     @FXML
     private Label slot;
     @FXML
@@ -52,9 +60,23 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        if (person.getPhone().isPresent()) {
+            phone.setText(person.getPhone().get().value);
+            phoneBox.setVisible(true);
+            phoneBox.setManaged(true);
+        } else {
+            phoneBox.setVisible(false);
+            phoneBox.setManaged(false);
+        }
+        if (person.getEmail().isPresent()) {
+            email.setText(person.getEmail().get().value);
+            emailBox.setVisible(true);
+            emailBox.setManaged(true);
+        } else {
+            emailBox.setVisible(false);
+            emailBox.setManaged(false);
+        }
         nusnetid.setText(person.getNusnetid().value);
-        email.setText(person.getEmail().value);
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
         showHomework();

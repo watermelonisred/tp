@@ -18,23 +18,28 @@
       <padding>
         <Insets top="5" right="5" bottom="5" left="15" />
       </padding>
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+      <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label fx:id="id" styleClass="cell_big_label" />
+        <Label fx:id="name" styleClass="cell_big_label" />
+        <Label fx:id="nusnetid" styleClass="cell_big_label"  />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="nusnetid" styleClass="cell_small_label" text="\$nusnetid" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="telegram" styleClass="cell_small_label" text="\$telegram" />
-      <Label fx:id="slot" styleClass="cell_small_label" text="\$slot" />
-        <FlowPane fx:id="homeworkContainer" hgap="6" vgap="6" style="-fx-padding: 4 0 0 0;">
-        </FlowPane>
+      <HBox spacing="10" alignment="CENTER_LEFT">
+        <HBox style="-fx-background-color: #f8bbd0; -fx-background-radius: 8; -fx-padding: 4 8;" fx:id="telegramBox">
+          <Label fx:id="telegram" styleClass="cell_small_label" style="-fx-text-fill: black;" />
+        </HBox>
+        <HBox style="-fx-background-color: #d1c4e9; -fx-background-radius: 8; -fx-padding: 4 8;" fx:id="slotBox">
+          <Label fx:id="slot" styleClass="cell_small_label" style="-fx-text-fill: black;" />
+        </HBox>
+        <HBox style="-fx-background-color: #e3f2fd; -fx-background-radius: 8; -fx-padding: 4 8;" visible="false" managed="false" fx:id="phoneBox">
+          <Label fx:id="phone" styleClass="cell_small_label" style="-fx-text-fill: black;" />
+        </HBox>
+        <HBox style="-fx-background-color: #ffe0b2; -fx-background-radius: 8; -fx-padding: 4 8;" visible="false" managed="false" fx:id="emailBox">
+          <Label fx:id="email" styleClass="cell_small_label" style="-fx-text-fill: black;" />
+        </HBox>
+      </HBox>
+      <VBox fx:id="homeworkContainer" spacing="2">
+      </VBox>
     </VBox>
   </GridPane>
 </HBox>

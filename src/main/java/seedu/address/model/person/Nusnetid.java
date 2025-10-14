@@ -15,7 +15,7 @@ public class Nusnetid {
     /*
      * The first character of the NUSnetid must be a E and follow by 7 numbers.
      */
-    private static final String VALIDATION_REGEX = "E\\d{7}";
+    private static final String VALIDATION_REGEX = "[Ee]\\d{7}";
 
     public final String value;
 
@@ -27,7 +27,7 @@ public class Nusnetid {
     public Nusnetid(String nusnetid) {
         requireNonNull(nusnetid);
         checkArgument(isValidNusnetid(nusnetid), MESSAGE_CONSTRAINTS);
-        value = nusnetid;
+        value = "E" + nusnetid.substring(1);
     }
 
     /**
