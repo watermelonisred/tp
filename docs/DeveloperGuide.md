@@ -535,11 +535,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2a1. AddressBook shows message: No consultations found.
 
+
          Use case ends.
 
 * 2b. No consultations exist for the specified date.
 
     * 2b1. AddressBook shows message: No consultations found for <date>.
+
 
          Use case ends.
 
