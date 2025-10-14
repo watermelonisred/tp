@@ -101,19 +101,33 @@ public class PersonCard extends UiPart<Region> {
             switch (hw.getStatus().toLowerCase()) {
             case "complete":
                 hwLabel.setStyle(hwLabel.getStyle()
-                        + "-fx-background-color: #b2fab4; -fx-text-fill: #2e7d32;"); // 🟢 soft green
+                        + "-fx-background-color: #b2fab4; -fx-text-fill: #2e7d32;");
                 break;
             case "late":
                 hwLabel.setStyle(hwLabel.getStyle()
-                        + "-fx-background-color: #fff59d; -fx-text-fill: #996c00;"); // 🟡 soft yellow
+                        + "-fx-background-color: #fff59d; -fx-text-fill: #996c00;");
                 break;
             default: // incomplete
                 hwLabel.setStyle(hwLabel.getStyle()
-                        + "-fx-background-color: #ffcccb; -fx-text-fill: #b71c1c;"); // 🔴 light red
+                        + "-fx-background-color: #ffcccb; -fx-text-fill: #b71c1c;");
                 break;
             }
 
             homeworkContainer.getChildren().add(hwLabel);
         });
     }
+
+    // Only for testing
+    public FlowPane getHomeworkContainer() {
+        return homeworkContainer;
+    }
+
+    public Label getNameLabel() {
+        return name;
+    }
+
+    public Label getIdLabel() {
+        return id;
+    }
+
 }
