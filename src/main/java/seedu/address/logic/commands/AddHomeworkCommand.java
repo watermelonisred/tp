@@ -67,6 +67,14 @@ public class AddHomeworkCommand extends Command {
         requireNonNull(model);
 
         if (nusnetId.equalsIgnoreCase("all")) {
+            // Check duplicates BEFORE modifying any student
+            for (Person p : model.getFilteredPersonList()) {
+                if (p.getHomeworkTracker().contains(assignmentId)) {
+                    throw new CommandException(
+                            String.format("Assignment %d already exists for %s.", assignmentId, p.getName())
+                    );
+                }
+            }
             // add homework for every student
             for (Person p : model.getFilteredPersonList()) {
                 model.setPerson(p, p.withAddedHomework(assignmentId));
@@ -80,6 +88,12 @@ public class AddHomeworkCommand extends Command {
 
             if (target == null) {
                 throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
+            }
+
+            if (target.getHomeworkTracker().contains(assignmentId)) {
+                throw new CommandException(
+                        String.format("Assignment %d already exists for %s.", assignmentId, target.getName())
+                );
             }
 
             Person updated = target.withAddedHomework(assignmentId);
