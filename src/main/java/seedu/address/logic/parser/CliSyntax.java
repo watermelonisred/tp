@@ -11,6 +11,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_NUSNETID = new Prefix("i/");
     public static final Prefix PREFIX_TELEGRAM = new Prefix("t/");
+    // Deprecated: SLOT, use GROUP instead
     public static final Prefix PREFIX_SLOT = new Prefix("s/");
     public static final Prefix PREFIX_GROUP = new Prefix("g/");
 }

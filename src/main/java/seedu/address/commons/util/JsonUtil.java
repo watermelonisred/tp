@@ -140,5 +140,4 @@ public class JsonUtil {
             return Level.class;
         }
     }
-
 }

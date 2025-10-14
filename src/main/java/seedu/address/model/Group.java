@@ -4,33 +4,31 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Slot;
 import seedu.address.model.person.UniquePersonList;
 
 /**
- * Represents a Tutorial session which contains a Slot and an AttendanceSheet.
+ * Represents a Tutorial session which contains an AttendanceSheet.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Group {
-    private final Slot slot;
-    private UniquePersonList students = new UniquePersonList();
+    private final GroupId groupId;
+    private final UniquePersonList students = new UniquePersonList();
 
     /**
      * Constructs a {@code Tutorial} with an empty AttendanceSheet.
      *
-     * @param slot A valid slot number.
+     * @param groupId A valid slot number.
      */
-    public Group(Slot slot) {
-        requireNonNull(slot);
-        this.slot = slot;
+    public Group(GroupId groupId) {
+        requireNonNull(groupId);
+        this.groupId = groupId;
     }
 
-    /** Returns the Slot used to identify this group. */
-    public Slot getSlot() {
-        return slot;
-    }
+    /** Returns the GroupId used to identify this group. */
+    public GroupId getGroupId() { return groupId; }
 
     /**
      * Returns the list of students in this tutorial.

@@ -5,40 +5,40 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 
 import seedu.address.model.Group;
 import seedu.address.model.Model;
-import seedu.address.model.person.Slot;
+import seedu.address.model.person.GroupId;
 
 /**
- * Creates a group with a given slot (used as group identifier).
+ * Creates a group with a given groupId (used as group identifier).
  */
 public class CreateGroupCommand extends Command {
     public static final String COMMAND_WORD = "create_group";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a new group identified by the given slot. "
-            + "Parameters: " + PREFIX_GROUP + "SLOT "
+            + ": Creates a new group identified by the given group id. "
+            + "Parameters: " + PREFIX_GROUP + "GROUPID "
             + "Example: " + COMMAND_WORD + " " + PREFIX_GROUP + "T12";
 
-    private final Slot groupSlot;
+    private final GroupId groupId;
 
     /**
-     * Creates a CreateGroupCommand to add the specified {@code groupSlot}
+     * Creates a CreateGroupCommand to add the specified {@code groupId}
      */
-    public CreateGroupCommand(Slot groupSlot) {
-        requireNonNull(groupSlot);
-        this.groupSlot = groupSlot;
+    public CreateGroupCommand(GroupId groupId) {
+        requireNonNull(groupId);
+        this.groupId = groupId;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // Check for duplicate group slot
+        // Check for duplicate group id
         boolean duplicate = model.getGroupList().stream()
-            .anyMatch(g -> g.getSlot().equals(groupSlot));
+            .anyMatch(g -> g.getGroupId().equals(groupId));
         if (duplicate) {
-            return new CommandResult(String.format("Group %s already exists!", groupSlot));
+            return new CommandResult(String.format("Group %s already exists!", groupId));
         }
-        // Create a new group with the given slot
-        Group newGroup = new Group(groupSlot);
+        // Create a new group with the given id
+        Group newGroup = new Group(groupId);
         model.addGroup(newGroup);
-        return new CommandResult(String.format("New group %s created", groupSlot));
+        return new CommandResult(String.format("New group %s created", groupId));
     }
 }

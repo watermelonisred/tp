@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 
 import seedu.address.logic.commands.CreateGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Slot;
+import seedu.address.model.person.GroupId;
 
 /**
  * Parses input arguments and creates a new CreateGroupCommand object
@@ -24,9 +24,9 @@ public class CreateGroupCommandParser implements Parser<CreateGroupCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CreateGroupCommand.MESSAGE_USAGE));
         }
-        String slotString = argMultimap.getValue(PREFIX_GROUP).get().trim();
-        Slot slot = ParserUtil.parseSlot(slotString);
-        return new CreateGroupCommand(slot);
+        String value = argMultimap.getValue(PREFIX_GROUP).get().trim();
+        GroupId id = ParserUtil.parseGroupId(value);
+        return new CreateGroupCommand(id);
     }
 
     private static boolean argPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

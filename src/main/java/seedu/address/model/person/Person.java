@@ -19,22 +19,24 @@ public class Person {
     private final Optional<Email> email;
     private final Nusnetid nusnetid;
     private final Telegram telegram;
-    private final Slot slot;
+    private final GroupId groupId;
     private final HomeworkTracker homeworkTracker;
 
 
     /**
      * Some field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, GroupId groupId,
                   HomeworkTracker homeworkTracker) {
-        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        // phone and email can be null
+        // other fields must be non-null
+        requireAllNonNull(name, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
         this.email = Optional.ofNullable(email);
         this.nusnetid = nusnetid;
         this.telegram = telegram;
-        this.slot = slot;
+        this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
     }
     /**
@@ -42,14 +44,14 @@ public class Person {
      * Different from the other constructor as this one takes in Optional phone and email.
      */
     public Person(Name name, Optional<Phone> phone, Optional<Email> email,
-                  Nusnetid nusnetid, Telegram telegram, Slot slot, HomeworkTracker homeworkTracker) {
-        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
+                  Nusnetid nusnetid, Telegram telegram, GroupId groupId, HomeworkTracker homeworkTracker) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.telegram = telegram;
-        this.slot = slot;
+        this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
     }
 
@@ -74,8 +76,8 @@ public class Person {
         return telegram;
     }
 
-    public Slot getSlot() {
-        return slot;
+    public GroupId getGroupId() {
+        return groupId;
     }
 
     /**
@@ -99,13 +101,13 @@ public class Person {
      */
     public Person withAddedHomework(int assignmentId) {
         HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, slot, updated);
+        return new Person(name, phone, email, nusnetid, telegram, groupId, updated);
     }
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId, updated);
     }
 
 
@@ -139,12 +141,12 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && nusnetid.equals(otherPerson.nusnetid)
                 && telegram.equals(otherPerson.telegram)
-                && slot.equals(otherPerson.slot)
+                && groupId.equals(otherPerson.groupId)
                 && homeworkTracker.equals(otherPerson.homeworkTracker);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
+        return Objects.hash(name, phone, email, nusnetid, telegram, groupId, homeworkTracker);
     }
     @Override
     public String toString() {
@@ -152,7 +154,7 @@ public class Person {
                 .add("name", name)
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
-                .add("slot", slot);
+                .add("groupId", groupId);
         if (phone.isPresent()) {
             builder.add("phone", phone.get());
         }

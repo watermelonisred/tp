@@ -47,9 +47,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox nusnetidBox;
     @FXML
-    private Label slot;
+    private Label groupId;
     @FXML
-    private HBox slotBox;
+    private HBox groupIdBox;
     @FXML
     private VBox homeworkContainer;
 
@@ -79,7 +79,7 @@ public class PersonCard extends UiPart<Region> {
         }
         nusnetid.setText(person.getNusnetid().value);
         telegram.setText(person.getTelegram().value);
-        slot.setText(person.getSlot().value);
+        groupId.setText(person.getGroupId().value);
         showHomework();
     }
 
