@@ -23,6 +23,12 @@ checkstyle {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    systemProperty "java.awt.headless", "true"
+    jvmArgs += [
+            "--add-opens=javafx.graphics/javafx.stage=ALL-UNNAMED",
+            "--add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED",
+            "-Djavafx.platform=monocle"
+    ]
 }
 
 task coverage(type: JacocoReport) {
