@@ -412,7 +412,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2c1. AddressBook shows corresponding validation error.
 
       Use case ends.
-      
 
 **Use Case: Create Assignment**
 
@@ -477,10 +476,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
   
       Use case ends.
-
-  * 3a1. AddressBook shows an error message.
-
-       Use case resumes at step 2.
 
 **Use case: Add a consultation**
 
