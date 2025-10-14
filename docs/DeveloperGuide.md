@@ -395,29 +395,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. Student email does not exist.
 
-    Use case ends.
+    * 2a1. AddressBook shows error: Student not found.
 
-* 2a. The student with the given NUSNET ID does not exist.
-    * 2a1. Homework Tracker shows error message: `Student not found`.
-  
       Use case ends.
 
-* 3a. The given assignment ID is invalid (not between 0–2).
-    * 3a1. Homework Tracker shows error message: `Assignment not found`.
-  
+* 2b. Edited email duplicates another existing student’s email.
+
+    * 2b1. AddressBook shows error: Email already in use.
+
       Use case ends.
 
+* 2c. Any updated field is invalid.
 
-* 4a. The given status is invalid (not one of complete / incomplete / late).
-    * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
-  
+    * 2c1. AddressBook shows corresponding validation error.
+
       Use case ends.
-
-  * 3a1. AddressBook shows an error message.
-
-       Use case resumes at step 2.
+      
 
 **Use Case: Create Assignment**
 
@@ -433,11 +428,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. Student with the given NUSNET ID does not exist
+  
     * 2a1. Homework Tracker displays an error: `Student not found`.
-        Use case ends. 
+        Use case ends.
+      
 * 3a. Assignment ID already exists for this student
+  
   * 3a1. Homework Tracker displays an error: `Assignment ID already exists`.
         Use case ends.
+    
 * 3b. Assignment ID is invalid (not between 1–3)
   * 3b1. Homework Tracker displays an error: `Assignment ID must be between 1 and 3`.
         Use case ends.
@@ -457,23 +456,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. Student email does not exist.
+* 2a. The list is empty.
 
-    * 2a1. AddressBook shows error: Student not found.
+    Use case ends.
 
+* 2a. The student with the given NUSNET ID does not exist.
+  
+    * 2a1. Homework Tracker shows error message: `Student not found`.
+  
       Use case ends.
 
-* 2b. Edited email duplicates another existing student’s email.
-
-    * 2b1. AddressBook shows error: Email already in use.
-
+* 3a. The given assignment ID is invalid (not between 0–2).
+  
+    * 3a1. Homework Tracker shows error message: `Assignment not found`.
+  
       Use case ends.
 
-* 2c. Any updated field is invalid.
 
-    * 2c1. AddressBook shows corresponding validation error.
-
+* 4a. The given status is invalid (not one of complete / incomplete / late).
+    * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
+  
       Use case ends.
+
+  * 3a1. AddressBook shows an error message.
+
+       Use case resumes at step 2.
 
 **Use case: Add a consultation**
 
