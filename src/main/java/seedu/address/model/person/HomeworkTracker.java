@@ -172,6 +172,10 @@ public class HomeworkTracker {
         return statuses.equals(other.statuses);
     }
 
+    public boolean contains(int assignmentId) {
+        return statuses.containsKey(assignmentId);
+    }
+
     /**
      * Returns the hash code of this tracker based on its status map.
      *

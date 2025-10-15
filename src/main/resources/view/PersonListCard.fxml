@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
@@ -38,8 +37,8 @@
           <Label fx:id="email" styleClass="cell_small_label" style="-fx-text-fill: black;" />
         </HBox>
       </HBox>
-      <VBox fx:id="homeworkContainer" spacing="2">
-      </VBox>
+        <FlowPane fx:id="homeworkContainer" hgap="6" vgap="6" style="-fx-padding: 4 0 0 0;">
+        </FlowPane>
     </VBox>
   </GridPane>
 </HBox>
