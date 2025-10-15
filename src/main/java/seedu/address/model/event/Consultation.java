@@ -80,7 +80,8 @@ public class Consultation {
     public String showConsultationTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         final StringBuilder builder = new StringBuilder();
-        builder.append(from.format(formatter))
+        builder.append("Consultation: ")
+                .append(from.format(formatter))
                 .append(" to ")
                 .append(to.format(formatter));
         return builder.toString();

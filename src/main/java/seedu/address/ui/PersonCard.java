@@ -53,6 +53,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane homeworkContainer;
     @FXML
     private Label consultation;
+    @FXML
+    private HBox consultationBox;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -82,8 +84,15 @@ public class PersonCard extends UiPart<Region> {
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
         showHomework();
-        consultation.setText(person.getConsultation()
-                .map(Consultation::showConsultationTime).orElse("No consultation"));
+        if (person.getConsultation().isPresent()) {
+            consultation.setText(person.getConsultation()
+                    .map(Consultation::showConsultationTime).get());
+            consultationBox.setVisible(true);
+            consultationBox.setManaged(true);
+        } else {
+            consultationBox.setVisible(false);
+            consultationBox.setManaged(false);
+        }
     }
 
     private void showHomework() {

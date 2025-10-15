@@ -151,7 +151,8 @@ class JsonAdaptedPerson {
         }
 
         if (consultation_start.isEmpty() || consultation_end.isEmpty()) {
-            return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot);
+            return new Person(modelName, modelPhone, modelEmail, modelNusnetid,
+                    modelTelegram, modelSlot, modelHomeworkTracker);
         }
 
         LocalDateTime from = ParserUtil.parseDateTime(consultation_start);
