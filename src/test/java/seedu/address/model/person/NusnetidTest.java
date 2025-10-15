@@ -27,11 +27,11 @@ public class NusnetidTest {
         // invalid addresses
         assertFalse(Nusnetid.isValidNusnetid("")); // empty string
         assertFalse(Nusnetid.isValidNusnetid(" ")); // spaces only
-        assertFalse(Nusnetid.isValidNusnetid("e1234567")); //starts with "e"
         assertFalse(Nusnetid.isValidNusnetid("E123456")); //only 6 digits
         assertFalse(Nusnetid.isValidNusnetid("E12345678")); //8 digits
         // valid nusnetids
         assertTrue(Nusnetid.isValidNusnetid("E1234567"));
+        assertTrue(Nusnetid.isValidNusnetid("e1234567")); //starts with "e"
     }
 
     @Test

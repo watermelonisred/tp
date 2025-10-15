@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.event.Consultation;
@@ -33,13 +34,23 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label nusnetid;
+    private HBox phoneBox;
     @FXML
     private Label email;
     @FXML
+    private HBox emailBox;
+    @FXML
     private Label telegram;
     @FXML
+    private HBox telegramBox;
+    @FXML
+    private Label nusnetid;
+    @FXML
+    private HBox nusnetidBox;
+    @FXML
     private Label slot;
+    @FXML
+    private FlowPane homeworkContainer;
     @FXML
     private Label consultation;
 
@@ -51,12 +62,77 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        if (person.getPhone().isPresent()) {
+            phone.setText(person.getPhone().get().value);
+            phoneBox.setVisible(true);
+            phoneBox.setManaged(true);
+        } else {
+            phoneBox.setVisible(false);
+            phoneBox.setManaged(false);
+        }
+        if (person.getEmail().isPresent()) {
+            email.setText(person.getEmail().get().value);
+            emailBox.setVisible(true);
+            emailBox.setManaged(true);
+        } else {
+            emailBox.setVisible(false);
+            emailBox.setManaged(false);
+        }
         nusnetid.setText(person.getNusnetid().value);
-        email.setText(person.getEmail().value);
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
+        showHomework();
         consultation.setText(person.getConsultation()
                 .map(Consultation::showConsultationTime).orElse("No consultation"));
     }
+
+    private void showHomework() {
+        if (person.getHomeworkTracker() == null) {
+            return;
+        }
+
+        if (person.getHomeworkTracker().asMap().isEmpty()) {
+            Label placeholder = new Label("No homework");
+            placeholder.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; "
+                    + "-fx-padding: 3 6; -fx-background-radius: 6; -fx-font-size: 11px;");
+            homeworkContainer.getChildren().add(placeholder);
+            return;
+        }
+
+        person.getHomeworkTracker().asMap().forEach((id, hw) -> {
+            Label hwLabel = new Label("HW" + hw.getId());
+            hwLabel.setStyle("-fx-padding: 3 8; -fx-background-radius: 6; -fx-font-size: 11px;");
+
+            switch (hw.getStatus().toLowerCase()) {
+            case "complete":
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #b2fab4; -fx-text-fill: #2e7d32;");
+                break;
+            case "late":
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #fff59d; -fx-text-fill: #996c00;");
+                break;
+            default: // incomplete
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #ffcccb; -fx-text-fill: #b71c1c;");
+                break;
+            }
+
+            homeworkContainer.getChildren().add(hwLabel);
+        });
+    }
+
+    // Only for testing
+    public FlowPane getHomeworkContainer() {
+        return homeworkContainer;
+    }
+
+    public Label getNameLabel() {
+        return name;
+    }
+
+    public Label getIdLabel() {
+        return id;
+    }
+
 }

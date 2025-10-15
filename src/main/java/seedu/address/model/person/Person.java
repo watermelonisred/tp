@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -16,25 +17,28 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Optional<Phone> phone;
+    private final Optional<Email> email;
     private final Nusnetid nusnetid;
     private final Telegram telegram;
     private final Slot slot;
+    private final HomeworkTracker homeworkTracker;
     private Optional<Consultation> consultation;
 
     /**
      * Initializes a Person object with no consultation as default.
-     * Every field must be present and not null.
+     * Some field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot) {
-        requireAllNonNull(name, phone, email, nusnetid, telegram, slot);
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker) {
+        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
         this.nusnetid = nusnetid;
         this.telegram = telegram;
         this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
         this.consultation = Optional.ofNullable(null);
     }
 
@@ -42,27 +46,47 @@ public class Person {
      * Initializes a Person object with given consultation.
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email,
-                  Nusnetid nusnetid, Telegram telegram, Slot slot, Consultation consultation) {
-        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, consultation);
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker, Consultation consultation) {
+        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        this.name = name;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
+        this.consultation = Optional.ofNullable(consultation);
+    }
+
+    /**
+     * Some field must be present and not null.
+     * Different from the other constructor as this one takes in Optional phone and email.
+     */
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email,
+                  Nusnetid nusnetid, Telegram telegram, Slot slot, HomeworkTracker homeworkTracker,
+                  Optional<Consultation> consultation) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.telegram = telegram;
         this.slot = slot;
-        this.consultation = Optional.ofNullable(consultation);
+        this.homeworkTracker = homeworkTracker;
+        this.consultation = consultation;
     }
+
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
+    public Optional<Phone> getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public Optional<Email> getEmail() {
         return email;
     }
 
@@ -76,6 +100,45 @@ public class Person {
 
     public Slot getSlot() {
         return slot;
+    }
+
+    /**
+     * Returns the {@link HomeworkTracker} associated with this student.
+     *
+     * @return the {@code HomeworkTracker} object containing this student's homework statuses
+     */
+    public HomeworkTracker getHomeworkTracker() {
+        return homeworkTracker;
+    }
+
+    /**
+     * Returns a new {@code Person} instance with a new homework added to the homework tracker.
+     * <p>
+     * The new homework is added with the specified assignment ID. The original {@code Person} object
+     * remains unchanged because {@link HomeworkTracker} follows an immutable design.
+     * </p>
+     *
+     * @param assignmentId the ID of the assignment to add (usually 1–3)
+     * @return a new {@code Person} object with the updated {@link HomeworkTracker}
+     */
+    // In Person class
+    public Person withAddedHomework(int assignmentId) {
+        requireNonNull(homeworkTracker);
+
+        if (homeworkTracker.contains(assignmentId)) {
+            throw new IllegalArgumentException("Duplicate assignment");
+        }
+
+        HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
+        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker, this.consultation);
+    }
+
+
+    /** Returns a new Person with updated homework status for the given assignment. */
+    public Person withUpdatedHomework(int assignmentId, String status) {
+        HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot,
+                updated, this.consultation);
     }
 
     public Optional<Consultation> getConsultation() {
@@ -93,16 +156,15 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
+     * Returns true if both persons have the same nusnetid.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
-
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getNusnetid().equals(getNusnetid());
     }
 
     /**
@@ -145,14 +207,21 @@ public class Person {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        ToStringBuilder builder = new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
-                .add("slot", slot)
-                .toString();
+                .add("slot", slot);
+        if (phone.isPresent()) {
+            builder.add("phone", phone.get());
+        }
+        if (email.isPresent()) {
+            builder.add("email", email.get());
+        }
+        if (consultation.isPresent()) {
+            builder.add("consultation", consultation.get());
+        }
+        return builder.toString();
     }
 
 }

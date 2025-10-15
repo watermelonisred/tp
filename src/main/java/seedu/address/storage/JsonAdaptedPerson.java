@@ -1,7 +1,8 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,12 +11,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.event.Consultation;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Homework;
+import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
+
+
 /**
  * Jackson-friendly version of {@link Person}.
  */
@@ -29,6 +34,7 @@ class JsonAdaptedPerson {
     private final String nusnetid;
     private final String slot;
     private final String telegram;
+    private final Map<Integer, JsonAdaptedHomework> homework;
     private final String consultation_start;
     private final String consultation_end;
 
@@ -39,6 +45,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
+            @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework,
             @JsonProperty("consultation_start") String consultation_start,
             @JsonProperty("consultation_end") String consultation_end) {
         this.name = name;
@@ -47,6 +54,7 @@ class JsonAdaptedPerson {
         this.nusnetid = nusnetid;
         this.slot = slot;
         this.telegram = telegram;
+        this.homework = homework == null ? new HashMap<>() : homework;
         this.consultation_start = consultation_start;
         this.consultation_end = consultation_end;
     }
@@ -56,11 +64,15 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        phone = source.getPhone().isPresent() ? source.getPhone().get().value : null;
+        email = source.getEmail().isPresent() ? source.getEmail().get().value : null;
         nusnetid = source.getNusnetid().value;
-        slot = source.getSlot().value;
         telegram = source.getTelegram().value;
+        slot = source.getSlot().value;
+        homework = new HashMap<>();
+        source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(id,
+                new JsonAdaptedHomework(hw))
+        );
         consultation_start = source.getConsultation().map(Consultation::getFromInString).orElse("");
         consultation_end = source.getConsultation().map(Consultation::getToInString).orElse("");
     }
@@ -80,21 +92,21 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        Phone modelPhone = null;
+        if (phone != null) {
+            if (!Phone.isValidSlot(phone)) {
+                throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            }
+            modelPhone = new Phone(phone);
         }
-        if (!Phone.isValidSlot(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        Email modelEmail = null;
+        if (email != null) {
+            if (!Email.isValidEmail(email)) {
+                throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+            }
+            modelEmail = new Email(email);
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
 
         if (nusnetid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -123,6 +135,13 @@ class JsonAdaptedPerson {
         }
         final Telegram modelTelegram = new Telegram(telegram);
 
+        Map<Integer, Homework> homeworkMap = new HashMap<>();
+        for (Map.Entry<Integer, JsonAdaptedHomework> entry : homework.entrySet()) {
+            homeworkMap.put(entry.getKey(), entry.getValue().toModelType());
+        }
+
+        HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
+
         if (consultation_start == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "consultation start time"));
@@ -144,8 +163,7 @@ class JsonAdaptedPerson {
 
         final Consultation modelConsultation = new Consultation(modelNusnetid, from, to);
 
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid,
-                modelTelegram, modelSlot, modelConsultation);
+        return new Person(modelName, modelPhone, modelEmail,
+                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker, modelConsultation);
     }
-
 }

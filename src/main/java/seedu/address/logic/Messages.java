@@ -39,16 +39,21 @@ public class Messages {
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
-                .append("; Phone: ")
-                .append(person.getPhone())
-                .append("; Email: ")
-                .append(person.getEmail())
                 .append("; NUSnetid: ")
                 .append(person.getNusnetid())
                 .append("; Telegram: ")
                 .append(person.getTelegram())
                 .append("; Slot: ")
                 .append(person.getSlot());
+        if (person.getPhone().isPresent()) {
+            builder.append("; Phone: ")
+                       .append(person.getPhone().get());
+        }
+        if (person.getEmail().isPresent()) {
+            builder.append("; Email: ")
+                      .append(person.getEmail().get())
+                      .append(";");
+        }
         return builder.toString();
     }
 
