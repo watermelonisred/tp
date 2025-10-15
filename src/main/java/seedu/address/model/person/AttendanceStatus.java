@@ -7,7 +7,7 @@ package seedu.address.model.person;
 public enum AttendanceStatus {
     PRESENT("Present"),
     ABSENT("Absent"),
-    LATE("late");
+    EXCUSED("Excused");
 
     private final String status;
 
