@@ -1,9 +1,14 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
@@ -24,6 +29,8 @@ class JsonAdaptedPerson {
     private final String nusnetid;
     private final String slot;
     private final String telegram;
+    private final String consultation_start;
+    private final String consultation_end;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -31,13 +38,17 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
-            @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram) {
+            @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
+            @JsonProperty("consultation_start") String consultation_start,
+            @JsonProperty("consultation_end") String consultation_end) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.slot = slot;
         this.telegram = telegram;
+        this.consultation_start = consultation_start;
+        this.consultation_end = consultation_end;
     }
 
     /**
@@ -50,6 +61,8 @@ class JsonAdaptedPerson {
         nusnetid = source.getNusnetid().value;
         slot = source.getSlot().value;
         telegram = source.getTelegram().value;
+        consultation_start = source.getConsultation().map(Consultation::getFromInString).orElse("");
+        consultation_end = source.getConsultation().map(Consultation::getToInString).orElse("");
     }
 
     /**
@@ -110,7 +123,29 @@ class JsonAdaptedPerson {
         }
         final Telegram modelTelegram = new Telegram(telegram);
 
-        return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot);
+        if (consultation_start == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "consultation start time"));
+        } else if (consultation_end == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "consultation end time"));
+        }
+
+        if (consultation_start.isEmpty() || consultation_end.isEmpty()) {
+            return new Person(modelName, modelPhone, modelEmail, modelNusnetid, modelTelegram, modelSlot);
+        }
+
+        LocalDateTime from = ParserUtil.parseDateTime(consultation_start);
+        LocalDateTime to = ParserUtil.parseDateTime(consultation_end);
+
+        if (!Consultation.isValidConsultation(from, to)) {
+            throw new IllegalValueException(Consultation.MESSAGE_CONSTRAINTS);
+        }
+
+        final Consultation modelConsultation = new Consultation(modelNusnetid, from, to);
+
+        return new Person(modelName, modelPhone, modelEmail, modelNusnetid,
+                modelTelegram, modelSlot, modelConsultation);
     }
 
 }

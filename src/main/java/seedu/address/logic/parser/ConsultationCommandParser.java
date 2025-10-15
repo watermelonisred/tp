@@ -38,6 +38,9 @@ public class ConsultationCommandParser implements Parser<ConsultationCommand> {
         LocalDateTime from = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_FROM).get());
         LocalDateTime to = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_TO).get());
 
+        if (!Consultation.isValidConsultation(from, to)) {
+            throw new ParseException(Consultation.MESSAGE_CONSTRAINTS);
+        }
         Consultation consultation = new Consultation(nusnetid, from, to);
 
         return new ConsultationCommand(consultation);

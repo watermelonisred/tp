@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
 /**
@@ -97,6 +98,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPerson(Nusnetid nusnetid) {
+        requireNonNull(nusnetid);
+        return addressBook.hasPerson(nusnetid);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -124,6 +131,14 @@ public class ModelManager implements Model {
     public void addConsultation(Consultation consultation) {
         addressBook.addConsultation(consultation);
         updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
+    }
+
+    @Override
+    public void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation) {
+        requireAllNonNull(nusnetid, consultation);
+        addressBook.updatePersonWithConsultation(nusnetid, consultation);
+        Predicate<Person> predicate = person -> person.hasSameNusnetId(nusnetid);
+        updateFilteredPersonList(predicate);
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,6 +15,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that evaluates to true if a person has a consultation scheduled */
+    Predicate<Person> PREDICATE_SHOW_PERSONS_WITH_CONSULTATIONS = person -> person.getConsultation().isPresent();
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Consultation> PREDICATE_SHOW_ALL_CONSULTATIONS = unused -> true;
@@ -62,6 +66,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same nusnetid as {@code nusnetid} exists in the address book.
+     */
+    boolean hasPerson(Nusnetid nusnetid);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -108,4 +117,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredConsultationList(Predicate<Consultation> predicate);
+
+    /**
+     * Updates the student identified by the given nusnetid to have the given consultation.
+     * @param nusnetid
+     * @param consultation
+     */
+    void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation);
 }

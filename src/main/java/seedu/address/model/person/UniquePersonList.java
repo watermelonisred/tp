@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -34,6 +35,14 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
+    }
+
+    /**
+     * Returns true if the list contains a person with equivalent NusnetId as the given argument.
+     */
+    public boolean contains(Nusnetid toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(p -> p.hasSameNusnetId(toCheck));
     }
 
     /**
@@ -95,6 +104,22 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+    }
+
+    /**
+     * Updates the person identified by the given {@nusnetid} to have the given consultation added to it.
+     * @param nusnetid
+     * @param consultation
+     */
+    public void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation) {
+        requireAllNonNull(nusnetid, consultation);
+        for (int i = 0; i < internalList.size(); i++) {
+            Person person = internalList.get(i);
+            if (person.hasSameNusnetId(nusnetid)) {
+                Person updatedPerson = person.addConsultation(consultation);
+                internalList.set(i, updatedPerson);
+            }
+        }
     }
 
     /**

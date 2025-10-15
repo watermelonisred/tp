@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Consultation;
 import seedu.address.model.event.UniqueConsultationList;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -72,6 +73,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a person with the same nusnetid as {@code nusnetid} exists in the address book.
+     */
+    public boolean hasPerson(Nusnetid nusnetid) {
+        requireNonNull(nusnetid);
+        return persons.contains(nusnetid);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -96,6 +105,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Updates the person identified by {@code nusnetid} to associate with the given {@code consultation}.
+     * The person must exist in the address book.
+     * @param nusnetid
+     * @param consultation
+     */
+    public void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation) {
+        persons.updatePersonWithConsultation(nusnetid, consultation);
     }
 
     //// consultation-level operations

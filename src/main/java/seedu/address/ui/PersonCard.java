@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.Person;
 
 /**
@@ -39,6 +40,8 @@ public class PersonCard extends UiPart<Region> {
     private Label telegram;
     @FXML
     private Label slot;
+    @FXML
+    private Label consultation;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -53,5 +56,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
+        consultation.setText(person.getConsultation()
+                .map(Consultation::showConsultationTime).orElse("No consultation"));
     }
 }

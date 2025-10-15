@@ -4,6 +4,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -42,6 +43,16 @@ public class Consultation {
         return to;
     }
 
+    public String getFromInString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+        return from.format(formatter);
+    }
+
+    public String getToInString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+        return to.format(formatter);
+    }
+
     /**
      * Returns true if the given start and end time constitutes a valid consultation.
      */
@@ -61,6 +72,18 @@ public class Consultation {
         return otherConsultation != null
                 && otherConsultation.getFrom().equals(getFrom())
                 && otherConsultation.getTo().equals(getTo());
+    }
+
+    /**
+     * Returns a string representation of the consultation time in the format "yyyy-MM-dd HH:mm to yyyy-MM-dd HH:mm".
+     */
+    public String showConsultationTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        final StringBuilder builder = new StringBuilder();
+        builder.append(from.format(formatter))
+                .append(" to ")
+                .append(to.format(formatter));
+        return builder.toString();
     }
 
     /**

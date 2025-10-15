@@ -30,6 +30,7 @@ public class ConsultationCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New consultation added: %1$s";
     public static final String MESSAGE_DUPLICATE_CONSULTATION = "Consultation already exists";
+    public static final String MESSAGE_STUDENT_DOES_NOT_EXIST = "Student does not exist";
 
     private final Consultation toAdd;
 
@@ -47,6 +48,12 @@ public class ConsultationCommand extends Command {
 
         if (model.hasConsultation(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONSULTATION);
+        }
+
+        if (!model.hasPerson(toAdd.getNusnetid())) {
+            throw new CommandException(MESSAGE_STUDENT_DOES_NOT_EXIST);
+        } else {
+            model.updatePersonWithConsultation(toAdd.getNusnetid(), toAdd);
         }
 
         model.addConsultation(toAdd);

@@ -3,8 +3,10 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.event.Consultation;
 
 /**
  * Represents a Person in the address book.
@@ -19,8 +21,10 @@ public class Person {
     private final Nusnetid nusnetid;
     private final Telegram telegram;
     private final Slot slot;
+    private Optional<Consultation> consultation;
 
     /**
+     * Initializes a Person object with no consultation as default.
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot) {
@@ -31,6 +35,23 @@ public class Person {
         this.nusnetid = nusnetid;
         this.telegram = telegram;
         this.slot = slot;
+        this.consultation = Optional.ofNullable(null);
+    }
+
+    /**
+     * Initializes a Person object with given consultation.
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email,
+                  Nusnetid nusnetid, Telegram telegram, Slot slot, Consultation consultation) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, consultation);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
+        this.consultation = Optional.ofNullable(consultation);
     }
 
     public Name getName() {
@@ -57,6 +78,20 @@ public class Person {
         return slot;
     }
 
+    public Optional<Consultation> getConsultation() {
+        return consultation;
+    }
+
+    /**
+     * Adds a consultation to the person.
+     * @param consultation Consultation to be added.
+     * @return Person with the added consultation.
+     */
+    public Person addConsultation(Consultation consultation) {
+        this.consultation = Optional.ofNullable(consultation);
+        return this;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -68,6 +103,14 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if person has same nusnetId as the given nusnetId.
+     */
+    public boolean hasSameNusnetId(Nusnetid nusnetid) {
+        return nusnetid != null
+                && nusnetid.equals(this.getNusnetid());
     }
 
     /**
