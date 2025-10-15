@@ -35,19 +35,19 @@ class JsonAdaptedPerson {
     private final String slot;
     private final String telegram;
     private final Map<Integer, JsonAdaptedHomework> homework;
-    private final String consultation_start;
-    private final String consultation_end;
+    private final String consultationStart;
+    private final String consultationEnd;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
+            @JsonProperty("email") String email, @JsonProperty("nusnetid") String nusnetid,
             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework,
-            @JsonProperty("consultation_start") String consultation_start,
-            @JsonProperty("consultation_end") String consultation_end) {
+            @JsonProperty("consultationStart") String consultationStart,
+            @JsonProperty("consultationEnd") String consultationEnd) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -55,8 +55,26 @@ class JsonAdaptedPerson {
         this.slot = slot;
         this.telegram = telegram;
         this.homework = homework == null ? new HashMap<>() : homework;
-        this.consultation_start = consultation_start;
-        this.consultation_end = consultation_end;
+        this.consultationStart = consultationStart == null ? "" : consultationStart;
+        this.consultationEnd = consultationEnd == null ? "" : consultationEnd;
+    }
+
+    /**
+     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     */
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email, @JsonProperty("nusnetid") String nusnetid,
+                             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
+                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.nusnetid = nusnetid;
+        this.slot = slot;
+        this.telegram = telegram;
+        this.homework = homework == null ? new HashMap<>() : homework;
+        this.consultationStart = "";
+        this.consultationEnd = "";
     }
 
     /**
@@ -73,8 +91,8 @@ class JsonAdaptedPerson {
         source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(id,
                 new JsonAdaptedHomework(hw))
         );
-        consultation_start = source.getConsultation().map(Consultation::getFromInString).orElse("");
-        consultation_end = source.getConsultation().map(Consultation::getToInString).orElse("");
+        consultationStart = source.getConsultation().map(Consultation::getFromInString).orElse("");
+        consultationEnd = source.getConsultation().map(Consultation::getToInString).orElse("");
     }
 
     /**
@@ -142,21 +160,21 @@ class JsonAdaptedPerson {
 
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
 
-        if (consultation_start == null) {
+        if (consultationStart == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "consultation start time"));
-        } else if (consultation_end == null) {
+        } else if (consultationEnd == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "consultation end time"));
         }
 
-        if (consultation_start.isEmpty() || consultation_end.isEmpty()) {
+        if (consultationStart.isEmpty() || consultationEnd.isEmpty()) {
             return new Person(modelName, modelPhone, modelEmail, modelNusnetid,
                     modelTelegram, modelSlot, modelHomeworkTracker);
         }
 
-        LocalDateTime from = ParserUtil.parseDateTime(consultation_start);
-        LocalDateTime to = ParserUtil.parseDateTime(consultation_end);
+        LocalDateTime from = ParserUtil.parseDateTime(consultationStart);
+        LocalDateTime to = ParserUtil.parseDateTime(consultationEnd);
 
         if (!Consultation.isValidConsultation(from, to)) {
             throw new IllegalValueException(Consultation.MESSAGE_CONSTRAINTS);
