@@ -41,7 +41,7 @@
             <padding>
                 <Insets top="5" />
             </padding>
-            <Label styleClass="cell_small_label" text="Attendance (Week 2-12):" />
+            <Label styleClass="cell_small_label" text="Attendance (Week 2-13):" />
             <HBox fx:id="attendanceContainer" spacing="3" alignment="CENTER_LEFT">
             </HBox>
         </VBox>
