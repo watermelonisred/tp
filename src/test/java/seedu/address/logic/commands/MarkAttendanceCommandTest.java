@@ -36,7 +36,10 @@ public class MarkAttendanceCommandTest {
         Person updatedAlice = model.getFilteredPersonList().stream()
                 .filter(p -> p.getNusnetid().value.equals("E1234567")).findFirst().orElseThrow();
         assertEquals(true, updatedAlice.getAttendanceSheet().getAttendanceForWeek(2).isPresent());
-        assertEquals("present", updatedAlice.getAttendanceSheet().getAttendanceForWeek(2).get().getAttendanceStatus().getStatus());
+        assertEquals("present", updatedAlice
+                .getAttendanceSheet()
+                .getAttendanceForWeek(2)
+                .get().getAttendanceStatus().getStatus());
     }
 
 

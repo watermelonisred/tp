@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.MarkAttendanceCommand;
-import seedu.address.logic.commands.MarkHomeworkCommand;
 
 public class MarkAttendanceCommandParserTest {
 
