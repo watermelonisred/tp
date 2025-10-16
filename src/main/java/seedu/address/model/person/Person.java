@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -24,8 +25,8 @@ public class Person {
     private final AttendanceSheet attendanceSheet;
 
     /**
-   * Some field must be present and not null.
-   */
+     * Some field must be present and not null.
+     */
     public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
                   HomeworkTracker homeworkTracker) {
         requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
@@ -118,17 +119,26 @@ public class Person {
      * @param assignmentId the ID of the assignment to add (usually 1–3)
      * @return a new {@code Person} object with the updated {@link HomeworkTracker}
      */
+    // In Person class
     public Person withAddedHomework(int assignmentId) {
-        HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, slot, updated, attendanceSheet);
+        requireNonNull(homeworkTracker);
+
+        if (homeworkTracker.contains(assignmentId)) {
+            throw new IllegalArgumentException("Duplicate assignment");
+        }
+
+        HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
+        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker);
     }
+
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot,
-                updated, attendanceSheet);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
     }
+
+
     /**
      * Returns true if both persons have the same nusnetid.
      * This defines a weaker notion of equality between two persons.
