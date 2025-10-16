@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.Attendance;
+import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Person;
 
 /**
@@ -50,6 +54,10 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label slot;
     @FXML
+    private HBox slotBox;
+    @FXML
+    private HBox attendanceContainer;
+    @FXML
     private FlowPane homeworkContainer;
     @FXML
     private Label consultation;
@@ -83,6 +91,7 @@ public class PersonCard extends UiPart<Region> {
         nusnetid.setText(person.getNusnetid().value);
         telegram.setText(person.getTelegram().value);
         slot.setText(person.getSlot().value);
+        showAttendance();
         showHomework();
         if (person.getConsultation().isPresent()) {
             consultation.setText(person.getConsultation()
@@ -92,6 +101,46 @@ public class PersonCard extends UiPart<Region> {
         } else {
             consultationBox.setVisible(false);
             consultationBox.setManaged(false);
+        }
+    }
+
+    private void showAttendance() {
+        if (person.getAttendanceSheet() == null) {
+            return;
+        }
+        for (int week = 2; week <= 13; week++) {
+            Label weekBox = new Label(String.valueOf(week));
+            weekBox.setMinWidth(35);
+            weekBox.setMinHeight(35);
+            weekBox.setMaxWidth(35);
+            weekBox.setMaxHeight(35);
+            weekBox.setAlignment(javafx.geometry.Pos.CENTER);
+            String baseStyle = "-fx-text-fill: white; -fx-font-weight: bold; "
+                    + "-fx-background-radius: 5; -fx-border-radius: 5; "
+                    + "-fx-border-color: #cccccc; -fx-border-width: 1;";
+            Optional<Attendance> attendanceOpt = person.getAttendanceSheet().getAttendanceForWeek(week);
+            if (attendanceOpt.isPresent()) {
+                Attendance attendance = attendanceOpt.get();
+                AttendanceStatus status = attendance.getAttendanceStatus();
+                String backgroundColor;
+                switch (status) {
+                case PRESENT:
+                    backgroundColor = "-fx-background-color: #4CAF50;";
+                    break;
+                case ABSENT:
+                    backgroundColor = "-fx-background-color: #F44336;";
+                    break;
+                case EXCUSED:
+                    backgroundColor = "-fx-background-color: #FFC107; -fx-text-fill: #333333;";
+                    break;
+                default:
+                    backgroundColor = "-fx-background-color: #9E9E9E;";
+                }
+                weekBox.setStyle(baseStyle + backgroundColor);
+            } else {
+                weekBox.setStyle(baseStyle + "-fx-background-color: grey;");
+            }
+            attendanceContainer.getChildren().add(weekBox);
         }
     }
 

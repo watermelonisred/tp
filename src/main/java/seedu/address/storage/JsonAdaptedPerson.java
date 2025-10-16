@@ -1,7 +1,9 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -10,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.AttendanceSheet;
+import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Homework;
 import seedu.address.model.person.HomeworkTracker;
@@ -35,6 +39,7 @@ class JsonAdaptedPerson {
     private final String slot;
     private final String telegram;
     private final Map<Integer, JsonAdaptedHomework> homework;
+    private final List<JsonAdaptedAttendance> attendanceSheet;
     private final String consultationStart;
     private final String consultationEnd;
 
@@ -46,6 +51,7 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("nusnetid") String nusnetid,
             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework,
+            @JsonProperty("attendanceSheet") List<JsonAdaptedAttendance> attendanceSheet,
             @JsonProperty("consultationStart") String consultationStart,
             @JsonProperty("consultationEnd") String consultationEnd) {
         this.name = name;
@@ -55,26 +61,9 @@ class JsonAdaptedPerson {
         this.slot = slot;
         this.telegram = telegram;
         this.homework = homework == null ? new HashMap<>() : homework;
+        this.attendanceSheet = attendanceSheet == null ? new ArrayList<>() : attendanceSheet;
         this.consultationStart = consultationStart == null ? "" : consultationStart;
         this.consultationEnd = consultationEnd == null ? "" : consultationEnd;
-    }
-
-    /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
-     */
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("nusnetid") String nusnetid,
-                             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
-                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.nusnetid = nusnetid;
-        this.slot = slot;
-        this.telegram = telegram;
-        this.homework = homework == null ? new HashMap<>() : homework;
-        this.consultationStart = "";
-        this.consultationEnd = "";
     }
 
     /**
@@ -91,6 +80,9 @@ class JsonAdaptedPerson {
         source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(id,
                 new JsonAdaptedHomework(hw))
         );
+        attendanceSheet = new ArrayList<>();
+        source.getAttendanceSheet().getAttendanceList().forEach(
+                att -> attendanceSheet.add(new JsonAdaptedAttendance(att)));
         consultationStart = source.getConsultation().map(Consultation::getFromInString).orElse("");
         consultationEnd = source.getConsultation().map(Consultation::getToInString).orElse("");
     }
@@ -159,6 +151,13 @@ class JsonAdaptedPerson {
         }
 
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
+        AttendanceSheet modelAttendanceSheet = new AttendanceSheet();
+        for (JsonAdaptedAttendance adaptedAttendance : attendanceSheet) {
+            int week = adaptedAttendance.getWeek();
+            String status = adaptedAttendance.getStatus();
+            AttendanceStatus status1 = AttendanceStatus.fromString(status);
+            modelAttendanceSheet.markAttendance(week, status1);
+        }
 
         if (consultationStart == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -183,6 +182,7 @@ class JsonAdaptedPerson {
         final Consultation modelConsultation = new Consultation(modelNusnetid, from, to);
 
         return new Person(modelName, modelPhone, modelEmail,
-                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker, modelConsultation);
+                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker,
+                modelAttendanceSheet, modelConsultation);
     }
 }

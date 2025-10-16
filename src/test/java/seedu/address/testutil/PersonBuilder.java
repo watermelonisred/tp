@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.model.person.AttendanceSheet;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
@@ -28,6 +29,7 @@ public class PersonBuilder {
     private Telegram telegram;
     private Slot slot;
     private HomeworkTracker homeworkTracker;
+    private AttendanceSheet attendanceSheet;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -40,6 +42,7 @@ public class PersonBuilder {
         telegram = new Telegram(DEFAULT_TELEGRAM);
         slot = new Slot(DEFAULT_SLOT);
         homeworkTracker = new HomeworkTracker();
+        attendanceSheet = new AttendanceSheet();
     }
 
     /**
@@ -53,6 +56,7 @@ public class PersonBuilder {
         telegram = personToCopy.getTelegram();
         slot = personToCopy.getSlot();
         homeworkTracker = personToCopy.getHomeworkTracker();
+        attendanceSheet = personToCopy.getAttendanceSheet();
     }
 
     /**
@@ -118,9 +122,15 @@ public class PersonBuilder {
         this.homeworkTracker = this.homeworkTracker.addHomework(assignmentId);
         return this;
     }
-
+    /**
+     * Sets the {@code AttendanceSheet} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAttendanceSheet(AttendanceSheet attendanceSheet) {
+        this.attendanceSheet = attendanceSheet;
+        return this;
+    }
     public Person build() {
-        return new Person(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
+        return new Person(name, phone, email, nusnetid, telegram, slot, homeworkTracker, attendanceSheet);
     }
 
 }

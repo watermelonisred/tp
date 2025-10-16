@@ -37,6 +37,14 @@
           <Label fx:id="email" styleClass="cell_small_label" style="-fx-text-fill: black;" />
         </HBox>
       </HBox>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="5" />
+            </padding>
+            <Label styleClass="cell_small_label" text="Attendance (Week 2-13):" />
+            <HBox fx:id="attendanceContainer" spacing="3" alignment="CENTER_LEFT">
+            </HBox>
+        </VBox>
         <FlowPane fx:id="homeworkContainer" hgap="6" vgap="6" style="-fx-padding: 4 0 4 0;">
         </FlowPane>
       <HBox

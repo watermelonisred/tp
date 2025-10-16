@@ -23,6 +23,7 @@ public class Person {
     private final Telegram telegram;
     private final Slot slot;
     private final HomeworkTracker homeworkTracker;
+    private final AttendanceSheet attendanceSheet;
     private Optional<Consultation> consultation;
 
     /**
@@ -39,15 +40,16 @@ public class Person {
         this.telegram = telegram;
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = new AttendanceSheet();
         this.consultation = Optional.ofNullable(null);
     }
 
     /**
-     * Initializes a Person object with given consultation.
-     * Every field must be present and not null.
+     * Initializes a Person object with no consultation as default.
+     * Some field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
-                  HomeworkTracker homeworkTracker, Consultation consultation) {
+                  HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet) {
         requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
@@ -56,6 +58,25 @@ public class Person {
         this.telegram = telegram;
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
+        this.consultation = Optional.ofNullable(null);
+    }
+
+    /**
+     * Initializes a Person object with given consultation.
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet, Consultation consultation) {
+        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        this.name = name;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
         this.consultation = Optional.ofNullable(consultation);
     }
 
@@ -64,7 +85,8 @@ public class Person {
      * Different from the other constructor as this one takes in Optional phone and email.
      */
     public Person(Name name, Optional<Phone> phone, Optional<Email> email,
-                  Nusnetid nusnetid, Telegram telegram, Slot slot, HomeworkTracker homeworkTracker,
+                  Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet,
                   Optional<Consultation> consultation) {
         requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
@@ -74,6 +96,7 @@ public class Person {
         this.telegram = telegram;
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
         this.consultation = consultation;
     }
 
@@ -100,6 +123,14 @@ public class Person {
 
     public Slot getSlot() {
         return slot;
+    }
+
+    public AttendanceSheet getAttendanceSheet() {
+        return attendanceSheet;
+    }
+
+    public Optional<Consultation> getConsultation() {
+        return consultation;
     }
 
     /**
@@ -130,19 +161,16 @@ public class Person {
         }
 
         HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker, this.consultation);
+        return new Person(name, phone, email, nusnetid, telegram, slot,
+                updatedTracker, this.attendanceSheet, this.consultation);
     }
 
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot,
-                updated, this.consultation);
-    }
-
-    public Optional<Consultation> getConsultation() {
-        return consultation;
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated,
+                this.attendanceSheet, this.consultation);
     }
 
     /**
