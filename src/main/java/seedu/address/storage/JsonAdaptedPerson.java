@@ -169,7 +169,7 @@ class JsonAdaptedPerson {
 
         if (consultationStart.isEmpty() || consultationEnd.isEmpty()) {
             return new Person(modelName, modelPhone, modelEmail, modelNusnetid,
-                    modelTelegram, modelGroupId, modelHomeworkTracker);
+                    modelTelegram, modelGroupId, modelHomeworkTracker, modelAttendanceSheet);
         }
 
         LocalDateTime from = ParserUtil.parseDateTime(consultationStart);

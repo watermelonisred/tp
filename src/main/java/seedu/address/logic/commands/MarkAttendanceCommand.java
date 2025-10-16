@@ -30,7 +30,7 @@ public class MarkAttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the attendance of a person identified "
             + "by their index number in the displayed person list. "
             + "Parameters: w/<week> <present|absent|excused> i/<NET id>\n"
-            + "Example: " + COMMAND_WORD + " w/3" + " present n/E1234567";
+            + "Example: " + COMMAND_WORD + " w/3" + " present i/E1234567";
 
     public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Marked attendance for %1$s: %2$s in week %3$d.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
