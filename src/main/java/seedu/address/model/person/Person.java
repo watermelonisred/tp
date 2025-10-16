@@ -128,14 +128,15 @@ public class Person {
         }
 
         HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker);
+        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker, this.attendanceSheet);
     }
 
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated,
+                this.attendanceSheet);
     }
 
 
