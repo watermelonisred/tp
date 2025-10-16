@@ -156,7 +156,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation) {
+        public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
             throw new AssertionError("This method should not be called.");
         }
 

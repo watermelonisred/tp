@@ -119,9 +119,9 @@ public interface Model {
     void updateFilteredConsultationList(Predicate<Consultation> predicate);
 
     /**
-     * Updates the student identified by the given nusnetid to have the given consultation.
+     * Adds the given consultation to the student identified by the given nusnetid.
      * @param nusnetid
      * @param consultation
      */
-    void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation);
+    void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation);
 }

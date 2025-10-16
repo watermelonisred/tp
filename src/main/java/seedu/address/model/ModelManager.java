@@ -134,9 +134,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation) {
+    public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
         requireAllNonNull(nusnetid, consultation);
-        addressBook.updatePersonWithConsultation(nusnetid, consultation);
+        addressBook.addConsultationToPerson(nusnetid, consultation);
         Predicate<Person> predicate = person -> person.hasSameNusnetId(nusnetid);
         updateFilteredPersonList(predicate);
     }

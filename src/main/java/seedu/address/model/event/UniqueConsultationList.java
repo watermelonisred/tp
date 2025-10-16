@@ -1,25 +1,27 @@
 package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.event.exceptions.ConsultationNotFoundException;
 import seedu.address.model.event.exceptions.DuplicateConsultationException;
-import seedu.address.model.person.Person;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of consultations that enforces uniqueness between its elements and does not allow nulls.
+ * A consultation is considered unique by comparing using {@code Consultation#isSameConsultation(Consultation)}.
+ * As such, adding and updating of consultation uses Consultation#isSameConsultation(Consultation) for equality
+ * so as to ensure that the consultation being added or updated is unique in terms of identity
+ * in the UniqueConsultationList. However, the removal of a person uses Consultation#equals(Object) so
+ * as to ensure that the consultation with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Consultation#isSameConsultation(Consultation)
  */
 public class UniqueConsultationList implements Iterable<Consultation> {
 
@@ -45,6 +47,55 @@ public class UniqueConsultationList implements Iterable<Consultation> {
             throw new DuplicateConsultationException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Replaces the consultation {@code target} in the list with {@code editedConsultation}.
+     * {@code target} must exist in the list.
+     * The {@code editedConsultation} must not be the same as another existing consultation in the list.
+     */
+    public void setConsultation(Consultation target, Consultation editedConsultation) {
+        requireAllNonNull(target, editedConsultation);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ConsultationNotFoundException();
+        }
+
+        if (!target.isSameConsultation(editedConsultation) && contains(editedConsultation)) {
+            throw new DuplicateConsultationException();
+        }
+
+        internalList.set(index, editedConsultation);
+    }
+
+    /**
+     * Removes the equivalent consultation from the list.
+     * The consultation must exist in the list.
+     */
+    public void remove(Consultation toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ConsultationNotFoundException();
+        }
+    }
+
+    public void setConsultations(UniqueConsultationList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code consultations}.
+     * {@code consultations} must not contain duplicate consultations.
+     */
+    public void setConsultations(List<Consultation> consultations) {
+        requireAllNonNull(consultations);
+        if (!consultationsAreUnique(consultations)) {
+            throw new DuplicateConsultationException();
+        }
+
+        internalList.setAll(consultations);
     }
 
     /**

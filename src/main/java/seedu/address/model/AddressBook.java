@@ -54,12 +54,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the consultation list with {@code consultations}.
+     * {@code consultations} must not contain duplicate consultations.
+     */
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations.setConsultations(consultations);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setConsultations(newData.getConsultationList());
     }
 
     //// person-level operations
@@ -108,13 +117,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Updates the person identified by {@code nusnetid} to associate with the given {@code consultation}.
+     * Adds the given {@code consultation} to the person identified by {@code nusnetid}.
      * The person must exist in the address book.
      * @param nusnetid
      * @param consultation
      */
-    public void updatePersonWithConsultation(Nusnetid nusnetid, Consultation consultation) {
-        persons.updatePersonWithConsultation(nusnetid, consultation);
+    public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
+        persons.addConsultationToPerson(nusnetid, consultation);
     }
 
     //// consultation-level operations
