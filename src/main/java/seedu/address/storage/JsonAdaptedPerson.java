@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.AttendanceSheet;
 import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Email;
@@ -37,16 +40,20 @@ class JsonAdaptedPerson {
     private final String telegram;
     private final Map<Integer, JsonAdaptedHomework> homework;
     private final List<JsonAdaptedAttendance> attendanceSheet;
+    private final String consultationStart;
+    private final String consultationEnd;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
+            @JsonProperty("email") String email, @JsonProperty("nusnetid") String nusnetid,
             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
-                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework,
-            @JsonProperty("attendanceSheet") List<JsonAdaptedAttendance> attendanceSheet) {
+            @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework,
+            @JsonProperty("attendanceSheet") List<JsonAdaptedAttendance> attendanceSheet,
+            @JsonProperty("consultationStart") String consultationStart,
+            @JsonProperty("consultationEnd") String consultationEnd) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -55,6 +62,8 @@ class JsonAdaptedPerson {
         this.telegram = telegram;
         this.homework = homework == null ? new HashMap<>() : homework;
         this.attendanceSheet = attendanceSheet == null ? new ArrayList<>() : attendanceSheet;
+        this.consultationStart = consultationStart == null ? "" : consultationStart;
+        this.consultationEnd = consultationEnd == null ? "" : consultationEnd;
     }
 
     /**
@@ -74,6 +83,8 @@ class JsonAdaptedPerson {
         attendanceSheet = new ArrayList<>();
         source.getAttendanceSheet().getAttendanceList().forEach(
                 att -> attendanceSheet.add(new JsonAdaptedAttendance(att)));
+        consultationStart = source.getConsultation().map(Consultation::getFromInString).orElse("");
+        consultationEnd = source.getConsultation().map(Consultation::getToInString).orElse("");
     }
 
     /**
@@ -138,6 +149,7 @@ class JsonAdaptedPerson {
         for (Map.Entry<Integer, JsonAdaptedHomework> entry : homework.entrySet()) {
             homeworkMap.put(entry.getKey(), entry.getValue().toModelType());
         }
+
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
         AttendanceSheet modelAttendanceSheet = new AttendanceSheet();
         for (JsonAdaptedAttendance adaptedAttendance : attendanceSheet) {
@@ -147,8 +159,30 @@ class JsonAdaptedPerson {
             modelAttendanceSheet.markAttendance(week, status1);
         }
 
-        return new Person(modelName, modelPhone, modelEmail,
-                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker, modelAttendanceSheet);
-    }
+        if (consultationStart == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "consultation start time"));
+        } else if (consultationEnd == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "consultation end time"));
+        }
 
+        if (consultationStart.isEmpty() || consultationEnd.isEmpty()) {
+            return new Person(modelName, modelPhone, modelEmail, modelNusnetid,
+                    modelTelegram, modelSlot, modelHomeworkTracker);
+        }
+
+        LocalDateTime from = ParserUtil.parseDateTime(consultationStart);
+        LocalDateTime to = ParserUtil.parseDateTime(consultationEnd);
+
+        if (!Consultation.isValidConsultation(from, to)) {
+            throw new IllegalValueException(Consultation.MESSAGE_CONSTRAINTS);
+        }
+
+        final Consultation modelConsultation = new Consultation(modelNusnetid, from, to);
+
+        return new Person(modelName, modelPhone, modelEmail,
+                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker,
+                modelAttendanceSheet, modelConsultation);
+    }
 }

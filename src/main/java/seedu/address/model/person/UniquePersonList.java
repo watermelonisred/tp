@@ -2,12 +2,14 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.AddConsultationCommand.MESSAGE_STUDENT_ALREADY_HAS_CONSULTATION;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -34,6 +36,14 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
+    }
+
+    /**
+     * Returns true if the list contains a person with equivalent NusnetId as the given argument.
+     */
+    public boolean contains(Nusnetid toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(p -> p.hasSameNusnetId(toCheck));
     }
 
     /**
@@ -95,6 +105,26 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+    }
+
+    /**
+     * Adds the given {@consultation} to the person identified by the given {@nusnetid}.
+     * The person must not already have an existing consultation.
+     * @param nusnetid
+     * @param consultation
+     */
+    public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
+        requireAllNonNull(nusnetid, consultation);
+        for (int i = 0; i < internalList.size(); i++) {
+            Person person = internalList.get(i);
+            if (person.hasSameNusnetId(nusnetid)) {
+                if (person.hasConsultation()) {
+                    throw new IllegalArgumentException(MESSAGE_STUDENT_ALREADY_HAS_CONSULTATION);
+                }
+                Person updatedPerson = person.addConsultation(consultation);
+                internalList.set(i, updatedPerson);
+            }
+        }
     }
 
     /**

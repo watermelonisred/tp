@@ -1,10 +1,12 @@
 package seedu.address.logic;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.Person;
 
 /**
@@ -55,4 +57,18 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code consultation} for display to the user.
+     */
+    public static String format(Consultation consultation) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        final StringBuilder builder = new StringBuilder();
+        builder.append("NUSnetid: ")
+                .append(consultation.getNusnetid())
+                .append("; From: ")
+                .append(consultation.getFrom().format(formatter))
+                .append(" To: ")
+                .append(consultation.getTo().format(formatter));
+        return builder.toString();
+    }
 }
