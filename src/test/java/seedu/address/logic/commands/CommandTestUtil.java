@@ -89,6 +89,14 @@ public class CommandTestUtil {
     public static final String ASSIGNMENT_DESC_2 = " a/" + VALID_ASSIGNMENT_2;
 
     public static final String INVALID_ASSIGNMENT_DESC = " a/x"; // non-numeric
+    //for attendance testing:
+    public static final String VALID_WEEK_1 = "2";
+    public static final String VALID_WEEK_2 = "3";
+    public static final String INVALID_WEEK = "14";
+    public static final String VALID_STATUS_PRESENT = "present";
+    public static final String VALID_STATUS_ABSENT = "absent";
+    public static final String VALID_STATUS_EXCUSED = "excused";
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
