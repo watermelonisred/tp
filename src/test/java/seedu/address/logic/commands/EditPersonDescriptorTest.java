@@ -70,8 +70,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", nusnetid="
                 + editPersonDescriptor.getNusnetid().orElse(null) + ", telegram="
-                + editPersonDescriptor.getTelegram().orElse(null) + ", slot="
-                + editPersonDescriptor.getSlot().orElse(null) + "}";
+                + editPersonDescriptor.getTelegram().orElse(null) + ", groupId="
+                + editPersonDescriptor.getGroupId().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

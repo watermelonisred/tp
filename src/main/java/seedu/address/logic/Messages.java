@@ -43,8 +43,8 @@ public class Messages {
                 .append(person.getNusnetid())
                 .append("; Telegram: ")
                 .append(person.getTelegram())
-                .append("; Slot: ")
-                .append(person.getSlot());
+                .append("; Group: ")
+                .append(person.getGroupId());
         if (person.getPhone().isPresent()) {
             builder.append("; Phone: ")
                        .append(person.getPhone().get());

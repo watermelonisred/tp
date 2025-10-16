@@ -5,13 +5,13 @@
     "email": "alice@u.nus.edu",
     "nusnetid": "E1234566",
     "telegram": "@valid",
-    "slot": "T01"
+    "groupId": "T01"
   }, {
     "name": "Alice Paul",
     "phone": "94351253",
     "email": "pauline@u.nus.edu",
     "nusnetid": "E1234566",
     "telegram": "@valid",
-    "slot": "T01"
+    "groupId": "T01"
   } ]
 }

@@ -2,12 +2,12 @@ package seedu.address.testutil;
 
 import seedu.address.model.person.AttendanceSheet;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
 
 /**
@@ -20,14 +20,14 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@u.nus.edu";
     public static final String DEFAULT_NUSNETID = "E1234567";
     public static final String DEFAULT_TELEGRAM = "@amyy";
-    public static final String DEFAULT_SLOT = "T01";
+    public static final String DEFAULT_GROUP = "T01";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Nusnetid nusnetid;
     private Telegram telegram;
-    private Slot slot;
+    private GroupId groupId;
     private HomeworkTracker homeworkTracker;
     private AttendanceSheet attendanceSheet;
 
@@ -40,7 +40,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         nusnetid = new Nusnetid(DEFAULT_NUSNETID);
         telegram = new Telegram(DEFAULT_TELEGRAM);
-        slot = new Slot(DEFAULT_SLOT);
+        groupId = new GroupId(DEFAULT_GROUP);
         homeworkTracker = new HomeworkTracker();
         attendanceSheet = new AttendanceSheet();
     }
@@ -54,7 +54,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail().orElse(null);
         nusnetid = personToCopy.getNusnetid();
         telegram = personToCopy.getTelegram();
-        slot = personToCopy.getSlot();
+        groupId = personToCopy.getGroupId();
         homeworkTracker = personToCopy.getHomeworkTracker();
         attendanceSheet = personToCopy.getAttendanceSheet();
     }
@@ -102,8 +102,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Slot} of the {@code Person} that we are building.
      */
-    public PersonBuilder withSlot(String slot) {
-        this.slot = new Slot(slot);
+    public PersonBuilder withSlot(String groupId) {
+        this.groupId = new GroupId(groupId);
         return this;
     }
 
@@ -130,7 +130,7 @@ public class PersonBuilder {
         return this;
     }
     public Person build() {
-        return new Person(name, phone, email, nusnetid, telegram, slot, homeworkTracker, attendanceSheet);
+        return new Person(name, phone, email, nusnetid, telegram, groupId, homeworkTracker, attendanceSheet);
     }
 
 }

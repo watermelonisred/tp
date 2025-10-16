@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -50,8 +50,8 @@ public class CommandTestUtil {
     public static final String NUSNETID_DESC_BOB = " " + PREFIX_NUSNETID + VALID_NUSNETID_BOB;
     public static final String TELEGRAM_DESC_AMY = " " + PREFIX_TELEGRAM + VALID_TELEGRAM_AMY;
     public static final String TELEGRAM_DESC_BOB = " " + PREFIX_TELEGRAM + VALID_TELEGRAM_BOB;
-    public static final String SLOT_DESC_AMY = " " + PREFIX_SLOT + VALID_SLOT_AMY;
-    public static final String SLOT_DESC_BOB = " " + PREFIX_SLOT + VALID_SLOT_BOB;
+    public static final String SLOT_DESC_AMY = " " + PREFIX_GROUP + VALID_SLOT_AMY;
+    public static final String SLOT_DESC_BOB = " " + PREFIX_GROUP + VALID_SLOT_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -60,7 +60,7 @@ public class CommandTestUtil {
             + PREFIX_NUSNETID; // empty string not allowed for NUSnetid
     public static final String INVALID_TELEGRAM_DESC = " " + PREFIX_TELEGRAM
             + "133"; // string without @ not allowed for telegram
-    public static final String INVALID_SLOT_DESC = " " + PREFIX_SLOT + "02"; // string without T not allowed for slot
+    public static final String INVALID_SLOT_DESC = " " + PREFIX_GROUP + "02"; // string without T not allowed for slot
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
