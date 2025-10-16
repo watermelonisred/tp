@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.event.Consultation;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Person;
@@ -58,6 +59,10 @@ public class PersonCard extends UiPart<Region> {
     private HBox attendanceContainer;
     @FXML
     private FlowPane homeworkContainer;
+    @FXML
+    private Label consultation;
+    @FXML
+    private HBox consultationBox;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -88,7 +93,17 @@ public class PersonCard extends UiPart<Region> {
         slot.setText(person.getSlot().value);
         showAttendance();
         showHomework();
+        if (person.getConsultation().isPresent()) {
+            consultation.setText(person.getConsultation()
+                    .map(Consultation::showConsultationTime).get());
+            consultationBox.setVisible(true);
+            consultationBox.setManaged(true);
+        } else {
+            consultationBox.setVisible(false);
+            consultationBox.setManaged(false);
+        }
     }
+
     private void showAttendance() {
         if (person.getAttendanceSheet() == null) {
             return;

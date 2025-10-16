@@ -64,8 +64,7 @@ public class JsonAdaptedPersonTest {
 
         JsonAdaptedPerson person = new JsonAdaptedPerson(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                VALID_TELEGRAM, VALID_SLOT, invalidHomework, emptyAttendanceSheet
-        );
+                VALID_TELEGRAM, VALID_SLOT, invalidHomework, emptyAttendanceSheet, "", "");
 
         assertThrows(IllegalValueException.class, person::toModelType);
     }
@@ -75,7 +74,8 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER),
+                        emptyAttendanceSheet, "", "");
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -84,7 +84,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet, "", "");
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -94,7 +94,8 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER),
+                        emptyAttendanceSheet, "", "");
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -105,7 +106,8 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_NUSNETID,
-                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER),
+                        emptyAttendanceSheet, "", "");
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -115,7 +117,8 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_NUSNETID,
-                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                        VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER),
+                        emptyAttendanceSheet, "", "");
         String expectedMessage = Nusnetid.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -124,7 +127,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullNusnetid_throwsIllegalValueException() {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, null,
-                VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                VALID_TELEGRAM, VALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet, "", "");
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Nusnetid.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -134,7 +137,8 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                        VALID_TELEGRAM, INVALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                        VALID_TELEGRAM, INVALID_SLOT, convertToJsonMap(VALID_HOMEWORK_TRACKER),
+                        emptyAttendanceSheet, "", "");
         String expectedMessage = Slot.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -143,7 +147,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullSlot_throwsIllegalValueException() {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                null, VALID_TELEGRAM, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                null, VALID_TELEGRAM, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet, "", "");
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Slot.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -153,7 +157,8 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                        VALID_SLOT, INVALID_TELEGRAM, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                        VALID_SLOT, INVALID_TELEGRAM, convertToJsonMap(VALID_HOMEWORK_TRACKER),
+                        emptyAttendanceSheet, "", "");
         String expectedMessage = Telegram.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -162,7 +167,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullTelegram_throwsIllegalValueException() {
         List<JsonAdaptedAttendance> emptyAttendanceSheet = List.of();
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_NUSNETID,
-                VALID_SLOT, null, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet);
+                VALID_SLOT, null, convertToJsonMap(VALID_HOMEWORK_TRACKER), emptyAttendanceSheet, "", "");
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Telegram.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

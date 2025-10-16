@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.event.Consultation;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Consultation> filteredConsultations;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredConsultations = new FilteredList<>(this.addressBook.getConsultationList());
     }
 
     public ModelManager() {
@@ -94,6 +98,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPerson(Nusnetid nusnetid) {
+        requireNonNull(nusnetid);
+        return addressBook.hasPerson(nusnetid);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -111,6 +121,26 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        return addressBook.hasConsultation(consultation);
+    }
+
+    @Override
+    public void addConsultation(Consultation consultation) {
+        addressBook.addConsultation(consultation);
+        updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
+    }
+
+    @Override
+    public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
+        requireAllNonNull(nusnetid, consultation);
+        addressBook.addConsultationToPerson(nusnetid, consultation);
+        Predicate<Person> predicate = person -> person.hasSameNusnetId(nusnetid);
+        updateFilteredPersonList(predicate);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -126,6 +156,22 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Consultation List Accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Consultation} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Consultation> getFilteredConsultationList() {
+        return filteredConsultations;
+    }
+
+    @Override
+    public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
+        requireNonNull(predicate);
+        filteredConsultations.setPredicate(predicate);
     }
 
     @Override
