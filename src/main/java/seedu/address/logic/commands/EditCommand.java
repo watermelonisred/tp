@@ -166,28 +166,56 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, nusnetid, telegram, groupId) || phone == null || email == null;
         }
 
-        public void setName(Name name) { this.name = name; }
-        public Optional<Name> getName() { return Optional.ofNullable(name); }
+        public void setName(Name name) {
+            this.name = name;
+        }
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
 
-        public void setPhone(Phone phone) { this.phone = phone; }
-        public Optional<Phone> getPhone() { return Optional.ofNullable(phone); }
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
 
-        public void setEmail(Email email) { this.email = email; }
-        public Optional<Email> getEmail() { return Optional.ofNullable(email); }
+        public void setEmail(Email email) {
+            this.email = email;
+        }
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
+        }
 
-        public void setNusnetid(Nusnetid nusnetid) { this.nusnetid = nusnetid; }
-        public Optional<Nusnetid> getNusnetid() { return Optional.ofNullable(nusnetid); }
+        public void setNusnetid(Nusnetid nusnetid) {
+            this.nusnetid = nusnetid;
+        }
+        public Optional<Nusnetid> getNusnetid() {
+            return Optional.ofNullable(nusnetid);
+        }
 
-        public Optional<Telegram> getTelegram() { return Optional.ofNullable(telegram); }
-        public void setTelegram(Telegram telegram) { this.telegram = telegram; }
+        public Optional<Telegram> getTelegram() {
+            return Optional.ofNullable(telegram);
+        }
+        public void setTelegram(Telegram telegram) {
+            this.telegram = telegram;
+        }
 
-        public Optional<GroupId> getGroupId() { return Optional.ofNullable(groupId); }
-        public void setGroupId(GroupId groupId) { this.groupId = groupId; }
+        public Optional<GroupId> getGroupId() {
+            return Optional.ofNullable(groupId);
+        }
+        public void setGroupId(GroupId groupId) {
+            this.groupId = groupId;
+        }
 
         @Override
         public boolean equals(Object other) {
-            if (other == this) { return true; }
-            if (!(other instanceof EditPersonDescriptor)) { return false; }
+            if (other == this) {
+                return true;
+            }
+            if (!(other instanceof EditPersonDescriptor)) {
+                return false;
+            }
             EditPersonDescriptor o = (EditPersonDescriptor) other;
             return Objects.equals(name, o.name)
                     && Objects.equals(phone, o.phone)

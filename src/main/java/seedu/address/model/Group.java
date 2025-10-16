@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
 /**
- * Represents a Tutorial session which contains an AttendanceSheet.
+ * Represents a Tutorial session.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Group {
@@ -18,8 +18,7 @@ public class Group {
     private final UniquePersonList students = new UniquePersonList();
 
     /**
-     * Constructs a {@code Tutorial} with an empty AttendanceSheet.
-     *
+     * Construct a group
      * @param groupId A valid slot number.
      */
     public Group(GroupId groupId) {
@@ -28,7 +27,9 @@ public class Group {
     }
 
     /** Returns the GroupId used to identify this group. */
-    public GroupId getGroupId() { return groupId; }
+    public GroupId getGroupId() {
+        return groupId;
+    }
 
     /**
      * Returns the list of students in this tutorial.

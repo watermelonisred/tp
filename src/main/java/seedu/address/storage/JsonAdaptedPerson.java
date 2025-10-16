@@ -39,14 +39,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
-            @JsonProperty("groupId") String groupId, @JsonProperty("slot") String legacySlot,
+            @JsonProperty("groupId") String groupId,
             @JsonProperty("telegram") String telegram,
             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
-        this.groupId = groupId != null ? groupId : legacySlot;
+        this.groupId = groupId;
         this.telegram = telegram;
         this.homework = homework == null ? new HashMap<>() : homework;
     }
