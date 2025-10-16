@@ -106,6 +106,8 @@ public class PersonCard extends UiPart<Region> {
     }
 
     private void showAttendance() {
+        attendanceContainer.getChildren().clear();
+
         if (person.getAttendanceSheet() == null) {
             return;
         }
