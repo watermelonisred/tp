@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -124,4 +125,14 @@ public interface Model {
      * @param consultation
      */
     void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation);
+
+    /**
+     * Adds a group to the model.
+     */
+    void addGroup(Group group);
+
+    /**
+     * Returns the list of groups in the model.
+     */
+    List<Group> getGroupList();
 }

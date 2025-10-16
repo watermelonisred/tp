@@ -90,7 +90,7 @@ public class MarkAttendanceCommand extends Command {
                 targetStudent.getEmail(),
                 targetStudent.getNusnetid(),
                 targetStudent.getTelegram(),
-                targetStudent.getSlot(),
+                targetStudent.getGroupId(),
                 targetStudent.getHomeworkTracker(),
                 updatedSheet,
                 Optional.ofNullable(null));

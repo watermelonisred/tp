@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -21,11 +21,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.AttendanceSheet;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
 
 /**
@@ -42,7 +42,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_NUSNETID + "NUSNETID] "
             + "[" + PREFIX_TELEGRAM + "TELEGRAM]"
-            + "[" + PREFIX_SLOT + "SLOT]"
+            + "[" + PREFIX_GROUP + "GROUPID]"
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] " + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -103,10 +103,10 @@ public class EditCommand extends Command {
                 ? null : editPersonDescriptor.getEmail().orElse(personToEdit.getEmail().orElse(null));
         Nusnetid updatedNusnetid = editPersonDescriptor.getNusnetid().orElse(personToEdit.getNusnetid());
         Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
-        Slot updatedSlot = editPersonDescriptor.getSlot().orElse(personToEdit.getSlot());
+        GroupId updatedGroupId = editPersonDescriptor.getGroupId().orElse(personToEdit.getGroupId());
         AttendanceSheet attendanceSheet = personToEdit.getAttendanceSheet();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTelegram, updatedSlot,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTelegram, updatedGroupId,
                 personToEdit.getHomeworkTracker(), attendanceSheet);
     }
 
@@ -144,7 +144,7 @@ public class EditCommand extends Command {
         private Email email;
         private Nusnetid nusnetid;
         private Telegram telegram;
-        private Slot slot;
+        private GroupId groupId;
 
         public EditPersonDescriptor() {}
 
@@ -158,20 +158,19 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setNusnetid(toCopy.nusnetid);
             setTelegram(toCopy.telegram);
-            setSlot(toCopy.slot);
+            setGroupId(toCopy.groupId);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nusnetid, telegram, slot) || phone == null || email == null;
+            return CollectionUtil.isAnyNonNull(name, nusnetid, telegram, groupId) || phone == null || email == null;
         }
 
         public void setName(Name name) {
             this.name = name;
         }
-
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
@@ -179,7 +178,6 @@ public class EditCommand extends Command {
         public void setPhone(Phone phone) {
             this.phone = phone;
         }
-
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
@@ -187,7 +185,6 @@ public class EditCommand extends Command {
         public void setEmail(Email email) {
             this.email = email;
         }
-
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
@@ -195,24 +192,22 @@ public class EditCommand extends Command {
         public void setNusnetid(Nusnetid nusnetid) {
             this.nusnetid = nusnetid;
         }
-
         public Optional<Nusnetid> getNusnetid() {
             return Optional.ofNullable(nusnetid);
         }
+
         public Optional<Telegram> getTelegram() {
             return Optional.ofNullable(telegram);
         }
-
         public void setTelegram(Telegram telegram) {
             this.telegram = telegram;
         }
 
-        public Optional<Slot> getSlot() {
-            return Optional.ofNullable(slot);
+        public Optional<GroupId> getGroupId() {
+            return Optional.ofNullable(groupId);
         }
-
-        public void setSlot(Slot slot) {
-            this.slot = slot;
+        public void setGroupId(GroupId groupId) {
+            this.groupId = groupId;
         }
 
         @Override
@@ -225,14 +220,13 @@ public class EditCommand extends Command {
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }
-
-            EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(nusnetid, otherEditPersonDescriptor.nusnetid)
-                    && Objects.equals(telegram, otherEditPersonDescriptor.telegram)
-                    && Objects.equals(slot, otherEditPersonDescriptor.slot);
+            EditPersonDescriptor o = (EditPersonDescriptor) other;
+            return Objects.equals(name, o.name)
+                    && Objects.equals(phone, o.phone)
+                    && Objects.equals(email, o.email)
+                    && Objects.equals(nusnetid, o.nusnetid)
+                    && Objects.equals(telegram, o.telegram)
+                    && Objects.equals(groupId, o.groupId);
         }
 
         @Override
@@ -243,7 +237,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("nusnetid", nusnetid)
                     .add("telegram", telegram)
-                    .add("slot", slot)
+                    .add("groupId", groupId)
                     .toString();
         }
     }

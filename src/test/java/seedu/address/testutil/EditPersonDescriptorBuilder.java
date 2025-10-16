@@ -2,11 +2,11 @@ package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Slot;
 import seedu.address.model.person.Telegram;
 
 /**
@@ -34,7 +34,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail().orElse(null));
         descriptor.setNusnetid(person.getNusnetid());
         descriptor.setTelegram(person.getTelegram());
-        descriptor.setSlot(person.getSlot());
+        descriptor.setGroupId(person.getGroupId());
     }
 
     /**
@@ -80,8 +80,8 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Telegram} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withSlot(String slot) {
-        descriptor.setSlot(new Slot(slot));
+    public EditPersonDescriptorBuilder withSlot(String groupid) {
+        descriptor.setGroupId(new GroupId(groupid));
         return this;
     }
 

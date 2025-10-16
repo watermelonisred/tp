@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 
 import seedu.address.logic.commands.AddCommand;
@@ -33,7 +33,7 @@ public class PersonUtil {
         person.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         sb.append(PREFIX_NUSNETID + person.getNusnetid().value + " ");
         sb.append(PREFIX_TELEGRAM + person.getTelegram().value + " ");
-        sb.append(PREFIX_SLOT + person.getSlot().value + " ");
+        sb.append(PREFIX_GROUP + person.getGroupId().value + " ");
         return sb.toString();
     }
 
@@ -46,7 +46,7 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getNusnetid().ifPresent(nusnetid -> sb.append(PREFIX_NUSNETID).append(nusnetid.value).append(" "));
-        descriptor.getSlot().ifPresent(slot -> sb.append(PREFIX_SLOT).append(slot).append(" "));
+        descriptor.getGroupId().ifPresent(groupId -> sb.append(PREFIX_GROUP).append(groupId).append(" "));
         descriptor.getTelegram().ifPresent(telegram -> sb.append(PREFIX_TELEGRAM).append(telegram.value).append(" "));
         return sb.toString();
     }

@@ -14,14 +14,13 @@ import seedu.address.model.event.Consultation;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-
     // Identity fields
     private final Name name;
     private final Optional<Phone> phone;
     private final Optional<Email> email;
     private final Nusnetid nusnetid;
     private final Telegram telegram;
-    private final Slot slot;
+    private final GroupId groupId;
     private final HomeworkTracker homeworkTracker;
     private final AttendanceSheet attendanceSheet;
     private Optional<Consultation> consultation;
@@ -30,15 +29,15 @@ public class Person {
      * Initializes a Person object with no consultation as default.
      * Some field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, GroupId groupId,
                   HomeworkTracker homeworkTracker) {
-        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        requireAllNonNull(name, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
         this.email = Optional.ofNullable(email);
         this.nusnetid = nusnetid;
         this.telegram = telegram;
-        this.slot = slot;
+        this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
         this.attendanceSheet = new AttendanceSheet();
         this.consultation = Optional.ofNullable(null);
@@ -48,15 +47,15 @@ public class Person {
      * Initializes a Person object with no consultation as default.
      * Some field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, GroupId groupId,
                   HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet) {
-        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        requireAllNonNull(name, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
         this.email = Optional.ofNullable(email);
         this.nusnetid = nusnetid;
         this.telegram = telegram;
-        this.slot = slot;
+        this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
         this.attendanceSheet = attendanceSheet;
         this.consultation = Optional.ofNullable(null);
@@ -66,15 +65,15 @@ public class Person {
      * Initializes a Person object with given consultation.
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, GroupId groupId,
                   HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet, Consultation consultation) {
-        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        requireAllNonNull(name, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
         this.email = Optional.ofNullable(email);
         this.nusnetid = nusnetid;
         this.telegram = telegram;
-        this.slot = slot;
+        this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
         this.attendanceSheet = attendanceSheet;
         this.consultation = Optional.ofNullable(consultation);
@@ -85,16 +84,16 @@ public class Person {
      * Different from the other constructor as this one takes in Optional phone and email.
      */
     public Person(Name name, Optional<Phone> phone, Optional<Email> email,
-                  Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  Nusnetid nusnetid, Telegram telegram, GroupId groupId,
                   HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet,
                   Optional<Consultation> consultation) {
-        requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
+        requireAllNonNull(name, phone, email, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.nusnetid = nusnetid;
         this.telegram = telegram;
-        this.slot = slot;
+        this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
         this.attendanceSheet = attendanceSheet;
         this.consultation = consultation;
@@ -121,10 +120,9 @@ public class Person {
         return telegram;
     }
 
-    public Slot getSlot() {
-        return slot;
+    public GroupId getGroupId() {
+        return groupId;
     }
-
     public AttendanceSheet getAttendanceSheet() {
         return attendanceSheet;
     }
@@ -154,22 +152,21 @@ public class Person {
      */
     // In Person class
     public Person withAddedHomework(int assignmentId) {
+        HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
         requireNonNull(homeworkTracker);
-
         if (homeworkTracker.contains(assignmentId)) {
             throw new IllegalArgumentException("Duplicate assignment");
         }
-
         HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, slot,
-                updatedTracker, this.attendanceSheet, this.consultation);
+        return new Person(name, phone, email, nusnetid, telegram, groupId, updatedTracker, this.attendanceSheet,
+                this.consultation);
     }
 
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated,
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId, updated,
                 this.attendanceSheet, this.consultation);
     }
 
@@ -219,34 +216,29 @@ public class Person {
         if (other == this) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
-
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && nusnetid.equals(otherPerson.nusnetid)
                 && telegram.equals(otherPerson.telegram)
-                && slot.equals(otherPerson.slot);
+                && groupId.equals(otherPerson.groupId)
+                && homeworkTracker.equals(otherPerson.homeworkTracker);
     }
-
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, nusnetid, telegram, slot);
+        return Objects.hash(name, phone, email, nusnetid, telegram, groupId, homeworkTracker);
     }
-
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this)
                 .add("name", name)
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
-                .add("slot", slot);
+                .add("groupId", groupId);
         if (phone.isPresent()) {
             builder.add("phone", phone.get());
         }
