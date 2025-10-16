@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.ConsultationCommand;
+import seedu.address.logic.commands.AddConsultationCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Consultation;
 import seedu.address.model.person.Nusnetid;
@@ -16,21 +16,21 @@ import seedu.address.model.person.Nusnetid;
 /**
  * Parses input arguments and creates a new ConsultationCommand object
  */
-public class ConsultationCommandParser implements Parser<ConsultationCommand> {
+public class AddConsultationCommandParser implements Parser<AddConsultationCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ConsultationCommand
      * and returns a ConsultationCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ConsultationCommand parse(String args) throws ParseException {
+    public AddConsultationCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NUSNETID, PREFIX_FROM, PREFIX_TO);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NUSNETID, PREFIX_FROM, PREFIX_TO)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ConsultationCommand.MESSAGE_USAGE));
+                    AddConsultationCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NUSNETID, PREFIX_FROM, PREFIX_TO);
@@ -43,7 +43,7 @@ public class ConsultationCommandParser implements Parser<ConsultationCommand> {
         }
         Consultation consultation = new Consultation(nusnetid, from, to);
 
-        return new ConsultationCommand(consultation);
+        return new AddConsultationCommand(consultation);
     }
 
     /**

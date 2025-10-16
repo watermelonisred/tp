@@ -2,7 +2,7 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.ConsultationCommand.MESSAGE_STUDENT_ALREADY_HAS_CONSULTATION;
+import static seedu.address.logic.commands.AddConsultationCommand.MESSAGE_STUDENT_ALREADY_HAS_CONSULTATION;
 
 import java.util.Iterator;
 import java.util.List;

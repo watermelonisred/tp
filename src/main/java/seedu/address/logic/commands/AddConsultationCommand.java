@@ -14,7 +14,7 @@ import seedu.address.model.event.Consultation;
 /**
  * Adds a consultation slot to the address book.
  */
-public class ConsultationCommand extends Command {
+public class AddConsultationCommand extends Command {
 
     public static final String COMMAND_WORD = "add_consult";
 
@@ -39,7 +39,7 @@ public class ConsultationCommand extends Command {
     /**
      * Creates an ConsultationCommand to add the specified {@code Consultation}
      */
-    public ConsultationCommand(Consultation consultation) {
+    public AddConsultationCommand(Consultation consultation) {
         requireNonNull(consultation);
         toAdd = consultation;
     }
@@ -73,12 +73,12 @@ public class ConsultationCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ConsultationCommand)) {
+        if (!(other instanceof AddConsultationCommand)) {
             return false;
         }
 
-        ConsultationCommand otherConsultationCommand = (ConsultationCommand) other;
-        return toAdd.equals(otherConsultationCommand.toAdd);
+        AddConsultationCommand otherAddConsultationCommand = (AddConsultationCommand) other;
+        return toAdd.equals(otherAddConsultationCommand.toAdd);
     }
 
     @Override
