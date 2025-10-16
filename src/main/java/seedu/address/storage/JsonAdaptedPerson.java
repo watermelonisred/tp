@@ -1,12 +1,16 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.AttendanceSheet;
+import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Homework;
 import seedu.address.model.person.HomeworkTracker;
@@ -32,6 +36,7 @@ class JsonAdaptedPerson {
     private final String slot;
     private final String telegram;
     private final Map<Integer, JsonAdaptedHomework> homework;
+    private final List<JsonAdaptedAttendance> attendanceSheet;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -40,7 +45,8 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String nusnetid,
             @JsonProperty("slot") String slot, @JsonProperty("telegram") String telegram,
-                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework) {
+                             @JsonProperty("homework") Map<Integer, JsonAdaptedHomework> homework,
+            @JsonProperty("attendanceSheet") List<JsonAdaptedAttendance> attendanceSheet) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -48,6 +54,7 @@ class JsonAdaptedPerson {
         this.slot = slot;
         this.telegram = telegram;
         this.homework = homework == null ? new HashMap<>() : homework;
+        this.attendanceSheet = attendanceSheet == null ? new ArrayList<>() : attendanceSheet;
     }
 
     /**
@@ -64,6 +71,9 @@ class JsonAdaptedPerson {
         source.getHomeworkTracker().asMap().forEach((id, hw) -> homework.put(id,
                 new JsonAdaptedHomework(hw))
         );
+        attendanceSheet = new ArrayList<>();
+        source.getAttendanceSheet().getAttendanceList().forEach(
+                att -> attendanceSheet.add(new JsonAdaptedAttendance(att)));
     }
 
     /**
@@ -128,11 +138,17 @@ class JsonAdaptedPerson {
         for (Map.Entry<Integer, JsonAdaptedHomework> entry : homework.entrySet()) {
             homeworkMap.put(entry.getKey(), entry.getValue().toModelType());
         }
-
         HomeworkTracker modelHomeworkTracker = new HomeworkTracker(homeworkMap);
+        AttendanceSheet modelAttendanceSheet = new AttendanceSheet();
+        for (JsonAdaptedAttendance adaptedAttendance : attendanceSheet) {
+            int week = adaptedAttendance.getWeek();
+            String status = adaptedAttendance.getStatus();
+            AttendanceStatus status1 = AttendanceStatus.fromString(status);
+            modelAttendanceSheet.markAttendance(week, status1);
+        }
 
         return new Person(modelName, modelPhone, modelEmail,
-                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker);
+                modelNusnetid, modelTelegram, modelSlot, modelHomeworkTracker, modelAttendanceSheet);
     }
 
 }

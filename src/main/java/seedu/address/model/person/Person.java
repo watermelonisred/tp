@@ -22,7 +22,7 @@ public class Person {
     private final Telegram telegram;
     private final Slot slot;
     private final HomeworkTracker homeworkTracker;
-
+    private final AttendanceSheet attendanceSheet;
 
     /**
      * Some field must be present and not null.
@@ -37,13 +37,30 @@ public class Person {
         this.telegram = telegram;
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = new AttendanceSheet();
+    }
+    /**
+     * Some field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet) {
+        requireAllNonNull(name, nusnetid, telegram, slot, homeworkTracker);
+        this.name = name;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.slot = slot;
+        this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
     }
     /**
      * Some field must be present and not null.
      * Different from the other constructor as this one takes in Optional phone and email.
      */
     public Person(Name name, Optional<Phone> phone, Optional<Email> email,
-                  Nusnetid nusnetid, Telegram telegram, Slot slot, HomeworkTracker homeworkTracker) {
+                  Nusnetid nusnetid, Telegram telegram, Slot slot,
+                  HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet) {
         requireAllNonNull(name, phone, email, nusnetid, telegram, slot, homeworkTracker);
         this.name = name;
         this.phone = phone;
@@ -52,6 +69,7 @@ public class Person {
         this.telegram = telegram;
         this.slot = slot;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
     }
 
 
@@ -77,6 +95,9 @@ public class Person {
 
     public Slot getSlot() {
         return slot;
+    }
+    public AttendanceSheet getAttendanceSheet() {
+        return attendanceSheet;
     }
 
     /**
@@ -107,14 +128,15 @@ public class Person {
         }
 
         HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker);
+        return new Person(name, phone, email, nusnetid, telegram, slot, updatedTracker, this.attendanceSheet);
     }
 
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.slot, updated,
+                this.attendanceSheet);
     }
 
 
