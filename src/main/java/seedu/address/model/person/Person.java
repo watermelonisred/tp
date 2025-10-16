@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -12,7 +13,6 @@ import seedu.address.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-
     // Identity fields
     private final Name name;
     private final Optional<Phone> phone;
@@ -21,15 +21,13 @@ public class Person {
     private final Telegram telegram;
     private final GroupId groupId;
     private final HomeworkTracker homeworkTracker;
-
+    private final AttendanceSheet attendanceSheet;
 
     /**
      * Some field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, GroupId groupId,
                   HomeworkTracker homeworkTracker) {
-        // phone and email can be null
-        // other fields must be non-null
         requireAllNonNull(name, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = Optional.ofNullable(phone);
@@ -38,13 +36,31 @@ public class Person {
         this.telegram = telegram;
         this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = new AttendanceSheet();
+    }
+    /**
+     * Some field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Nusnetid nusnetid, Telegram telegram, GroupId groupId,
+                  HomeworkTracker homeworkTracker, AttendanceSheet attendanceSheet) {
+        requireAllNonNull(name, nusnetid, telegram, groupId, homeworkTracker);
+        this.name = name;
+        this.phone = Optional.ofNullable(phone);
+        this.email = Optional.ofNullable(email);
+        this.nusnetid = nusnetid;
+        this.telegram = telegram;
+        this.groupId = groupId;
+        this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
     }
     /**
      * Some field must be present and not null.
      * Different from the other constructor as this one takes in Optional phone and email.
      */
     public Person(Name name, Optional<Phone> phone, Optional<Email> email,
-                  Nusnetid nusnetid, Telegram telegram, GroupId groupId, HomeworkTracker homeworkTracker) {
+                  Nusnetid nusnetid, Telegram telegram, GroupId groupId, HomeworkTracker homeworkTracker,
+                  AttendanceSheet attendanceSheet) {
+        requireAllNonNull(name, phone, email, nusnetid, telegram, groupId, homeworkTracker);
         requireAllNonNull(name, phone, email, nusnetid, telegram, groupId, homeworkTracker);
         this.name = name;
         this.phone = phone;
@@ -53,6 +69,7 @@ public class Person {
         this.telegram = telegram;
         this.groupId = groupId;
         this.homeworkTracker = homeworkTracker;
+        this.attendanceSheet = attendanceSheet;
     }
 
 
@@ -79,6 +96,9 @@ public class Person {
     public GroupId getGroupId() {
         return groupId;
     }
+    public AttendanceSheet getAttendanceSheet() {
+        return attendanceSheet;
+    }
 
     /**
      * Returns the {@link HomeworkTracker} associated with this student.
@@ -99,15 +119,23 @@ public class Person {
      * @param assignmentId the ID of the assignment to add (usually 1–3)
      * @return a new {@code Person} object with the updated {@link HomeworkTracker}
      */
+    // In Person class
     public Person withAddedHomework(int assignmentId) {
         HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
-        return new Person(name, phone, email, nusnetid, telegram, groupId, updated);
+        requireNonNull(homeworkTracker);
+        if (homeworkTracker.contains(assignmentId)) {
+            throw new IllegalArgumentException("Duplicate assignment");
+        }
+        HomeworkTracker updatedTracker = homeworkTracker.addHomework(assignmentId);
+        return new Person(name, phone, email, nusnetid, telegram, groupId, updatedTracker, this.attendanceSheet);
     }
+
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
         HomeworkTracker updated = this.homeworkTracker.updateStatus(assignmentId, status);
-        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId, updated);
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId, updated,
+                this.attendanceSheet);
     }
 
 

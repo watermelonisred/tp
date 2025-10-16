@@ -19,6 +19,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.AttendanceSheet;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Name;
@@ -103,9 +104,10 @@ public class EditCommand extends Command {
         Nusnetid updatedNusnetid = editPersonDescriptor.getNusnetid().orElse(personToEdit.getNusnetid());
         Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
         GroupId updatedGroupId = editPersonDescriptor.getGroupId().orElse(personToEdit.getGroupId());
+        AttendanceSheet attendanceSheet = personToEdit.getAttendanceSheet();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedNusnetid, updatedTelegram, updatedGroupId,
-                personToEdit.getHomeworkTracker());
+                personToEdit.getHomeworkTracker(), attendanceSheet);
     }
 
     @Override
@@ -213,6 +215,8 @@ public class EditCommand extends Command {
             if (other == this) {
                 return true;
             }
+
+            // instanceof handles nulls
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }

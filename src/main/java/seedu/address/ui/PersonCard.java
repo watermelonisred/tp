@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import seedu.address.model.person.Attendance;
+import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Person;
 
 /**
@@ -51,7 +55,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox groupIdBox;
     @FXML
-    private VBox homeworkContainer;
+    private HBox attendanceContainer;
+    @FXML
+    private FlowPane homeworkContainer;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -80,7 +86,48 @@ public class PersonCard extends UiPart<Region> {
         nusnetid.setText(person.getNusnetid().value);
         telegram.setText(person.getTelegram().value);
         groupId.setText(person.getGroupId().value);
+        showAttendance();
+        groupId.setText(person.getGroupId().value);
         showHomework();
+    }
+    private void showAttendance() {
+        if (person.getAttendanceSheet() == null) {
+            return;
+        }
+        for (int week = 2; week <= 13; week++) {
+            Label weekBox = new Label(String.valueOf(week));
+            weekBox.setMinWidth(35);
+            weekBox.setMinHeight(35);
+            weekBox.setMaxWidth(35);
+            weekBox.setMaxHeight(35);
+            weekBox.setAlignment(javafx.geometry.Pos.CENTER);
+            String baseStyle = "-fx-text-fill: white; -fx-font-weight: bold; "
+                    + "-fx-background-radius: 5; -fx-border-radius: 5; "
+                    + "-fx-border-color: #cccccc; -fx-border-width: 1;";
+            Optional<Attendance> attendanceOpt = person.getAttendanceSheet().getAttendanceForWeek(week);
+            if (attendanceOpt.isPresent()) {
+                Attendance attendance = attendanceOpt.get();
+                AttendanceStatus status = attendance.getAttendanceStatus();
+                String backgroundColor;
+                switch (status) {
+                case PRESENT:
+                    backgroundColor = "-fx-background-color: #4CAF50;";
+                    break;
+                case ABSENT:
+                    backgroundColor = "-fx-background-color: #F44336;";
+                    break;
+                case EXCUSED:
+                    backgroundColor = "-fx-background-color: #FFC107; -fx-text-fill: #333333;";
+                    break;
+                default:
+                    backgroundColor = "-fx-background-color: #9E9E9E;";
+                }
+                weekBox.setStyle(baseStyle + backgroundColor);
+            } else {
+                weekBox.setStyle(baseStyle + "-fx-background-color: grey;");
+            }
+            attendanceContainer.getChildren().add(weekBox);
+        }
     }
 
     private void showHomework() {
@@ -88,35 +135,48 @@ public class PersonCard extends UiPart<Region> {
             return;
         }
 
-        // If no homework exists yet
         if (person.getHomeworkTracker().asMap().isEmpty()) {
-            Label placeholder = new Label("No homework yet");
-            placeholder.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-padding: 5 10 5 10; "
-                    + "-fx-background-radius: 5;");
+            Label placeholder = new Label("No homework");
+            placeholder.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; "
+                    + "-fx-padding: 3 6; -fx-background-radius: 6; -fx-font-size: 11px;");
             homeworkContainer.getChildren().add(placeholder);
             return;
         }
 
         person.getHomeworkTracker().asMap().forEach((id, hw) -> {
-            Label hwLabel = new Label("HW " + hw.getId() + ": Incomplete");
-            hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;");
+            Label hwLabel = new Label("HW" + hw.getId());
+            hwLabel.setStyle("-fx-padding: 3 8; -fx-background-radius: 6; -fx-font-size: 11px;");
 
             switch (hw.getStatus().toLowerCase()) {
             case "complete":
-                hwLabel = new Label("HW " + hw.getId() + ": Complete");
-                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;"
-                        + "-fx-background-color: green;");
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #b2fab4; -fx-text-fill: #2e7d32;");
                 break;
             case "late":
-                hwLabel = new Label("HW " + hw.getId() + ": Late");
-                hwLabel.setStyle("-fx-text-fill: white; -fx-padding: 5 10 5 10; -fx-background-radius: 5;"
-                        + "-fx-background-color: yellow; -fx-text-fill: grey;");
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #fff59d; -fx-text-fill: #996c00;");
                 break;
             default: // incomplete
-                hwLabel.setStyle(hwLabel.getStyle() + "-fx-background-color: red;");
+                hwLabel.setStyle(hwLabel.getStyle()
+                        + "-fx-background-color: #ffcccb; -fx-text-fill: #b71c1c;");
                 break;
             }
+
             homeworkContainer.getChildren().add(hwLabel);
         });
     }
+
+    // Only for testing
+    public FlowPane getHomeworkContainer() {
+        return homeworkContainer;
+    }
+
+    public Label getNameLabel() {
+        return name;
+    }
+
+    public Label getIdLabel() {
+        return id;
+    }
+
 }

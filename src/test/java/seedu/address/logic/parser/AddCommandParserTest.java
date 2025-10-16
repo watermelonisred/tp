@@ -28,6 +28,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SLOT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TELEGRAM_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -42,6 +43,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
@@ -85,7 +87,7 @@ public class AddCommandParserTest {
 
         // multiple slots
         assertParseFailure(parser, SLOT_DESC_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SLOT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_GROUP));
 
         // multiple telegrams
         assertParseFailure(parser, TELEGRAM_DESC_AMY + validExpectedPersonString,
@@ -96,7 +98,7 @@ public class AddCommandParserTest {
                 validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY + NUSNETID_DESC_AMY
                         + TELEGRAM_DESC_AMY + SLOT_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_NUSNETID,
-                        PREFIX_EMAIL, PREFIX_PHONE, PREFIX_SLOT, PREFIX_TELEGRAM));
+                        PREFIX_EMAIL, PREFIX_PHONE, PREFIX_GROUP, PREFIX_TELEGRAM));
 
         // invalid value followed by valid value
 
@@ -118,7 +120,7 @@ public class AddCommandParserTest {
 
         // invalid slot
         assertParseFailure(parser, INVALID_SLOT_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SLOT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_GROUP));
 
         // invalid telegram
         assertParseFailure(parser, INVALID_TELEGRAM_DESC + validExpectedPersonString,
@@ -144,7 +146,7 @@ public class AddCommandParserTest {
 
         // invalid slot
         assertParseFailure(parser, validExpectedPersonString + INVALID_SLOT_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_SLOT));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_GROUP));
 
         // invalid telegram
         assertParseFailure(parser, validExpectedPersonString + INVALID_TELEGRAM_DESC,
@@ -201,7 +203,7 @@ public class AddCommandParserTest {
 
         // invalid slot
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + NUSNETID_DESC_BOB
-                + TELEGRAM_DESC_BOB + INVALID_SLOT_DESC, Slot.MESSAGE_CONSTRAINTS);
+                + TELEGRAM_DESC_BOB + INVALID_SLOT_DESC, GroupId.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_NUSNETID_DESC
