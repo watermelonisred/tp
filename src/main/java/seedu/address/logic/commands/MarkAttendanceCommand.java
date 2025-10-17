@@ -93,7 +93,7 @@ public class MarkAttendanceCommand extends Command {
                 targetStudent.getGroupId(),
                 targetStudent.getHomeworkTracker(),
                 updatedSheet,
-                Optional.ofNullable(null));
+                targetStudent.getConsultation());
 
         model.setPerson(targetStudent, updatedStudent);
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
