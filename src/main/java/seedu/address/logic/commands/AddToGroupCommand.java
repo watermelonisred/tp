@@ -1,9 +1,16 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.GroupId;
+import seedu.address.model.person.Nusnetid;
+
 /**
  * Adds a person to a group.
  */
-public class AddToGroupCommand {
+public class AddToGroupCommand extends Command {
     public static final String COMMAND_WORD = "add_to_group";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a existing student to a group.\n"
@@ -25,5 +32,20 @@ public class AddToGroupCommand {
     public AddToGroupCommand(String nusnetId, String groupId) {
         this.nusnetId = nusnetId;
         this.groupId = groupId;
+    }
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (!model.hasPerson(new Nusnetid(nusnetId))) {
+            throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
+        }
+
+        if (!model.hasGroup(new GroupId(groupId))) {
+            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
+        }
+
+        model.addPersonToGroup(new Nusnetid(nusnetId), new GroupId(groupId));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, nusnetId, groupId));
     }
 }
