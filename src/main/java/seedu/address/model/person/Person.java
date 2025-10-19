@@ -171,6 +171,16 @@ public class Person {
     }
 
     /**
+     * Returns a new Person with updated GroupId.
+     * @param newGroupId the new GroupId to be set.
+     * @return Person with the updated GroupId.
+     */
+    public Person withUpdatedGroup(GroupId newGroupId) {
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, newGroupId,
+                this.homeworkTracker, this.attendanceSheet, this.consultation);
+    }
+
+    /**
      * Adds a consultation to the person.
      * @param consultation Consultation to be added.
      * @return Person with the added consultation.

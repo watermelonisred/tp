@@ -8,6 +8,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Adds a person to a group.
@@ -40,21 +42,25 @@ public class AddToGroupCommand extends Command {
         if (!model.hasPerson(nusnetId)) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
+        Person target = model.getFilteredPersonList()
+                .stream().filter(p -> p.getNusnetid().equals(nusnetId))
+                .findFirst().orElseThrow(() -> new CommandException(MESSAGE_STUDENT_NOT_FOUND));
+        Person updatedStudent = target.withUpdatedGroup(groupId);
+        try {
+            model.setPerson(target, updatedStudent);
+        } catch (DuplicatePersonException | PersonNotFoundException e) {
+            throw new CommandException(e.getMessage());
+        }
         // if group does not exist, create it
         if (!model.hasGroup(groupId)) {
             Group newGroup = new Group(groupId);
             model.addGroup(newGroup);
-            Person student = model.getFilteredPersonList()
-                    .stream().filter(p -> p.getNusnetid().equals(nusnetId))
-                    .findFirst().orElseThrow(() -> new CommandException(MESSAGE_STUDENT_NOT_FOUND));
-            newGroup.addStudent(student);
+            newGroup.addStudent(updatedStudent);
         } else { // group exists
             Group group = model.getGroup(groupId);
-            Person student = model.getFilteredPersonList()
-                    .stream().filter(p -> p.getNusnetid().equals(nusnetId))
-                    .findFirst().orElseThrow(() -> new CommandException(MESSAGE_STUDENT_NOT_FOUND));
-            group.addStudent(student);
+            group.setPerson(target, updatedStudent);
         }
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, nusnetId, groupId));
     }
     @Override

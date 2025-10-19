@@ -50,7 +50,7 @@ public class Group {
     }
     /**
      * Returns all persons in this tutorial.
-     * @return
+     * @return ArrayList of persons in this tutorial.
      */
     public ArrayList<Person> getAllPerson() {
         return this.students.toArrayList();
