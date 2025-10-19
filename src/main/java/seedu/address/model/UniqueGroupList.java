@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.GroupId;
 
 /**
  * A list of groups that enforces uniqueness between its elements and does not allow nulls.
@@ -24,9 +25,9 @@ public class UniqueGroupList implements Iterable<Group> {
      * @param toCheck group to check
      * @return boolean
      */
-    public boolean contains(Group toCheck) {
+    public boolean contains(GroupId toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameGroup);
+        return internalList.stream().anyMatch(g -> g.isSameGroup(toCheck));
     }
     /**
      * Sets the groups to the groups in the given list.

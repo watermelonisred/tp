@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Consultation;
 import seedu.address.model.event.UniqueConsultationList;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -61,6 +62,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setConsultations(List<Consultation> consultations) {
         this.consultations.setConsultations(consultations);
+    }
+    /**
+     * Returns true if a group with the same identity as {@code groupId} exists in the address book.
+     */
+    public boolean hasGroup(GroupId groupId) {
+        requireNonNull(groupId);
+        return groups.contains(groupId);
     }
     /**
      * Replaces the contents of the group list with {@code groups}.

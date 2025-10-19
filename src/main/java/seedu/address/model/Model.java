@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
@@ -74,7 +75,7 @@ public interface Model {
     /**
      * Return true if a group with the same groupId as {@code groupId} exists in the address book.
      */
-    boolean hasGroup(String groupId);
+    boolean hasGroup(GroupId groupId);
 
     /**
      * Deletes the given person.

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Group;
 import seedu.address.model.Model;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
@@ -21,15 +22,15 @@ public class AddToGroupCommand extends Command {
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
     public static final String MESSAGE_GROUP_NOT_FOUND = "Group not found.";
 
-    private final String nusnetId;
-    private final String groupId;
+    private final Nusnetid nusnetId;
+    private final GroupId groupId;
     /**
      * Creates an {@code AddToGroupCommand} to add a person to a group.
      *
      * @param nusnetId the nusnetId ID of the target student
      * @param groupId the ID of the group to add the student to
      */
-    public AddToGroupCommand(String nusnetId, String groupId) {
+    public AddToGroupCommand(Nusnetid nusnetId, GroupId groupId) {
         this.nusnetId = nusnetId;
         this.groupId = groupId;
     }
@@ -37,15 +38,15 @@ public class AddToGroupCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasPerson(new Nusnetid(nusnetId))) {
+        if (!model.hasPerson(nusnetId)) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
 
-        if (!model.hasGroup(new GroupId(groupId))) {
-            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
+        if (!model.hasGroup(groupId)) {
+            Group newGroup = new Group(groupId);
+            model.addGroup(newGroup);
         }
 
-        model.addPersonToGroup(new Nusnetid(nusnetId), new GroupId(groupId));
         return new CommandResult(String.format(MESSAGE_SUCCESS, nusnetId, groupId));
     }
 }
