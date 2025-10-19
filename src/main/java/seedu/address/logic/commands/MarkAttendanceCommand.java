@@ -68,14 +68,6 @@ public class MarkAttendanceCommand extends Command {
                 .filter(student -> student.getNusnetid().value.equalsIgnoreCase(nusnetId))
                 .findFirst()
                 .orElse(null);
-        // List<Person>
-        // p.getGroupid() -> groupid
-
-        // model.getAddressBook().getGroupList(groupid) -> Group g -> UniPersonList -> Person
-        //  g.setPerson(p)
-        // g.TakeAllPersonsAttendance(weeknumber, status)
-
-        //
         if (targetStudent == null) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }

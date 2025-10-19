@@ -7,6 +7,7 @@ import seedu.address.model.Group;
 import seedu.address.model.Model;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
+import seedu.address.model.person.Person;
 
 /**
  * Adds a person to a group.
@@ -41,12 +42,32 @@ public class AddToGroupCommand extends Command {
         if (!model.hasPerson(nusnetId)) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
-
+        // if group does not exist, create it
         if (!model.hasGroup(groupId)) {
             Group newGroup = new Group(groupId);
             model.addGroup(newGroup);
+            Person student = model.getFilteredPersonList()
+                    .stream().filter(p -> p.getNusnetid().equals(nusnetId))
+                    .findFirst().orElseThrow(() -> new CommandException(MESSAGE_STUDENT_NOT_FOUND));
+            newGroup.addStudent(student);
+        } else { // group exists
+            Group group = model.getGroup(groupId);
+            Person student = model.getFilteredPersonList()
+                    .stream().filter(p -> p.getNusnetid().equals(nusnetId))
+                    .findFirst().orElseThrow(() -> new CommandException(MESSAGE_STUDENT_NOT_FOUND));
+            group.addStudent(student);
         }
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, nusnetId, groupId));
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AddToGroupCommand otherCommand)) {
+            return false;
+        }
+        return nusnetId.equals(otherCommand.nusnetId)
+                && groupId.equals(otherCommand.groupId);
     }
 }

@@ -216,10 +216,9 @@ public class Person {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Person otherPerson)) {
             return false;
         }
-        Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
@@ -239,13 +238,13 @@ public class Person {
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
                 .add("groupId", groupId);
-        if (phone.isPresent()) {
+        if (this.phone.isPresent()) {
             builder.add("phone", phone.get());
         }
-        if (email.isPresent()) {
+        if (this.email.isPresent()) {
             builder.add("email", email.get());
         }
-        if (consultation.isPresent()) {
+        if (this.consultation.isPresent()) {
             builder.add("consultation", consultation.get());
         }
         return builder.toString();

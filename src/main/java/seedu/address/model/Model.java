@@ -141,4 +141,11 @@ public interface Model {
      * Returns the list of groups in the model.
      */
     List<Group> getGroupList();
+
+    /**
+     * Gets a group by its groupId.
+     * @param groupId the groupId of the group to be retrieved
+     * @return the group with the specified groupId
+     */
+    Group getGroup(GroupId groupId);
 }

@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -100,14 +101,14 @@ public class ModelManager implements Model {
         return addressBook.hasPerson(person);
     }
     @Override
-    public boolean hasGroup(GroupId groupId) {
-        requireNonNull(groupId);
-        return addressBook.hasGroup(groupId);
-    }
-    @Override
     public boolean hasPerson(Nusnetid nusnetid) {
         requireNonNull(nusnetid);
         return addressBook.hasPerson(nusnetid);
+    }
+    @Override
+    public boolean hasGroup(GroupId groupId) {
+        requireNonNull(groupId);
+        return addressBook.hasGroup(groupId);
     }
     @Override
     public void deletePerson(Person target) {
@@ -205,5 +206,14 @@ public class ModelManager implements Model {
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
-
+    @Override
+    public Group getGroup(GroupId groupId) {
+        requireNonNull(groupId);
+        for (Group group : groupList) {
+            if (group.getGroupId().equals(groupId)) {
+                return group;
+            }
+        }
+        return null;
+    }
 }
