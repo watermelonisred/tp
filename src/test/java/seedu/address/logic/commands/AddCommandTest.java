@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -198,6 +199,14 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Group getGroup(GroupId groupId) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public boolean hasGroup(GroupId groupId) {
             throw new AssertionError("This method should not be called.");
         }
     }

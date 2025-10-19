@@ -171,6 +171,16 @@ public class Person {
     }
 
     /**
+     * Returns a new Person with updated GroupId.
+     * @param newGroupId the new GroupId to be set.
+     * @return Person with the updated GroupId.
+     */
+    public Person withUpdatedGroup(GroupId newGroupId) {
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, newGroupId,
+                this.homeworkTracker, this.attendanceSheet, this.consultation);
+    }
+
+    /**
      * Adds a consultation to the person.
      * @param consultation Consultation to be added.
      * @return Person with the added consultation.
@@ -216,10 +226,9 @@ public class Person {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Person otherPerson)) {
             return false;
         }
-        Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
@@ -239,13 +248,13 @@ public class Person {
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
                 .add("groupId", groupId);
-        if (phone.isPresent()) {
+        if (this.phone.isPresent()) {
             builder.add("phone", phone.get());
         }
-        if (email.isPresent()) {
+        if (this.email.isPresent()) {
             builder.add("email", email.get());
         }
-        if (consultation.isPresent()) {
+        if (this.consultation.isPresent()) {
             builder.add("consultation", consultation.get());
         }
         return builder.toString();

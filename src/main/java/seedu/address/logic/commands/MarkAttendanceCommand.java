@@ -64,7 +64,6 @@ public class MarkAttendanceCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_WEEK);
         }
         AttendanceStatus status = AttendanceStatus.fromString(attendanceStatus);
-        List<Person> students = model.getFilteredPersonList();
         Person targetStudent = list.stream()
                 .filter(student -> student.getNusnetid().value.equalsIgnoreCase(nusnetId))
                 .findFirst()
