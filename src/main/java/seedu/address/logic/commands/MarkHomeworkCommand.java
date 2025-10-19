@@ -26,7 +26,7 @@ import seedu.address.model.person.Person;
  */
 public class MarkHomeworkCommand extends Command {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "mark_hw";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks a student's assignment completeness.\n"
             + "Parameters: i/<nusnetId> a/<assignmentId> status/<complete|incomplete|late>\n"
