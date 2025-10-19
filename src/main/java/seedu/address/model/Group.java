@@ -52,7 +52,7 @@ public class Group {
      * Returns all persons in this tutorial.
      * @return ArrayList of persons in this tutorial.
      */
-    public ArrayList<Person> getAllPerson() {
+    public ArrayList<Person> getAllPersons() {
         return this.students.toArrayList();
     }
     /**

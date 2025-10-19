@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.model.Model;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Person;
 
@@ -18,7 +19,7 @@ public class FindGroupCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all students whose group IDs match the input group id \n"
             + "Parameters: GROUP ID\n"
-            + "Example: " + COMMAND_WORD + PREFIX_GROUP + " T01";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_GROUP + " T01";
     private final GroupId groupId;
     private final Predicate<Person> predicate;
     /**
@@ -35,8 +36,7 @@ public class FindGroupCommand extends Command {
      * @return the command result message.
      */
     @Override
-    public CommandResult execute(seedu.address.model.Model model) {
-
+    public CommandResult execute(Model model) {
         model.updateFilteredPersonList(predicate);
         return new CommandResult(String.format(
                 Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,

@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUSNETID;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Group;
 import seedu.address.model.Model;
@@ -18,8 +21,8 @@ public class AddToGroupCommand extends Command {
     public static final String COMMAND_WORD = "add_to_group";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a existing student to a group.\n"
-            + "Parameters: g/GROUPID i/NETID \n"
-            + "Example: " + COMMAND_WORD + " g/T01 i/E1234567 \n";
+            + "Parameters: " + PREFIX_GROUP + "GROUPID " + PREFIX_NUSNETID + "NETID \n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_GROUP + "T01 " + PREFIX_NUSNETID + "E1234567 \n";
 
     public static final String MESSAGE_SUCCESS = "Student %s added to Group %s.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
@@ -48,8 +51,10 @@ public class AddToGroupCommand extends Command {
         Person updatedStudent = target.withUpdatedGroup(groupId);
         try {
             model.setPerson(target, updatedStudent);
-        } catch (DuplicatePersonException | PersonNotFoundException e) {
+        } catch (DuplicatePersonException e) {
             throw new CommandException(e.getMessage());
+        } catch (PersonNotFoundException e) {
+            throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }
         // if group does not exist, create it
         if (!model.hasGroup(groupId)) {
