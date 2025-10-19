@@ -31,7 +31,18 @@ public class Group {
     public GroupId getGroupId() {
         return groupId;
     }
-
+    /**
+     * Returns true if both groups have the same groupId.
+     * @param otherGroup The other group to be compared to.
+     * @return boolean
+     */
+    public boolean isSameGroup(Group otherGroup) {
+        if (otherGroup == this) {
+            return true;
+        }
+        return otherGroup != null
+                && otherGroup.getGroupId().equals(getGroupId());
+    }
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * @param target old person

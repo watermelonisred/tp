@@ -20,7 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueConsultationList consultations;
-//    private final UniqueGroupList groups;
+    private final UniqueGroupList groups;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         consultations = new UniqueConsultationList();
+        groups = new UniqueGroupList();
     }
 
     public AddressBook() {}
@@ -61,7 +62,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setConsultations(List<Consultation> consultations) {
         this.consultations.setConsultations(consultations);
     }
-
+    /**
+     * Replaces the contents of the group list with {@code groups}.
+     * {@code groups} must not contain duplicate groups.
+     */
+    public void setGroups(List<Group> groups) {
+        this.groups.setGroups(groups);
+    }
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -70,6 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setConsultations(newData.getConsultationList());
+        setGroups(newData.getGroupList());
+
     }
 
     //// person-level operations
@@ -159,12 +168,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
-
     @Override
     public ObservableList<Consultation> getConsultationList() {
         return consultations.asUnmodifiableObservableList();
     }
-
+    @Override
+    public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -64,11 +64,18 @@ public class MarkAttendanceCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_WEEK);
         }
         AttendanceStatus status = AttendanceStatus.fromString(attendanceStatus);
-        List<Person> students = model.getFilteredPersonList();
         Person targetStudent = list.stream()
                 .filter(student -> student.getNusnetid().value.equalsIgnoreCase(nusnetId))
                 .findFirst()
                 .orElse(null);
+        // List<Person>
+        // p.getGroupid() -> groupid
+
+        // model.getAddressBook().getGroupList(groupid) -> Group g -> UniPersonList -> Person
+        //  g.setPerson(p)
+        // g.TakeAllPersonsAttendance(weeknumber, status)
+
+        //
         if (targetStudent == null) {
             throw new CommandException(MESSAGE_STUDENT_NOT_FOUND);
         }

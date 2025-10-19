@@ -94,7 +94,6 @@ public class UniqueConsultationList implements Iterable<Consultation> {
         if (!consultationsAreUnique(consultations)) {
             throw new DuplicateConsultationException();
         }
-
         internalList.setAll(consultations);
     }
 
