@@ -19,7 +19,6 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
