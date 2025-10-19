@@ -21,14 +21,12 @@ public class AddToGroupCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Student %s added to Group %s.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
-    public static final String MESSAGE_GROUP_NOT_FOUND = "Group not found.";
-
-    private final Nusnetid nusnetId;
     private final GroupId groupId;
+    private final Nusnetid nusnetId;
     /**
      * Creates an {@code AddToGroupCommand} to add a person to a group.
      *
-     * @param nusnetId the nusnetId ID of the target student
+     * @param nusnetId the nus netId of the target student
      * @param groupId the ID of the group to add the student to
      */
     public AddToGroupCommand(Nusnetid nusnetId, GroupId groupId) {

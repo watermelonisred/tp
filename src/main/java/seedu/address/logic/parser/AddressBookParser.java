@@ -89,8 +89,8 @@ public class AddressBookParser {
             return new CreateGroupCommandParser().parse(arguments);
         case FindGroupCommand.COMMAND_WORD:
             return new FindGroupCommandParser().parse(arguments);
-//        case AddToGroupCommand.COMMAND_WORD:
-//            return new AddToGroupCommandParser().parse(arguments);
+        case AddToGroupCommand.COMMAND_WORD:
+            return new AddToGroupCommandParser().parse(arguments);
 
         case AddHomeworkCommand.COMMAND_WORD:
             return new AddHomeworkCommandParser().parse(arguments);
