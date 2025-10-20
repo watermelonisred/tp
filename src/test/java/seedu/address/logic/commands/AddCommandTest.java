@@ -188,6 +188,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasOverlappingConsultation(Consultation consultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addConsultation(Consultation consultation) {
             throw new AssertionError("This method should not be called.");
         }

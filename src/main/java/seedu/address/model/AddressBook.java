@@ -153,6 +153,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a consultation overlapping with {@code consultation} exists in the address book.
+     */
+    public boolean hasOverlappingConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        return consultations.hasOverlappingConsultation(consultation);
+    }
+
+    /**
      * Adds a consultation to the address book.
      * The consultation must not already exist in the address book.
      */

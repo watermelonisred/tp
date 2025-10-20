@@ -111,6 +111,11 @@ public interface Model {
     boolean hasConsultation(Consultation consultation);
 
     /**
+     * Returns true if a consultation that overlaps with {@code consultation} exists in the address book.
+     */
+    boolean hasOverlappingConsultation(Consultation consultation);
+
+    /**
      * Adds the given consultation.
      * {@code consultation} must not already exist in the address book.
      */

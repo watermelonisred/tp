@@ -29,7 +29,8 @@ public class AddConsultationCommand extends Command {
             + PREFIX_TO + "20251010 1600";
 
     public static final String MESSAGE_SUCCESS = "New consultation added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CONSULTATION = "Consultation already exists";
+    public static final String MESSAGE_OVERLAPPING_CONSULTATION =
+            "Consultation timing overlaps with existing consultation";
     public static final String MESSAGE_STUDENT_DOES_NOT_EXIST = "Student does not exist";
     public static final String MESSAGE_STUDENT_ALREADY_HAS_CONSULTATION =
             "Student already has a scheduled consultation";
@@ -47,19 +48,18 @@ public class AddConsultationCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasConsultation(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CONSULTATION);
-        }
-
         if (!model.hasPerson(toAdd.getNusnetid())) {
             throw new CommandException(MESSAGE_STUDENT_DOES_NOT_EXIST);
-        } else {
-            try {
-                model.addConsultationToPerson(toAdd.getNusnetid(), toAdd);
-            } catch (IllegalArgumentException e) {
-                throw new CommandException(e.getMessage());
-            }
+        }
+
+        if (model.hasConsultation(toAdd) || model.hasOverlappingConsultation(toAdd)) {
+            throw new CommandException(MESSAGE_OVERLAPPING_CONSULTATION);
+        }
+
+        try {
+            model.addConsultationToPerson(toAdd.getNusnetid(), toAdd);
+        } catch (IllegalArgumentException e) { // handle error when student already has a consultation
+            throw new CommandException(e.getMessage());
         }
 
         model.addConsultation(toAdd);
