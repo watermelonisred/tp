@@ -181,13 +181,13 @@ public class Person {
     }
 
     /**
-     * Adds a consultation to the person.
+     * Returns a new Person with added consultation.
      * @param consultation Consultation to be added.
      * @return Person with the added consultation.
      */
     public Person addConsultation(Consultation consultation) {
-        this.consultation = Optional.ofNullable(consultation);
-        return this;
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId,
+                this.homeworkTracker, this.attendanceSheet, Optional.ofNullable(consultation));
     }
 
     /**
