@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -59,12 +60,12 @@ public class MarkAttendanceCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> list = model.getFilteredPersonList();
+
         if (week < 2 || week > 13) {
             throw new CommandException(MESSAGE_INVALID_WEEK);
         }
         AttendanceStatus status = AttendanceStatus.fromString(attendanceStatus);
-        List<Person> students = model.getFilteredPersonList();
+        List<Person> list = model.getAddressBook().getUniquePersonList();
         Person targetStudent = list.stream()
                 .filter(student -> student.getNusnetid().value.equalsIgnoreCase(nusnetId))
                 .findFirst()
@@ -95,6 +96,8 @@ public class MarkAttendanceCommand extends Command {
                 targetStudent.getConsultation());
 
         model.setPerson(targetStudent, updatedStudent);
+        Predicate<Person> predicate = person -> true;
+        model.updateFilteredPersonList(predicate);
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 updatedStudent.getName(), status.getStatus(), week));
     }
