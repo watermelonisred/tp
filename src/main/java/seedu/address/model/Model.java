@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
@@ -72,6 +73,11 @@ public interface Model {
     boolean hasPerson(Nusnetid nusnetid);
 
     /**
+     * Return true if a group with the same groupId as {@code groupId} exists in the address book.
+     */
+    boolean hasGroup(GroupId groupId);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -135,4 +141,11 @@ public interface Model {
      * Returns the list of groups in the model.
      */
     List<Group> getGroupList();
+
+    /**
+     * Gets a group by its groupId.
+     * @param groupId the groupId of the group to be retrieved
+     * @return the group with the specified groupId
+     */
+    Group getGroup(GroupId groupId);
 }

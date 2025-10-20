@@ -11,6 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddConsultationCommand;
 import seedu.address.logic.commands.AddHomeworkCommand;
+import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateGroupCommand;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.DeleteHomeworkCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkAttendanceCommand;
@@ -32,6 +34,8 @@ public class AddressBookParser {
 
     /**
      * Used for initial separation of command word and args.
+     * the command word is defined as the first non-whitespace sequence of characters
+     * and the arguments is everything after that.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
@@ -84,6 +88,10 @@ public class AddressBookParser {
             return new HelpCommand();
         case CreateGroupCommand.COMMAND_WORD:
             return new CreateGroupCommandParser().parse(arguments);
+        case FindGroupCommand.COMMAND_WORD:
+            return new FindGroupCommandParser().parse(arguments);
+        case AddToGroupCommand.COMMAND_WORD:
+            return new AddToGroupCommandParser().parse(arguments);
 
         case AddHomeworkCommand.COMMAND_WORD:
             return new AddHomeworkCommandParser().parse(arguments);

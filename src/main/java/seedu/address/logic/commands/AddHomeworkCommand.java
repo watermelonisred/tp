@@ -19,8 +19,8 @@ import seedu.address.model.person.Person;
  *
  * <p>Example usage:</p>
  * <pre>{@code
- * addhw i/E1234567 a/1    // adds assignment 1 to student E1234567
- * addhw all a/1           // adds assignment 1 to all students
+ * add_hw i/E1234567 a/1    // adds assignment 1 to student E1234567
+ * add_hw all a/1           // adds assignment 1 to all students
  * }</pre>
  */
 
