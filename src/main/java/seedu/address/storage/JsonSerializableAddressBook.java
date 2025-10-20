@@ -92,10 +92,17 @@ class JsonSerializableAddressBook {
             Group modelGroup = new Group(modelGroupId);
             // For each stored nus net id in group,
             // find the corresponding Person in addressBook and add to the group
-            for (Nusnetid nusId : jsonAdaptedGroup.getStudentNusnetids()) {
+            for (String nusIdStr : jsonAdaptedGroup.getStudentNusnetids()) {
+                if (nusIdStr == null) {
+                    throw new IllegalValueException("Group contains null nusnetid");
+                }
+                if (!Nusnetid.isValidNusnetid(nusIdStr)) {
+                    throw new IllegalValueException(Nusnetid.MESSAGE_CONSTRAINTS);
+                }
+                Nusnetid modelNusnetid = new Nusnetid(nusIdStr);
                 boolean found = false;
                 for (Person p : addressBook.getPersonList()) {
-                    if (p.getNusnetid().equals(nusId)) {
+                    if (p.getNusnetid().equals(modelNusnetid)) {
                         modelGroup.addStudent(p);
                         found = true;
                         break;
