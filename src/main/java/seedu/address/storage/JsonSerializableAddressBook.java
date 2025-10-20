@@ -14,6 +14,7 @@ import seedu.address.model.Group;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Consultation;
 import seedu.address.model.person.GroupId;
+import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
 /**
@@ -84,17 +85,17 @@ class JsonSerializableAddressBook {
             }
             addressBook.addConsultation(consultation);
         }
-
         List<Group> modelGroups = new ArrayList<>();
         for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
             // validate and build Group object
             GroupId modelGroupId = jsonAdaptedGroup.toModelGroupId();
             Group modelGroup = new Group(modelGroupId);
-            // For each stored nusnetid, find the corresponding Person in addressBook and add
-            for (String nusId : jsonAdaptedGroup.getStudentNusnetids()) {
+            // For each stored nus net id in group,
+            // find the corresponding Person in addressBook and add to the group
+            for (Nusnetid nusId : jsonAdaptedGroup.getStudentNusnetids()) {
                 boolean found = false;
                 for (Person p : addressBook.getPersonList()) {
-                    if (p.getNusnetid().value.equals(nusId)) {
+                    if (p.getNusnetid().equals(nusId)) {
                         modelGroup.addStudent(p);
                         found = true;
                         break;

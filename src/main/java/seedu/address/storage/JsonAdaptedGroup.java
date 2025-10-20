@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Group;
 import seedu.address.model.person.GroupId;
+import seedu.address.model.person.Nusnetid;
+import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Group}.
@@ -19,14 +21,14 @@ class JsonAdaptedGroup {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Group's %s field is missing!";
 
     private final String groupId;
-    private final List<String> studentNusnetids = new ArrayList<>();
+    private final List<Nusnetid> studentNusnetids = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedGroup} with the given group details.
      */
     @JsonCreator
     public JsonAdaptedGroup(@JsonProperty("groupId") String groupId,
-                            @JsonProperty("studentNusnetids") List<String> studentNusnetids) {
+                            @JsonProperty("studentNusnetids") List<Nusnetid> studentNusnetids) {
         this.groupId = groupId;
         if (studentNusnetids != null) {
             this.studentNusnetids.addAll(studentNusnetids);
@@ -39,7 +41,7 @@ class JsonAdaptedGroup {
     public JsonAdaptedGroup(Group source) {
         groupId = source.getGroupId().value;
         studentNusnetids.addAll(source.getAllPersons().stream()
-                .map(p -> p.getNusnetid().value).collect(Collectors.toList()));
+                .map(Person::getNusnetid).toList());
     }
 
     /**
@@ -58,7 +60,7 @@ class JsonAdaptedGroup {
         return new GroupId(groupId);
     }
 
-    public List<String> getStudentNusnetids() {
+    public List<Nusnetid> getStudentNusnetids() {
         return studentNusnetids;
     }
 }
