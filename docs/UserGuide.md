@@ -219,12 +219,39 @@ Format: `create_group g/GROUPID`
 
 * Creates a new group with the specified group ID.
 * The group ID **must be unique**.
-* Group IDs typically follow the format `TXX` or `BXX`, where `XX` is a number.
+* Group IDs typically follow the format `TXX` or `BXX`, where `XX` are 2 digits.
 
 Examples:
 * `create_group g/T03` creates a new group with ID `T03`.
-* `create_group g/T05` creates a new group with ID `T05`.
+* `create_group g/B05` creates a new group with ID `B05`.
 
+### Adding a student to a group : `add_to_group`
+
+Adds a student to a tutorial group.
+
+Format: `add_to_group i/NUSNETID g/GROUPID`
+
+* If the specified group does not exist, it will be created.
+* If the group exists, the student will be added to that group.
+* If the student does not exist, an error message will be shown.
+* The NUSNET ID and group ID **must be valid**.
+* A student can only belong to one group at a time; adding them to a new group will remove them from their previous group.
+
+Examples:
+* `add_to_group i/E1234567 g/T03` adds student `E1234567` to group `T03`.
+* `add_to_group i/E2345678 g/B05` (group B05 does not exist initially) create group `B05` and adds student `E2345678` to it.
+
+### Find Group Members : `find_group`
+Finds all members in a specified tutorial group.
+
+Format: `find_group g/GROUPID`
+
+* Displays all students belonging to the specified group.
+* The group ID **must be valid**.
+
+Examples:
+* `find_group g/T03` displays all members in group `T03`.
+* `find_group g/B05` displays all members in group `B05`.
 
 ### Clearing all entries : `clear`
 
