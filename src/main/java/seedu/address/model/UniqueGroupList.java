@@ -76,4 +76,25 @@ public class UniqueGroupList implements Iterable<Group> {
     public ObservableList<Group> asUnmodifiableObservableList() {
         return this.internalUnmodifiableList;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof UniqueGroupList)) {
+            return false;
+        }
+        UniqueGroupList otherList = (UniqueGroupList) other;
+        return this.internalList.equals(otherList.internalList);
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
+    @Override
+    public String toString() {
+        return internalList.toString();
+    }
 }
