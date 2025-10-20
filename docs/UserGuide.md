@@ -310,6 +310,8 @@ Action     | Format, Examples
 **MarkAttendance**  | `mark_attendance i/NUSNETID week/WEEK status/STATUS(present absent excused)` <br> e.g., `mark_attendance i/E1234567 week/3 status/present`
 **AddConsultation**  | `add_consult i/NUSNETID from/DATE_TIME to/DATE_TIME` <br> e.g., `add_consult i/E1234567 from/2024-09-15 14:00 to/2024-09-15 15:00`
 **CreateGroup**  | `create_group g/GROUPID` <br> e.g., `create_group g/T03`
+**AddToGroup**  | `add_to_group i/NUSNETID g/GROUPID` <br> e.g., `add_to_group i/E1234567 g/T03`
+**FindGroup**  | `find_group g/GROUPID` <br> e.g., `find_group g/T03`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
@@ -320,6 +322,8 @@ Action     | Format, Examples
 during matriculation. It is used for logging into various NUS systems.
 * **NUS email**: The official email address assigned to each student by NUS, typically 
 in the format `<NETS id>@u.nus.edu`.
+* **Tutorial Group**: A smaller group of students within a course. Group Ids usually follow the format `TXX` or `BXX`, 
+where `XX` are 2 digits.
 * **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
 by typing commands.
 * **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
