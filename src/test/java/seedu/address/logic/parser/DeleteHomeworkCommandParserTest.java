@@ -49,4 +49,48 @@ public class DeleteHomeworkCommandParserTest {
         assertParseFailure(parser, " i/ a/1",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteHomeworkCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_boundaryAssignmentId_success() {
+        assertParseSuccess(parser, "i/" + VALID_NUSNETID_AMY + " a/1",
+                new DeleteHomeworkCommand(VALID_NUSNETID_AMY, 1));
+        assertParseSuccess(parser, "all a/3",
+                new DeleteHomeworkCommand("all", 3));
+    }
+
+    @Test
+    public void parse_caseInsensitiveAll_success() {
+        assertParseSuccess(parser, "ALL a/2",
+                new DeleteHomeworkCommand("all", 2));
+    }
+
+    @Test
+    public void parse_extraWhitespace_success() {
+        assertParseSuccess(parser, "   i/" + VALID_NUSNETID_AMY + "   a/2   ",
+                new DeleteHomeworkCommand(VALID_NUSNETID_AMY, 2));
+    }
+
+    @Test
+    public void parse_invalidKeyword_failure() {
+        assertParseFailure(parser, "every a/1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteHomeworkCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_duplicateAssignment_failure() {
+        assertParseFailure(parser, "i/" + VALID_NUSNETID_AMY + " a/1 a/2",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteHomeworkCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_extraArguments_failure() {
+        assertParseFailure(parser, "i/" + VALID_NUSNETID_AMY + " a/1 extra",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteHomeworkCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_missingPrefixes_failure2() {
+        assertParseFailure(parser, VALID_NUSNETID_AMY + " 1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteHomeworkCommand.MESSAGE_USAGE));
+    }
 }
