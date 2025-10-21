@@ -4,9 +4,11 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# SoCAssist User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+SoCAssist is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having 
+the benefits of a Graphical User Interface (GUI). If you can type fast, SoCAssist can get your contact management tasks 
+done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,9 +20,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W11-1/tp/releases/tag/v1.3).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your SoCAssist.
 
 1. Open a command terminal, using command `cd` + the path to get into the folder you put the jar file in, and use the `java -jar SoCTAssist.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -233,12 +235,39 @@ Format: `create_group g/GROUPID`
 
 * Creates a new group with the specified group ID.
 * The group ID **must be unique**.
-* Group IDs typically follow the format `TXX` or `BXX`, where `XX` is a number.
+* Group IDs typically follow the format `TXX` or `BXX`, where `XX` are 2 digits.
 
 Examples:
 * `create_group g/T03` creates a new group with ID `T03`.
-* `create_group g/T05` creates a new group with ID `T05`.
+* `create_group g/B05` creates a new group with ID `B05`.
 
+### Adding a student to a group : `add_to_group`
+
+Adds a student to a tutorial group.
+
+Format: `add_to_group i/NUSNETID g/GROUPID`
+
+* If the specified group does not exist, it will be created.
+* If the group exists, the student will be added to that group.
+* If the student does not exist, an error message will be shown.
+* The NUSNET ID and group ID **must be valid**.
+* A student can only belong to one group at a time; adding them to a new group will remove them from their previous group.
+
+Examples:
+* `add_to_group i/E1234567 g/T03` adds student `E1234567` to group `T03`.
+* `add_to_group i/E2345678 g/B05` (group B05 does not exist initially) create group `B05` and adds student `E2345678` to it.
+
+### Find Group Members : `find_group`
+Finds all members in a specified tutorial group.
+
+Format: `find_group g/GROUPID`
+
+* Displays all students belonging to the specified group.
+* The group ID **must be valid**.
+
+Examples:
+* `find_group g/T03` displays all members in group `T03`.
+* `find_group g/B05` displays all members in group `B05`.
 
 ### Clearing all entries : `clear`
 
@@ -297,6 +326,8 @@ Action     | Format, Examples
 **MarkAttendance**  | `mark_attendance i/NUSNETID week/WEEK status/STATUS(present absent excused)` <br> e.g., `mark_attendance i/E1234567 week/3 status/present`
 **AddConsultation**  | `add_consult i/NUSNETID from/DATE_TIME to/DATE_TIME` <br> e.g., `add_consult i/E1234567 from/2024-09-15 14:00 to/2024-09-15 15:00`
 **CreateGroup**  | `create_group g/GROUPID` <br> e.g., `create_group g/T03`
+**AddToGroup**  | `add_to_group i/NUSNETID g/GROUPID` <br> e.g., `add_to_group i/E1234567 g/T03`
+**FindGroup**  | `find_group g/GROUPID` <br> e.g., `find_group g/T03`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
@@ -307,6 +338,8 @@ Action     | Format, Examples
 during matriculation. It is used for logging into various NUS systems.
 * **NUS email**: The official email address assigned to each student by NUS, typically 
 in the format `<NETS id>@u.nus.edu`.
+* **Tutorial Group**: A smaller group of students within a course. Group Ids usually follow the format `TXX` or `BXX`, 
+where `XX` are 2 digits.
 * **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
 by typing commands.
 * **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
