@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -27,11 +28,20 @@ import seedu.address.model.person.Person;
 public class AddHomeworkCommand extends Command {
 
     public static final String COMMAND_WORD = "add_hw";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a homework to a student or all students.\n"
-            + "Parameters: i/NETID a/ASSIGNMENT_ID or all a/ASSIGNMENT_ID\n"
-            + "Example: " + COMMAND_WORD + " i/E1234567 a/1\n"
-            + "Example (all): " + COMMAND_WORD + " all a/1";;
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a homework to a student or to all students.\n"
+            + "Parameters: "
+            + CliSyntax.PREFIX_NUSNETID + "NUSNET_ID "
+            + "or all "
+            + CliSyntax.PREFIX_ASSIGNMENT + "ASSIGNMENT_ID\n"
+            + "Example (single): " + COMMAND_WORD + " "
+            + CliSyntax.PREFIX_NUSNETID
+            + "E1234567 "
+            + CliSyntax.PREFIX_ASSIGNMENT + "1\n"
+            + "Example (all): " + COMMAND_WORD + " "
+            + CliSyntax.PREFIX_NUSNETID
+            + "all "
+            + CliSyntax.PREFIX_ASSIGNMENT + "1";
 
     public static final String MESSAGE_SUCCESS_ONE = "Added assignment %d for %s (default incomplete).";
     public static final String MESSAGE_SUCCESS_ALL = "Added assignment %d for all students (default incomplete).";
