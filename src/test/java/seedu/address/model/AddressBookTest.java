@@ -121,6 +121,10 @@ public class AddressBookTest {
         public ObservableList<Group> getGroupList() {
             return groups;
         }
+        @Override
+        public List<Person> getUniquePersonList() {
+            return persons;
+        }
     }
 
 }

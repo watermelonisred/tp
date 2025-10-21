@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
-import java.util.List;
+
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -80,37 +80,23 @@ public class MarkAllAttendanceCommand extends Command {
         }
 
         AttendanceStatus status = AttendanceStatus.fromString(attendanceStatus);
-//        List<Group> list = model.getAddressBook().getGroupList();
-//        Boolean isEmpty;
-//        isEmpty = list.isEmpty();
-//        System.out.println(isEmpty);
-//
-//          GroupId targetGroupId = new GroupId(groupId);
-////        Group targetGroup = model.getGroup(targetGroupId);
-////        System.out.println("Looking for: [" + groupId + "]");
-////        list.forEach(g -> System.out.println("Available: [" + g.getGroupId().value + "]"));
-//
-//        GroupId targetId = new GroupId(groupId);
-//        Group targetGroup = list.stream()
-//            .filter(group -> group.getGroupId().equals(targetGroupId))
-//               .findFirst()
-//               .orElseThrow(() -> new CommandException(MESSAGE_GROUP_NOT_FOUND));
-//
-//        ArrayList<Person> studentsInGroup = targetGroup.getAllPersons();
+        ObservableList<Group> list = model.getAddressBook().getGroupList();
+        GroupId targetGroupId;
+        if (GroupId.isValidGroupId(groupId)) {
+            targetGroupId = new GroupId(groupId);
+        } else {
+            throw new CommandException(GroupId.MESSAGE_CONSTRAINTS);
+        }
+        Group targetGroup = list.stream()
+            .filter(group -> group.getGroupId().equals(targetGroupId))
+               .findFirst()
+               .orElseThrow(() -> new CommandException(MESSAGE_GROUP_NOT_FOUND));
 
+        ArrayList<Person> studentsInGroup = targetGroup.getAllPersons();
         if (status == null) {
             throw new CommandException(MESSAGE_INVALID_STATUS);
         }
-
-        Predicate<Person> predicate = person -> person.getGroupId().value.equals(groupId);
-        model.updateFilteredPersonList(predicate);
-        ObservableList<Person> filteredList = model.getFilteredPersonList();
-        if (filteredList.isEmpty()) {
-            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
-        }
-
-
-        for (Person fileredList : studentsInGroup) {
+        for (Person targetStudent: studentsInGroup) {
             AttendanceSheet updatedSheet = new AttendanceSheet();
             for (Attendance attendance : targetStudent.getAttendanceSheet().getAttendanceList()) {
                 updatedSheet.markAttendance(attendance.getWeek(), attendance.getAttendanceStatus());
@@ -131,6 +117,9 @@ public class MarkAllAttendanceCommand extends Command {
             model.setPerson(targetStudent, updatedStudent);
             targetGroup.setPerson(targetStudent, updatedStudent);
         }
+
+        Predicate<Person> predicate = person -> person.getGroupId().value.equals(groupId);
+        model.updateFilteredPersonList(predicate);
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                     groupId, status.getStatus(), week));
     }
