@@ -25,6 +25,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Group;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -170,8 +171,10 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + NUSNETID_DESC_AMY + TELEGRAM_DESC_AMY + SLOT_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
+        Group expectedGroup = new Group(expectedPerson.getGroupId());
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
+        expectedModel.addGroup(expectedGroup);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }

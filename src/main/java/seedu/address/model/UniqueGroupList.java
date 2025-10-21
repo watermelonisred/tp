@@ -30,6 +30,31 @@ public class UniqueGroupList implements Iterable<Group> {
         return internalList.stream().anyMatch(g -> g.isSameGroup(toCheck));
     }
     /**
+     * Adds a group to the list.
+     * @param toAdd group to add
+     */
+    public void add(Group toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd.getGroupId())) {
+            throw new IllegalArgumentException("Duplicate group");
+        }
+        internalList.add(toAdd);
+    }
+    /**
+     * Returns the Group with the given GroupId, or null if not found.
+     * @param groupId to look for
+     * @return Group or null
+     */
+    public Group getGroup(GroupId groupId) {
+        requireNonNull(groupId);
+        for (Group g : internalList) {
+            if (g.getGroupId().equals(groupId)) {
+                return g;
+            }
+        }
+        return null;
+    }
+    /**
      * Sets the groups to the groups in the given list.
      * @param groups updated list of groups
      */
@@ -50,5 +75,26 @@ public class UniqueGroupList implements Iterable<Group> {
      */
     public ObservableList<Group> asUnmodifiableObservableList() {
         return this.internalUnmodifiableList;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof UniqueGroupList)) {
+            return false;
+        }
+        UniqueGroupList otherList = (UniqueGroupList) other;
+        return this.internalList.equals(otherList.internalList);
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
+    @Override
+    public String toString() {
+        return internalList.toString();
     }
 }

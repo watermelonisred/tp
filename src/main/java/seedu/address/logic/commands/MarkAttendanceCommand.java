@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,7 +20,7 @@ import seedu.address.model.person.Person;
  *
  * <p>Example usage:</p>
  * <pre>{@code
- * mark_attendance w/3 present n/E1234567
+ * mark_attendance  i/E1234567 w/3 present
  * }</pre>
  * This marks week 3 attendance for student E1234567 as present.
  */
@@ -28,8 +29,8 @@ public class MarkAttendanceCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the attendance of a person identified "
             + "by their index number in the displayed person list. "
-            + "Parameters: w/<week> <present|absent|excused> i/<NET id>\n"
-            + "Example: " + COMMAND_WORD + " w/3" + " present i/E1234567";
+            + "Parameters: i/<NET id> w/<week> <present|absent|excused> \n"
+            + "Example: " + COMMAND_WORD + " i/E1234567 w/3" + " present";
 
     public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Marked attendance for %1$s: %2$s in week %3$d.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
@@ -59,11 +60,11 @@ public class MarkAttendanceCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> list = model.getFilteredPersonList();
         if (week < 2 || week > 13) {
             throw new CommandException(MESSAGE_INVALID_WEEK);
         }
         AttendanceStatus status = AttendanceStatus.fromString(attendanceStatus);
+        List<Person> list = model.getAddressBook().getUniquePersonList();
         Person targetStudent = list.stream()
                 .filter(student -> student.getNusnetid().value.equalsIgnoreCase(nusnetId))
                 .findFirst()
@@ -94,6 +95,8 @@ public class MarkAttendanceCommand extends Command {
                 targetStudent.getConsultation());
 
         model.setPerson(targetStudent, updatedStudent);
+        Predicate<Person> predicate = person -> true;
+        model.updateFilteredPersonList(predicate);
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 updatedStudent.getName(), status.getStatus(), week));
     }

@@ -357,9 +357,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case ends.
 
-* 2e. A student with the same email already exists.
+* 2e. A student with the same nusnetid already exists.
 
-    * 2e1. AddressBook shows error: Student with this email already exists.
+    * 2e1. AddressBook shows error: Student with this nusnetid already exists.
 
        Use case ends.
 
@@ -390,7 +390,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. AddressBook deletes the student.
 
 5. AddressBook UI updated.
-    
     Use case ends.
 
 **Extensions**
@@ -401,9 +400,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 2b. Edited email duplicates another existing student’s email.
+* 2b. Edited email duplicates another existing student’s nusnetid.
 
-    * 2b1. AddressBook shows error: Email already in use.
+    * 2b1. AddressBook shows error: nusnetid already in use.
 
       Use case ends.
 
@@ -431,20 +430,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. Homework Tracker displays an error: `Student not found`.
 
       Use case ends.
-      
 * 3a. Assignment ID already exists for this student
   
   * 3a1. Homework Tracker displays an error: `Assignment ID already exists`.
 
     Use case ends.
-    
 * 3b. Assignment ID is invalid (not between 1–3)
   
   * 3b1. Homework Tracker displays an error: `Assignment ID must be between 1 and 3`.
 
     Use case ends.
-
-
 **Use case: Mark assignment completion**
 
 **MSS**
@@ -459,7 +454,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
     Use case ends.
 
@@ -474,12 +469,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. Homework Tracker shows error message: `Assignment not found`.
   
       Use case ends.
-
-
 * 4a. The given status is invalid (not one of complete / incomplete / late).
     * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
   
       Use case ends.
+* 4b. The student already has a status recorded for this assignment.
+    * 4b1. Homework Tracker updates the record with the new status (last write wins).
+
+      Use case resumes at step 5.
 
 **Use case: Add a consultation**
 
@@ -497,7 +494,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. Student email does not exist in the directory.
+* 2a. Student nusnetid does not exist in the directory.
 
   * 2a1. AddressBook shows error: Student not found.
 
@@ -520,40 +517,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. AddressBook shows error: Duplicate consultation booking.
 
          Use case ends.
-
-**Use case: List consultations**
-
-**MSS**
-
-1. User requests to list all consultations (optionally filtered by date).
-
-2. AddressBook retrieves the consultations that match the criteria.
-
-3. AddressBook displays the consultations in the UI.
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. No consultations exist.
-
-    * 2a1. AddressBook shows message: No consultations found.
-
-
-         Use case ends.
-
-* 2b. No consultations exist for the specified date.
-
-    * 2b1. AddressBook shows message: No consultations found for <date>.
-
-
-         Use case ends.
-
 **Use case: Mark attendance**
 
 **MSS**
 
-1. User requests to mark attendance for a student by specifying student email, date, and attendance status.
+1. User requests to mark attendance for a student by specifying student nusnetid, date, and attendance status.
 
 2. AddressBook validates that the student exists and the date/status are valid.
 
@@ -565,54 +533,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. Student email does not exist.
+* 2a. Student nusnetid does not exist.
 
     * 2a1. AddressBook shows error: Student not found.
 
          Use case ends.
 
-* 2b. Attendance status is invalid (not Present or Absent).
+* 2b. Attendance status is invalid (not Present or Absent or Excused).
 
     * 2b1. AddressBook shows error: Invalid attendance status.
 
          Use case ends.
-
-* 2c. Attendance for this student and date already exists.
-
-     * 2c1. AddressBook shows error: Attendance already marked for this student on <date>.
-
-         Use case ends.
-
-**Use case: List attendance**
-
-**MSS**
-
-1. User requests to list attendance records (optionally filtered by date or student).
-
-2. AddressBook retrieves the relevant attendance records.
-
-3. AddressBook displays the attendance in a table view (e.g., Student | Date | Status).
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. No attendance records exist.
-
-    * 2a1. AddressBook shows message: No attendance records found.
-
-         Use case ends.
-
-* 2b. No attendance records match the filter (date or student).
-
-    * 2b1. AddressBook shows message: No attendance records found for <criteria>.
-
-         Use case ends.
-
-* 4b. The student already has a status recorded for this assignment.
-    * 4b1. Homework Tracker updates the record with the new status (last write wins).
-
-      Use case resumes at step 5.
 
 **Use case: Create and manage student groups**
 
@@ -636,8 +567,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. System shows error message: `Invalid Team Name`.
 
       Use case ends.
-
-
 **Use case: Add student to a group**
 
 **MSS**
@@ -667,15 +596,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. System shows error message: `Student already in this group`.
 
       Use case ends.
-
-
 ### Non-Functional Requirements
 
 #### 1. Data Requirements
 ##### NFR-D1: Data Size
 - Maximum 500 students per course
 - Maximum 50 tutorial slots per course
-- Support 13 weeks of attendance data (weeks 3-13)
+- Support 12 weeks of attendance data (weeks 2-13)
 - Support at least 10 assignments per course
 - Store consultation history for entire semester
 
@@ -730,8 +657,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ##### NFR-P2: Startup Time
 - Application must launch within 3 seconds on standard hardware
 - Onboarding guide must appear within 1 second of first launch
-
-
 #### 4. Scalability Requirements
 ##### NFR-S1: User Scalability
 - Support TAs managing multiple tutorial slots simultaneously
@@ -739,8 +664,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ##### NFR-S2: Data Scalability
 - Performance must not degrade noticeably up to 100 students
 - Support unlimited consultation bookings per student
-
-
 #### 5. Usability Requirements
 ##### NFR-U1: Learnability
 - First-time TA users must be able to add a student and mark attendance within 10 minutes using the onboarding guide

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.person.HomeworkTracker;
 import seedu.address.model.person.Person;
@@ -20,17 +21,24 @@ import seedu.address.model.person.Person;
  *
  * <p>Example usage:</p>
  * <pre>{@code
- * mark i/E1234567 a/0 status/complete
+ * mark_hw i/E1234567 a/0 status/complete
  * }</pre>
  * This marks assignment 0 for student E1234567 as complete.
  */
 public class MarkHomeworkCommand extends Command {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "mark_hw";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks a student's assignment completeness.\n"
-            + "Parameters: i/<nusnetId> a/<assignmentId> status/<complete|incomplete|late>\n"
-            + "Example: " + COMMAND_WORD + " i/E1234567 a/0 status/complete";
+            + ": Marks a student's homework as complete, incomplete, or late.\n"
+            + "Parameters: "
+            + CliSyntax.PREFIX_NUSNETID + "NUSNET_ID "
+            + CliSyntax.PREFIX_ASSIGNMENT + "ASSIGNMENT_ID "
+            + CliSyntax.PREFIX_HWSTATUS + "<complete|incomplete|late>\n"
+            + "Example: " + COMMAND_WORD + " "
+            + CliSyntax.PREFIX_NUSNETID + "E1234567 "
+            + CliSyntax.PREFIX_ASSIGNMENT + "1 "
+            + CliSyntax.PREFIX_HWSTATUS + "complete";
 
     public static final String MESSAGE_SUCCESS = "Assignment %d for %s marked %s.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
