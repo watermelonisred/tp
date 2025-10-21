@@ -17,7 +17,8 @@ public class DeleteHomeworkCommand extends Command {
 
     public static final String COMMAND_WORD = "delete_hw";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a homework entry for a student or all students.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes a homework entry for a student or all students.\n"
             + "Parameters: "
             + CliSyntax.PREFIX_NUSNETID + "NUSNET_ID "
             + "or all "

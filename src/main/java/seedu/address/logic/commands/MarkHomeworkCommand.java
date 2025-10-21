@@ -29,7 +29,8 @@ public class MarkHomeworkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark_hw";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a student's homework as complete, incomplete, or late.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks a student's homework as complete, incomplete, or late.\n"
             + "Parameters: "
             + CliSyntax.PREFIX_NUSNETID + "NUSNET_ID "
             + CliSyntax.PREFIX_ASSIGNMENT + "ASSIGNMENT_ID "
