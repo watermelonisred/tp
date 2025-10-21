@@ -150,11 +150,25 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteConsultation(Consultation consultation) {
+        addressBook.deleteConsultation(consultation);
+        updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
+    }
+
+    @Override
     public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
         requireAllNonNull(nusnetid, consultation);
         addressBook.addConsultationToPerson(nusnetid, consultation);
         Predicate<Person> predicate = person -> person.hasSameNusnetId(nusnetid);
         updateFilteredPersonList(predicate);
+    }
+
+    @Override
+    public Consultation deleteConsultationFromPerson(Nusnetid nusnetid) {
+        requireAllNonNull(nusnetid);
+        Consultation deletedConsultation = addressBook.deleteConsultationFromPerson(nusnetid);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return deletedConsultation;
     }
 
     //=========== Filtered Person List Accessors =============================================================

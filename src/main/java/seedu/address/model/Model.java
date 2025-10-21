@@ -121,6 +121,12 @@ public interface Model {
      */
     void addConsultation(Consultation consultation);
 
+    /**
+     * Deletes the given consultation.
+     * The {@code consultation} must exist in the address book.
+     */
+    void deleteConsultation(Consultation consultation);
+
     /** Returns an unmodifiable view of the filtered consultation list */
     ObservableList<Consultation> getFilteredConsultationList();
 
@@ -131,11 +137,15 @@ public interface Model {
     void updateFilteredConsultationList(Predicate<Consultation> predicate);
 
     /**
-     * Adds the given consultation to the student identified by the given nusnetid.
-     * @param nusnetid
-     * @param consultation
+     * Adds the given consultation to the person identified by the given nusnetid.
      */
     void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation);
+
+    /**
+     * Deletes the consultation from the person identified by the given nusnetid.
+     * @return the consultation that was deleted
+     */
+    Consultation deleteConsultationFromPerson(Nusnetid nusnetid);
 
     /**
      * Adds a group to the model.

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Consultation;
 
 /**
- * Adds a consultation slot to the address book.
+ * Adds a consultation to the address book.
  */
 public class AddConsultationCommand extends Command {
 
@@ -38,7 +38,7 @@ public class AddConsultationCommand extends Command {
     private final Consultation toAdd;
 
     /**
-     * Creates an ConsultationCommand to add the specified {@code Consultation}
+     * Creates a AddConsultationCommand to add the specified {@code Consultation}
      */
     public AddConsultationCommand(Consultation consultation) {
         requireNonNull(consultation);
