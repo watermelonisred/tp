@@ -156,7 +156,7 @@ Format: `add_hw i/NUSNETID (use 'all' for all students) a/ASSIGNMENT`
 
 Examples:
 * `add_hw i/E1234567 a/1` adds assignment 1 for the student with NUSNET ID `E1234567`.
-* `add_hw all a/2` adds assignment 2 for all students.
+* `add_hw i/all a/2` adds assignment 2 for all students.
 
 ---
 
@@ -173,6 +173,22 @@ Format: `mark_hw i/NUSNETID a/ASSIGNMENT status/STATUS`
 Examples:
 * `mark_hw i/E1234567 a/1 status/complete` marks assignment 1 as complete for student `E1234567`.
 * `mark_hw i/E2345678 a/2 status/late` marks assignment 2 as late for student `E2345678`.
+
+---
+
+### Deleting homework : `delete_hw`
+
+Deletes the homework for the specified student or for all students.
+
+Format: `delete_hw i/NUSNETID (use 'all' for all students) a/ASSIGNMENT`
+
+* Deletes the homework with the given assignment number for the specified student.
+* If `all` is used, the homework is deleted for all students.
+* The NUSNET ID **must be valid** and the assignment identifier **must be specified**.
+
+Examples:
+* `delete_hw i/E1234567 a/1` deletes assignment 1 for the student with NUSNET ID `E1234567`.
+* `delete_hw i/all a/2` deletes assignment 2 for all students.
 
 ---
 
