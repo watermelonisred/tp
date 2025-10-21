@@ -140,6 +140,8 @@ public class ModelManager implements Model {
         updateFilteredPersonList(predicate);
     }
 
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

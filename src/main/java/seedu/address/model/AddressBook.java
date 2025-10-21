@@ -193,6 +193,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
+    public List<Person> getUniquePersonList() {
+        return persons.toList();
+    }
+
     @Override
     public ObservableList<Consultation> getConsultationList() {
         return consultations.asUnmodifiableObservableList();
