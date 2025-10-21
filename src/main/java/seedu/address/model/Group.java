@@ -37,7 +37,7 @@ public class Group {
      * @return boolean
      */
     public boolean isSameGroup(GroupId otherGroupId) {
-        return otherGroupId == this.groupId;
+        return this.groupId.equals(otherGroupId);
     }
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
@@ -52,7 +52,7 @@ public class Group {
      * Returns all persons in this tutorial.
      * @return ArrayList of persons in this tutorial.
      */
-    public ArrayList<Person> getAllPerson() {
+    public ArrayList<Person> getAllPersons() {
         return this.students.toArrayList();
     }
     /**
@@ -96,5 +96,22 @@ public class Group {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Group)) {
+            return false;
+        }
+        Group otherGroup = (Group) other;
+        return this.groupId.equals(otherGroup.groupId);
+    }
+
+    @Override
+    public int hashCode() {
+        return groupId.hashCode();
     }
 }
