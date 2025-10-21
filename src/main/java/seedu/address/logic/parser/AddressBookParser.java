@@ -17,12 +17,14 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateGroupCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteConsultationCommand;
+import seedu.address.logic.commands.DeleteHomeworkCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MarkAllAttendanceCommand;
 import seedu.address.logic.commands.MarkAttendanceCommand;
 import seedu.address.logic.commands.MarkHomeworkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -99,11 +101,16 @@ public class AddressBookParser {
         case AddHomeworkCommand.COMMAND_WORD:
             return new AddHomeworkCommandParser().parse(arguments);
 
+        case DeleteHomeworkCommand.COMMAND_WORD:
+            return new DeleteHomeworkCommandParser().parse(arguments);
+
         case MarkHomeworkCommand.COMMAND_WORD:
             return new MarkHomeworkCommandParser().parse(arguments);
 
         case MarkAttendanceCommand.COMMAND_WORD:
             return new MarkAttendanceCommandParser().parse(arguments);
+        case MarkAllAttendanceCommand.COMMAND_WORD:
+            return new MarkAllAttendanceCommandParser().parse(arguments);
 
         case AddConsultationCommand.COMMAND_WORD:
             return new AddConsultationCommandParser().parse(arguments);

@@ -77,6 +77,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
     }
+
+    /**
+     * Adds a group to the address book.
+     * The group must not already exist in the address book.
+     */
+    public void addGroup(Group g) {
+        requireNonNull(g);
+        this.groups.add(g);
+    }
+
+    /**
+     * Gets a group by GroupId, or null if not present.
+     */
+    public Group getGroup(GroupId groupId) {
+        requireNonNull(groupId);
+        return groups.getGroup(groupId);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -190,6 +208,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .add("consultations", consultations)
+                .add("groups", groups)
                 .toString();
     }
 
@@ -197,6 +216,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
+    public List<Person> getUniquePersonList() {
+        return persons.toList();
+    }
+
     @Override
     public ObservableList<Consultation> getConsultationList() {
         return consultations.asUnmodifiableObservableList();
@@ -218,11 +241,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         AddressBook otherAddressBook = (AddressBook) other;
         return persons.equals(otherAddressBook.persons)
-                && consultations.equals(otherAddressBook.consultations);
+                && consultations.equals(otherAddressBook.consultations)
+                && groups.equals(otherAddressBook.groups);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        int result = persons.hashCode();
+        result = 31 * result + consultations.hashCode();
+        result = 31 * result + groups.hashCode();
+        return result;
     }
 }

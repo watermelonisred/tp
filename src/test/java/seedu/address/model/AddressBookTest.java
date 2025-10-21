@@ -91,7 +91,8 @@ public class AddressBookTest {
     @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
-                + ", consultations=" + addressBook.getConsultationList() + "}";
+                + ", consultations=" + addressBook.getConsultationList()
+                + ", groups=" + addressBook.getGroupList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -119,6 +120,10 @@ public class AddressBookTest {
         @Override
         public ObservableList<Group> getGroupList() {
             return groups;
+        }
+        @Override
+        public List<Person> getUniquePersonList() {
+            return persons;
         }
     }
 

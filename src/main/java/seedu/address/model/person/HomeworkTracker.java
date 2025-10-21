@@ -63,6 +63,17 @@ public class HomeworkTracker {
         return new HomeworkTracker(updated);
     }
 
+    /** Remove a homework with the given student number or remove for all students */
+    public HomeworkTracker removeHomework(int assignmentId) {
+        if (!statuses.containsKey(assignmentId)) {
+            throw new IllegalArgumentException("Homework not found.");
+        }
+
+        Map<Integer, Homework> updatedMap = new HashMap<>(statuses);
+        updatedMap.remove(assignmentId);
+        return new HomeworkTracker(updatedMap);
+    }
+
     /**
      * Returns a new {@code HomeworkTracker} instance with the specified assignment updated to the given status.
      * <p>

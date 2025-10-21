@@ -8,7 +8,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -16,6 +15,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,7 +46,7 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validPerson), modelStub.filteredPersons);
     }
 
     @Test
@@ -248,24 +248,47 @@ public class AddCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        private final AddressBook addressBook = new AddressBook();
+        private final FilteredList<Person> filteredPersons =
+                new FilteredList<>(addressBook.getPersonList());
 
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+            return addressBook.hasPerson(person);
         }
 
         @Override
         public void addPerson(Person person) {
             requireNonNull(person);
-            personsAdded.add(person);
+            addressBook.addPerson(person);
+            updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+            return addressBook;
+        }
+        /**
+         * This getGroup method always returns null to simulate that the group does not exist yet.
+         * @param groupId the groupId of the group to be retrieved
+         * @return null always
+         */
+        @Override
+        public Group getGroup(GroupId groupId) {
+            return null;
+        }
+        @Override
+        public boolean hasGroup(GroupId groupId) {
+            return false;
+        }
+        @Override
+        public void addGroup(Group group) {
+            // Do nothing
+        }
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            filteredPersons.setPredicate(predicate);
         }
     }
-
 }

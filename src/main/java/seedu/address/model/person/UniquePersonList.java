@@ -128,7 +128,6 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
     }
-
     /**
      * Deletes the consultation from the person identified by the given {@nusnetid}.
      * The person must have an existing consultation.
@@ -204,5 +203,8 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+    public List<Person> toList() {
+        return internalList;
     }
 }

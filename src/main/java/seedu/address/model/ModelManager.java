@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -27,7 +26,6 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final List<Group> groupList = new ArrayList<>();
     private final FilteredList<Consultation> filteredConsultations;
 
     /**
@@ -194,12 +192,12 @@ public class ModelManager implements Model {
      */
     @Override
     public void addGroup(Group group) {
-        groupList.add(group);
+        addressBook.addGroup(group);
     }
 
     @Override
     public List<Group> getGroupList() {
-        return new ArrayList<>(groupList);
+        return addressBook.getGroupList();
     }
 
     //=========== Filtered Consultation List Accessors =============================================================
@@ -225,11 +223,10 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ModelManager)) {
+        if (!(other instanceof ModelManager otherModelManager)) {
             return false;
         }
 
-        ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
@@ -238,11 +235,6 @@ public class ModelManager implements Model {
     @Override
     public Group getGroup(GroupId groupId) {
         requireNonNull(groupId);
-        for (Group group : groupList) {
-            if (group.getGroupId().equals(groupId)) {
-                return group;
-            }
-        }
-        return null;
+        return addressBook.getGroup(groupId);
     }
 }

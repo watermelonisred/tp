@@ -6,8 +6,8 @@
 
 # SoCAssist User Guide
 
-SoCAssist is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having 
-the benefits of a Graphical User Interface (GUI). If you can type fast, SoCAssist can get your contact management tasks 
+SoCAssist is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having
+the benefits of a Graphical User Interface (GUI). If you can type fast, SoCAssist can get your contact management tasks
 done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
@@ -73,8 +73,6 @@ Shows a message explaining how to access the help page.
 ![help message](images/helpMessage.png)
 
 Format: `help`
-
-
 ### Adding a person: `add_student`
 
 Adds a person to the address book.
@@ -129,9 +127,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find Doe` returns `Doe` and `John Doe`
+  ![result for 'find alex david'](images/findDoeResult.png)
 
 ### Deleting a person : `delete`
 
@@ -159,7 +156,7 @@ Format: `add_hw i/NUSNETID (use 'all' for all students) a/ASSIGNMENT`
 
 Examples:
 * `add_hw i/E1234567 a/1` adds assignment 1 for the student with NUSNET ID `E1234567`.
-* `add_hw all a/2` adds assignment 2 for all students.
+* `add_hw i/all a/2` adds assignment 2 for all students.
 
 ---
 
@@ -179,21 +176,52 @@ Examples:
 
 ---
 
+### Deleting homework : `delete_hw`
+
+Deletes the homework for the specified student or for all students.
+
+Format: `delete_hw i/NUSNETID (use 'all' for all students) a/ASSIGNMENT`
+
+* Deletes the homework with the given assignment number for the specified student.
+* If `all` is used, the homework is deleted for all students.
+* The NUSNET ID **must be valid** and the assignment identifier **must be specified**.
+
+Examples:
+* `delete_hw i/E1234567 a/1` deletes assignment 1 for the student with NUSNET ID `E1234567`.
+* `delete_hw i/all a/2` deletes assignment 2 for all students.
+
+---
+
 ### Marking attendance : `mark_attendance`
 
 Marks the attendance status for the specified student and week.
 
-Format: `mark_attendance i/NUSNETID week/WEEK status/STATUS`
+Format: `mark_attendance i/NUSNETID week/WEEK STATUS`
 
 * Marks attendance for the given student and week.
 * The `STATUS` can be one of the following: `present`, `absent`, or `excused`.
 * The NUSNET ID and week number **must be valid**.
 
 Examples:
-* `mark_attendance i/E1234567 week/3 status/present` marks student `E1234567` as present for week 3.
-* `mark_attendance i/E2345678 week/5 status/absent` marks student `E2345678` as absent for week 5.
+* `mark_attendance i/E1234567 week/3 present` marks student `E1234567` as present for week 3.
+* `mark_attendance i/E2345678 week/5 absent` marks student `E2345678` as absent for week 5.
 
 ---
+
+### Marking attendance for one group of students : `mark_all_attendance`
+
+Marks the attendance status for all the students in one tutorial group in a specified week.
+
+Format: `mark_all_attendance g/GROUP week/WEEK STATUS`
+
+* Marks attendance for the given tutorial group of student and week.
+* The `STATUS` can be one of the following: `present`, `absent`, or `excused`.
+* The groupId and week number **must be valid**.
+
+Examples:
+* `mark_attendance g/T01 week/3 present` marks student `E1234567` as present for week 3.
+* `mark_attendance g/BO4 week/5 absent` marks student `E2345678` as absent for week 5.
+
 
 ### Adding a consultation : `add_consult`
 
@@ -279,8 +307,6 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -320,26 +346,26 @@ Action     | Format, Examples
 ## Glossary
 * **NETS id**: A unique identifier assigned to each student by the National University of Singapore (NUS) 
 during matriculation. It is used for logging into various NUS systems.
-* **NUS email**: The official email address assigned to each student by NUS, typically 
+* **NUS email**: The official email address assigned to each student by NUS, typically
 in the format `<NETS id>@u.nus.edu`.
-* **Tutorial Group**: A smaller group of students within a course. Group Ids usually follow the format `TXX` or `BXX`, 
+* **Tutorial Group**: A smaller group of students within a course. Group Ids usually follow the format `TXX` or `BXX`,
 where `XX` are 2 digits.
-* **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
+* **CLI**: Command Line Interface. A text-based interface used to interact with software applications
 by typing commands.
 * **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
 * **Assessment/Homework**: Work need to be done and submitted by mentees, graded by tutors.
-* **Consultation**: A session where mentees can seek help from tutors regarding their academic work or other 
+* **Consultation**: A session where mentees can seek help from tutors regarding their academic work or other
 related matters.
-* **Mentor (TA)/Mentee**: A mentor (TA) is a senior student who provides guidance and support to a junior student, 
+* **Mentor (TA)/Mentee**: A mentor (TA) is a senior student who provides guidance and support to a junior student,
 known as a mentee.
-* **OOP**: Object-Oriented Programming. A programming paradigm that uses "objects" to represent data and methods 
+* **OOP**: Object-Oriented Programming. A programming paradigm that uses "objects" to represent data and methods
 to manipulate that data.
-* **GUI**: Graphical User Interface. A visual interface that allows users to interact with software applications 
+* **GUI**: Graphical User Interface. A visual interface that allows users to interact with software applications
 using graphical elements such as windows, icons, and buttons.
 * **JSON**: JavaScript Object Notation. A lightweight data interchange format that is easy for humans to read and write
 , and easy for machines to parse and generate.
 * **JDK**: Java Development Kit. A software development environment used for developing Java applications.
-* **Jar file**: A Java ARchive file. A package file format used to aggregate many Java class files and associated 
+* **Jar file**: A Java ARchive file. A package file format used to aggregate many Java class files and associated
 metadata and resources into one file for distribution.
 * **KLoC**: Kilo Lines of Code. A measure of software size, representing 1,000 lines of code.
 * **CD**: Command Directory. The current directory in which the command terminal is operating.

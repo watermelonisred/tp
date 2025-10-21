@@ -150,7 +150,6 @@ public class Person {
      * @param assignmentId the ID of the assignment to add (usually 1–3)
      * @return a new {@code Person} object with the updated {@link HomeworkTracker}
      */
-    // In Person class
     public Person withAddedHomework(int assignmentId) {
         HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
         requireNonNull(homeworkTracker);
@@ -161,6 +160,33 @@ public class Person {
         return new Person(name, phone, email, nusnetid, telegram, groupId, updatedTracker, this.attendanceSheet,
                 this.consultation);
     }
+
+    /**
+     * Returns a new Person with a homework removed from the homework tracker.
+     *
+     * @param assignmentId the ID of the homework to remove
+     * @return a new Person object with the updated HomeworkTracker
+     * @throws IllegalArgumentException if the assignment does not exist
+     */
+    public Person withDeletedHomework(int assignmentId) {
+        if (!homeworkTracker.contains(assignmentId)) {
+            throw new IllegalArgumentException("Homework with this ID does not exist for this student.");
+        }
+        HomeworkTracker updatedTracker = homeworkTracker.removeHomework(assignmentId);
+        return new Person(
+                this.name,
+                this.phone,
+                this.email,
+                this.nusnetid,
+                this.telegram,
+                this.groupId,
+                updatedTracker,
+                this.attendanceSheet,
+                this.consultation
+        );
+    }
+
+
 
 
     /** Returns a new Person with updated homework status for the given assignment. */
