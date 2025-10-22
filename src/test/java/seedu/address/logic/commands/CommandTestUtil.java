@@ -90,6 +90,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_ASSIGNMENT_DESC = " a/x"; // non-numeric
     //for attendance testing:
+    public static final String VALID_GROUP_1 = "T01";
+    public static final String VALID_GROUP_2 = "T02";
     public static final String VALID_WEEK_1 = "2";
     public static final String VALID_WEEK_2 = "3";
     public static final String INVALID_WEEK = "14";

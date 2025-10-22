@@ -91,7 +91,8 @@ public class AddressBookTest {
     @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList()
-                + ", consultations=" + addressBook.getConsultationList() + "}";
+                + ", consultations=" + addressBook.getConsultationList()
+                + ", groups=" + addressBook.getGroupList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -101,6 +102,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Consultation> consultations = FXCollections.observableArrayList();
+        private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -114,6 +116,14 @@ public class AddressBookTest {
         @Override
         public ObservableList<Consultation> getConsultationList() {
             return consultations;
+        }
+        @Override
+        public ObservableList<Group> getGroupList() {
+            return groups;
+        }
+        @Override
+        public List<Person> getUniquePersonList() {
+            return persons;
         }
     }
 

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.event.Consultation;
+import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
 
@@ -72,6 +73,11 @@ public interface Model {
     boolean hasPerson(Nusnetid nusnetid);
 
     /**
+     * Return true if a group with the same groupId as {@code groupId} exists in the address book.
+     */
+    boolean hasGroup(GroupId groupId);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -105,10 +111,21 @@ public interface Model {
     boolean hasConsultation(Consultation consultation);
 
     /**
+     * Returns true if a consultation that overlaps with {@code consultation} exists in the address book.
+     */
+    boolean hasOverlappingConsultation(Consultation consultation);
+
+    /**
      * Adds the given consultation.
      * {@code consultation} must not already exist in the address book.
      */
     void addConsultation(Consultation consultation);
+
+    /**
+     * Deletes the given consultation.
+     * The {@code consultation} must exist in the address book.
+     */
+    void deleteConsultation(Consultation consultation);
 
     /** Returns an unmodifiable view of the filtered consultation list */
     ObservableList<Consultation> getFilteredConsultationList();
@@ -120,11 +137,15 @@ public interface Model {
     void updateFilteredConsultationList(Predicate<Consultation> predicate);
 
     /**
-     * Adds the given consultation to the student identified by the given nusnetid.
-     * @param nusnetid
-     * @param consultation
+     * Adds the given consultation to the person identified by the given nusnetid.
      */
     void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation);
+
+    /**
+     * Deletes the consultation from the person identified by the given nusnetid.
+     * @return the consultation that was deleted
+     */
+    Consultation deleteConsultationFromPerson(Nusnetid nusnetid);
 
     /**
      * Adds a group to the model.
@@ -135,4 +156,11 @@ public interface Model {
      * Returns the list of groups in the model.
      */
     List<Group> getGroupList();
+
+    /**
+     * Gets a group by its groupId.
+     * @param groupId the groupId of the group to be retrieved
+     * @return the group with the specified groupId
+     */
+    Group getGroup(GroupId groupId);
 }

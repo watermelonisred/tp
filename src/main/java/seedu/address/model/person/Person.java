@@ -23,7 +23,7 @@ public class Person {
     private final GroupId groupId;
     private final HomeworkTracker homeworkTracker;
     private final AttendanceSheet attendanceSheet;
-    private Optional<Consultation> consultation;
+    private final Optional<Consultation> consultation;
 
     /**
      * Initializes a Person object with no consultation as default.
@@ -150,7 +150,6 @@ public class Person {
      * @param assignmentId the ID of the assignment to add (usually 1–3)
      * @return a new {@code Person} object with the updated {@link HomeworkTracker}
      */
-    // In Person class
     public Person withAddedHomework(int assignmentId) {
         HomeworkTracker updated = homeworkTracker.addHomework(assignmentId);
         requireNonNull(homeworkTracker);
@@ -162,6 +161,33 @@ public class Person {
                 this.consultation);
     }
 
+    /**
+     * Returns a new Person with a homework removed from the homework tracker.
+     *
+     * @param assignmentId the ID of the homework to remove
+     * @return a new Person object with the updated HomeworkTracker
+     * @throws IllegalArgumentException if the assignment does not exist
+     */
+    public Person withDeletedHomework(int assignmentId) {
+        if (!homeworkTracker.contains(assignmentId)) {
+            throw new IllegalArgumentException("Homework with this ID does not exist for this student.");
+        }
+        HomeworkTracker updatedTracker = homeworkTracker.removeHomework(assignmentId);
+        return new Person(
+                this.name,
+                this.phone,
+                this.email,
+                this.nusnetid,
+                this.telegram,
+                this.groupId,
+                updatedTracker,
+                this.attendanceSheet,
+                this.consultation
+        );
+    }
+
+
+
 
     /** Returns a new Person with updated homework status for the given assignment. */
     public Person withUpdatedHomework(int assignmentId, String status) {
@@ -171,13 +197,32 @@ public class Person {
     }
 
     /**
-     * Adds a consultation to the person.
+     * Returns a new Person with updated GroupId.
+     * @param newGroupId the new GroupId to be set.
+     * @return Person with the updated GroupId.
+     */
+    public Person withUpdatedGroup(GroupId newGroupId) {
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, newGroupId,
+                this.homeworkTracker, this.attendanceSheet, this.consultation);
+    }
+
+    /**
+     * Returns a new Person with added consultation.
      * @param consultation Consultation to be added.
      * @return Person with the added consultation.
      */
     public Person addConsultation(Consultation consultation) {
-        this.consultation = Optional.ofNullable(consultation);
-        return this;
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId,
+                this.homeworkTracker, this.attendanceSheet, Optional.ofNullable(consultation));
+    }
+
+    /**
+     * Returns a new Person with deleted consultation.
+     * @return Person without consultation.
+     */
+    public Person deleteConsultation() {
+        return new Person(this.name, this.phone, this.email, this.nusnetid, this.telegram, this.groupId,
+                this.homeworkTracker, this.attendanceSheet, Optional.ofNullable(null));
     }
 
     /**
@@ -216,10 +261,9 @@ public class Person {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Person otherPerson)) {
             return false;
         }
-        Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
@@ -239,13 +283,13 @@ public class Person {
                 .add("NUSnetid", nusnetid)
                 .add("telegram", telegram)
                 .add("groupId", groupId);
-        if (phone.isPresent()) {
+        if (this.phone.isPresent()) {
             builder.add("phone", phone.get());
         }
-        if (email.isPresent()) {
+        if (this.email.isPresent()) {
             builder.add("email", email.get());
         }
-        if (consultation.isPresent()) {
+        if (this.consultation.isPresent()) {
             builder.add("consultation", consultation.get());
         }
         return builder.toString();
