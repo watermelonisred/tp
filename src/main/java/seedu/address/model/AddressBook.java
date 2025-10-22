@@ -124,6 +124,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns the person with the given nusnetid.
+     * Returns null if no such person exists.
+     */
+    public Person findPerson(Nusnetid nusnetid) {
+        requireNonNull(nusnetid);
+        return persons.find(nusnetid);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */

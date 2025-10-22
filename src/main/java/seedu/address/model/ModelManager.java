@@ -106,6 +106,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person findPerson(Nusnetid nusnetid) {
+        requireNonNull(nusnetid);
+        return addressBook.findPerson(nusnetid);
+    }
+
+    @Override
     public boolean hasGroup(GroupId groupId) {
         requireNonNull(groupId);
         return addressBook.hasGroup(groupId);
