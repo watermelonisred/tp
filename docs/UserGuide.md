@@ -4,9 +4,11 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# SoCAssist User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+SoCAssist is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having
+the benefits of a Graphical User Interface (GUI). If you can type fast, SoCAssist can get your contact management tasks
+done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,9 +20,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W11-1/tp/releases/tag/v1.3).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your SoCAssist.
 
 1. Open a command terminal, using command `cd` + the path to get into the folder you put the jar file in, and use the `java -jar SoCTAssist.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -71,8 +73,6 @@ Shows a message explaining how to access the help page.
 ![help message](images/helpMessage.png)
 
 Format: `help`
-
-
 ### Adding a person: `add_student`
 
 Adds a person to the address book.
@@ -127,9 +127,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find Doe` returns `Doe` and `John Doe`
+  ![result for 'find alex david'](images/findDoeResult.png)
 
 ### Deleting a person : `delete`
 
@@ -157,7 +156,7 @@ Format: `add_hw i/NUSNETID (use 'all' for all students) a/ASSIGNMENT`
 
 Examples:
 * `add_hw i/E1234567 a/1` adds assignment 1 for the student with NUSNET ID `E1234567`.
-* `add_hw all a/2` adds assignment 2 for all students.
+* `add_hw i/all a/2` adds assignment 2 for all students.
 
 ---
 
@@ -177,21 +176,52 @@ Examples:
 
 ---
 
+### Deleting homework : `delete_hw`
+
+Deletes the homework for the specified student or for all students.
+
+Format: `delete_hw i/NUSNETID (use 'all' for all students) a/ASSIGNMENT`
+
+* Deletes the homework with the given assignment number for the specified student.
+* If `all` is used, the homework is deleted for all students.
+* The NUSNET ID **must be valid** and the assignment identifier **must be specified**.
+
+Examples:
+* `delete_hw i/E1234567 a/1` deletes assignment 1 for the student with NUSNET ID `E1234567`.
+* `delete_hw i/all a/2` deletes assignment 2 for all students.
+
+---
+
 ### Marking attendance : `mark_attendance`
 
 Marks the attendance status for the specified student and week.
 
-Format: `mark_attendance i/NUSNETID week/WEEK status/STATUS`
+Format: `mark_attendance i/NUSNETID w/WEEK STATUS`
 
 * Marks attendance for the given student and week.
 * The `STATUS` can be one of the following: `present`, `absent`, or `excused`.
 * The NUSNET ID and week number **must be valid**.
 
 Examples:
-* `mark_attendance i/E1234567 week/3 status/present` marks student `E1234567` as present for week 3.
-* `mark_attendance i/E2345678 week/5 status/absent` marks student `E2345678` as absent for week 5.
+* `mark_attendance i/E1234567 w/3 present` marks student `E1234567` as present for week 3.
+* `mark_attendance i/E2345678 w/5 absent` marks student `E2345678` as absent for week 5.
 
 ---
+
+### Marking attendance for one group of students : `mark_all_attendance`
+
+Marks the attendance status for all the students in one tutorial group in a specified week.
+
+Format: `mark_all_attendance g/GROUP w/WEEK STATUS`
+
+* Marks attendance for the given tutorial group of student and week.
+* The `STATUS` can be one of the following: `present`, `absent`, or `excused`.
+* The groupId and week number **must be valid**.
+
+Examples:
+* `mark_attendance g/T01 w/3 present` marks student `E1234567` as present for week 3.
+* `mark_attendance g/BO4 w/5 absent` marks student `E2345678` as absent for week 5.
+
 
 ### Adding a consultation : `add_consult`
 
@@ -204,8 +234,20 @@ Format: `add_consult i/NUSNETID from/DATE_TIME to/DATE_TIME`
 * The start time must be **earlier** than the end time**.
 
 Examples:
-* `add_consult i/E1234567 from/20240915 14:00 to/20240915 1500` adds a consultation for student `E1234567` from 2–3 PM on 15 Sep 2024.
-* `add_consult i/E2345678 from/20240920 1000 to/20240920 1100` adds a consultation from 10–11 AM for student `E2345678`.
+* `add_consult i/E1234567 from/20240915 1400 to/20240915 1500` adds a consultation from 2–3PM on 15 Sep 2024 for student `E1234567`.
+* `add_consult i/E2345678 from/20240920 1000 to/20240920 1100` adds a consultation from 10–11AM on 20 Sep 2024 for student `E2345678`.
+
+### Deleting a consultation : `delete_consult`
+
+Deletes a consultation session for the specified student.
+
+Format: `delete_consult i/NUSNETID`
+
+* Deletes a consultation slot for the specified student.
+
+Examples:
+* `delete_consult i/E1234567` deletes consultation for student `E1234567`.
+* `delete_consult i/E2345678` deletes consultation for student `E2345678`.
 
 ---
 
@@ -217,12 +259,39 @@ Format: `create_group g/GROUPID`
 
 * Creates a new group with the specified group ID.
 * The group ID **must be unique**.
-* Group IDs typically follow the format `TXX` or `BXX`, where `XX` is a number.
+* Group IDs typically follow the format `TXX` or `BXX`, where `XX` are 2 digits.
 
 Examples:
 * `create_group g/T03` creates a new group with ID `T03`.
-* `create_group g/T05` creates a new group with ID `T05`.
+* `create_group g/B05` creates a new group with ID `B05`.
 
+### Adding a student to a group : `add_to_group`
+
+Adds a student to a tutorial group.
+
+Format: `add_to_group i/NUSNETID g/GROUPID`
+
+* If the specified group does not exist, it will be created.
+* If the group exists, the student will be added to that group.
+* If the student does not exist, an error message will be shown.
+* The NUSNET ID and group ID **must be valid**.
+* A student can only belong to one group at a time; adding them to a new group will remove them from their previous group.
+
+Examples:
+* `add_to_group i/E1234567 g/T03` adds student `E1234567` to group `T03`.
+* `add_to_group i/E2345678 g/B05` (group B05 does not exist initially) create group `B05` and adds student `E2345678` to it.
+
+### Find Group Members : `find_group`
+Finds all members in a specified tutorial group.
+
+Format: `find_group g/GROUPID`
+
+* Displays all students belonging to the specified group.
+* The group ID **must be valid**.
+
+Examples:
+* `find_group g/T03` displays all members in group `T03`.
+* `find_group g/B05` displays all members in group `B05`.
 
 ### Clearing all entries : `clear`
 
@@ -250,8 +319,6 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -281,7 +348,10 @@ Action     | Format, Examples
 **DeleteHomework**  | `delete_hw i/NUSNETID (all for all students) a/ASSIGNMENT` <br> e.g., `delete_hw i/E1234567 a/1`
 **MarkAttendance**  | `mark_attendance i/NUSNETID week/WEEK status/STATUS(present absent excused)` <br> e.g., `mark_attendance i/E1234567 week/3 status/present`
 **AddConsultation**  | `add_consult i/NUSNETID from/DATE_TIME to/DATE_TIME` <br> e.g., `add_consult i/E1234567 from/2024-09-15 14:00 to/2024-09-15 15:00`
+**DeleteConsultation**  | `delete_consult i/NUSNETID` <br> e.g., `delete_consult i/E1234567`
 **CreateGroup**  | `create_group g/GROUPID` <br> e.g., `create_group g/T03`
+**AddToGroup**  | `add_to_group i/NUSNETID g/GROUPID` <br> e.g., `add_to_group i/E1234567 g/T03`
+**FindGroup**  | `find_group g/GROUPID` <br> e.g., `find_group g/T03`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
@@ -290,24 +360,26 @@ Action     | Format, Examples
 ## Glossary
 * **NETS id**: A unique identifier assigned to each student by the National University of Singapore (NUS) 
 during matriculation. It is used for logging into various NUS systems.
-* **NUS email**: The official email address assigned to each student by NUS, typically 
+* **NUS email**: The official email address assigned to each student by NUS, typically
 in the format `<NETS id>@u.nus.edu`.
-* **CLI**: Command Line Interface. A text-based interface used to interact with software applications 
+* **Tutorial Group**: A smaller group of students within a course. Group Ids usually follow the format `TXX` or `BXX`,
+where `XX` are 2 digits.
+* **CLI**: Command Line Interface. A text-based interface used to interact with software applications
 by typing commands.
 * **Week**: There are 13 weeks in each academic semester in NUS, and tutorial starts in Week 3.
 * **Assessment/Homework**: Work need to be done and submitted by mentees, graded by tutors.
-* **Consultation**: A session where mentees can seek help from tutors regarding their academic work or other 
+* **Consultation**: A session where mentees can seek help from tutors regarding their academic work or other
 related matters.
-* **Mentor (TA)/Mentee**: A mentor (TA) is a senior student who provides guidance and support to a junior student, 
+* **Mentor (TA)/Mentee**: A mentor (TA) is a senior student who provides guidance and support to a junior student,
 known as a mentee.
-* **OOP**: Object-Oriented Programming. A programming paradigm that uses "objects" to represent data and methods 
+* **OOP**: Object-Oriented Programming. A programming paradigm that uses "objects" to represent data and methods
 to manipulate that data.
-* **GUI**: Graphical User Interface. A visual interface that allows users to interact with software applications 
+* **GUI**: Graphical User Interface. A visual interface that allows users to interact with software applications
 using graphical elements such as windows, icons, and buttons.
 * **JSON**: JavaScript Object Notation. A lightweight data interchange format that is easy for humans to read and write
 , and easy for machines to parse and generate.
 * **JDK**: Java Development Kit. A software development environment used for developing Java applications.
-* **Jar file**: A Java ARchive file. A package file format used to aggregate many Java class files and associated 
+* **Jar file**: A Java ARchive file. A package file format used to aggregate many Java class files and associated
 metadata and resources into one file for distribution.
 * **KLoC**: Kilo Lines of Code. A measure of software size, representing 1,000 lines of code.
 * **CD**: Command Directory. The current directory in which the command terminal is operating.
