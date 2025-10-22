@@ -29,6 +29,8 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_GROUP = "Groups list contains duplicate group(s).";
     public static final String MESSAGE_GROUP_REFERENCES_UNKNOWN_PERSON =
             "Group references a person that does not exist in persons list.";
+    public static final String MESSAGE_GROUP_CONTAINS_INVALID_NUSNETID =
+            "Group contains invalid nusnetid(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedConsultation> consultations = new ArrayList<>();
@@ -89,7 +91,24 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
             // validate and build Group object
             GroupId modelGroupId = jsonAdaptedGroup.toModelGroupId();
-            Group modelGroup = new Group(modelGroupId);
+            List<String> nusnetidsInGroup = jsonAdaptedGroup.getStudentNusnetids();
+            ArrayList<Person> studentsInGroup = new ArrayList<>();
+            for (String nusIdStr : nusnetidsInGroup) {
+                if (nusIdStr == null) {
+                    throw new IllegalValueException(MESSAGE_GROUP_CONTAINS_INVALID_NUSNETID);
+                }
+                if (!Nusnetid.isValidNusnetid(nusIdStr)) {
+                    throw new IllegalValueException(Nusnetid.MESSAGE_CONSTRAINTS);
+                }
+                Person student = addressBook.getPersonList().stream()
+                        .filter(person -> person.getNusnetid().value.equals(nusIdStr))
+                        .findFirst().orElse(null);
+                if (student == null) {
+                    throw new IllegalValueException(MESSAGE_GROUP_REFERENCES_UNKNOWN_PERSON);
+                }
+                studentsInGroup.add(student);
+            }
+            Group modelGroup = new Group(modelGroupId, studentsInGroup);
             // For each stored nus net id in group,
             // find the corresponding Person in addressBook and add to the group
             for (String nusIdStr : jsonAdaptedGroup.getStudentNusnetids()) {

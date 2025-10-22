@@ -69,4 +69,8 @@ shadowJar {
     archiveFileName = 'soctassist.jar'
 }
 
+run {
+    enableAssertions = true
+}
+
 defaultTasks 'clean', 'test'
