@@ -153,11 +153,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds the given {@code consultation} to the person identified by {@code nusnetid}.
      * The person must exist in the address book.
-     * @param nusnetid
-     * @param consultation
      */
     public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
         persons.addConsultationToPerson(nusnetid, consultation);
+    }
+
+    /**
+     * Deletes the consultation from the person identified by {@code nusnetid}.
+     * The person must exist in the address book.
+     * @return the deleted Consultation.
+     */
+    public Consultation deleteConsultationFromPerson(Nusnetid nusnetid) {
+        return persons.deleteConsultationFromPerson(nusnetid);
     }
 
     //// consultation-level operations
@@ -171,11 +178,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a consultation overlapping with {@code consultation} exists in the address book.
+     */
+    public boolean hasOverlappingConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        return consultations.hasOverlappingConsultation(consultation);
+    }
+
+    /**
      * Adds a consultation to the address book.
      * The consultation must not already exist in the address book.
      */
     public void addConsultation(Consultation c) {
         consultations.add(c);
+    }
+
+    /**
+     * Deletes the given consultation from the address book.
+     * The consultation must exist in the address book.
+     */
+    public void deleteConsultation(Consultation c) {
+        consultations.remove(c);
     }
 
     //// util methods
@@ -193,6 +216,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
+    public List<Person> getUniquePersonList() {
+        return persons.toList();
+    }
+
     @Override
     public ObservableList<Consultation> getConsultationList() {
         return consultations.asUnmodifiableObservableList();

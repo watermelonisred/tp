@@ -390,7 +390,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. AddressBook deletes the student.
 
 5. AddressBook UI updated.
-    
     Use case ends.
 
 **Extensions**
@@ -431,20 +430,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. Homework Tracker displays an error: `Student not found`.
 
       Use case ends.
-      
 * 3a. Assignment ID already exists for this student
   
   * 3a1. Homework Tracker displays an error: `Assignment ID already exists`.
 
     Use case ends.
-    
 * 3b. Assignment ID is invalid (not between 1–3)
   
   * 3b1. Homework Tracker displays an error: `Assignment ID must be between 1 and 3`.
 
     Use case ends.
-
-
 **Use case: Mark assignment completion**
 
 **MSS**
@@ -474,8 +469,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. Homework Tracker shows error message: `Assignment not found`.
   
       Use case ends.
-
-
 * 4a. The given status is invalid (not one of complete / incomplete / late).
     * 4a1. Homework Tracker shows error message: `Please enter complete/incomplete/late only`.
   
@@ -524,8 +517,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. AddressBook shows error: Duplicate consultation booking.
 
          Use case ends.
-
-
 **Use case: Mark attendance**
 
 **MSS**
@@ -576,8 +567,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. System shows error message: `Invalid Team Name`.
 
       Use case ends.
-
-
 **Use case: Add student to a group**
 
 **MSS**
@@ -607,8 +596,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. System shows error message: `Student already in this group`.
 
       Use case ends.
-
-
 ### Non-Functional Requirements
 
 #### 1. Data Requirements
@@ -670,8 +657,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ##### NFR-P2: Startup Time
 - Application must launch within 3 seconds on standard hardware
 - Onboarding guide must appear within 1 second of first launch
-
-
 #### 4. Scalability Requirements
 ##### NFR-S1: User Scalability
 - Support TAs managing multiple tutorial slots simultaneously
@@ -679,8 +664,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ##### NFR-S2: Data Scalability
 - Performance must not degrade noticeably up to 100 students
 - Support unlimited consultation bookings per student
-
-
 #### 5. Usability Requirements
 ##### NFR-U1: Learnability
 - First-time TA users must be able to add a student and mark attendance within 10 minutes using the onboarding guide
