@@ -224,6 +224,10 @@ public class AddCommandTest {
         public boolean hasGroup(GroupId groupId) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public Person getPersonByNusnetId(Nusnetid nusnetid) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

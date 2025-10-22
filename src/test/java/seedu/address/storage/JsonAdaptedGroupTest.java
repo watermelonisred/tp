@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 
@@ -12,6 +13,7 @@ import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Group;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Person;
@@ -31,7 +33,16 @@ public class JsonAdaptedGroupTest {
         JsonAdaptedGroup jsonGroup = new JsonAdaptedGroup(VALID_GROUP);
         assertEquals(VALID_GROUP.getGroupId(), new GroupId(jsonGroup.getGroupId()));
         Spliterator<Person> spliterator = VALID_GROUP.getStudents().spliterator();
-        assertEquals(StreamSupport.stream(spliterator, false).map(p -> p.getNusnetid()).collect(Collectors.toList()),
+        assertEquals(StreamSupport.stream(spliterator, false)
+                        .map(Person::getNusnetid).collect(Collectors.toList()),
                 jsonGroup.getStudentNusnetidsAsIds());
+    }
+    @Test
+    public void toModelType_invalidGroupId_throwsIllegalValueException() {
+        JsonAdaptedGroup jsonGroup =
+                new JsonAdaptedGroup(
+                        INVALID_GROUP_ID,
+                        VALID_STUDENTS.stream().map(p -> p.getNusnetid().value).collect(Collectors.toList()));
+        assertThrows(IllegalValueException.class, jsonGroup::toModelGroupId);
     }
 }
