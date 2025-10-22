@@ -69,6 +69,7 @@ class JsonSerializableAddressBook {
     /**
      * Converts this address book into the model's {@code AddressBook} object.
      *
+     * @return AddressBook object
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public AddressBook toModelType() throws IllegalValueException {
@@ -89,10 +90,12 @@ class JsonSerializableAddressBook {
         }
         List<Group> modelGroups = new ArrayList<>();
         for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
-            // validate and build Group object
+            // validate and build Group object from one JsonAdaptedGroup
             GroupId modelGroupId = jsonAdaptedGroup.toModelGroupId();
             List<String> nusnetidsInGroup = jsonAdaptedGroup.getStudentNusnetids();
             ArrayList<Person> studentsInGroup = new ArrayList<>();
+            // For each stored nus net id in group,
+            // find the corresponding Person in addressBook and add to the group
             for (String nusIdStr : nusnetidsInGroup) {
                 if (nusIdStr == null) {
                     throw new IllegalValueException(MESSAGE_GROUP_CONTAINS_INVALID_NUSNETID);
@@ -100,37 +103,14 @@ class JsonSerializableAddressBook {
                 if (!Nusnetid.isValidNusnetid(nusIdStr)) {
                     throw new IllegalValueException(Nusnetid.MESSAGE_CONSTRAINTS);
                 }
-                Person student = addressBook.getPersonList().stream()
-                        .filter(person -> person.getNusnetid().value.equals(nusIdStr))
-                        .findFirst().orElse(null);
+                Person student = addressBook.getPersonByNusnetId(new Nusnetid(nusIdStr));
+                // person not found in address book
                 if (student == null) {
                     throw new IllegalValueException(MESSAGE_GROUP_REFERENCES_UNKNOWN_PERSON);
                 }
                 studentsInGroup.add(student);
             }
             Group modelGroup = new Group(modelGroupId, studentsInGroup);
-            // For each stored nus net id in group,
-            // find the corresponding Person in addressBook and add to the group
-            for (String nusIdStr : jsonAdaptedGroup.getStudentNusnetids()) {
-                if (nusIdStr == null) {
-                    throw new IllegalValueException("Group contains null nusnetid");
-                }
-                if (!Nusnetid.isValidNusnetid(nusIdStr)) {
-                    throw new IllegalValueException(Nusnetid.MESSAGE_CONSTRAINTS);
-                }
-                Nusnetid modelNusnetid = new Nusnetid(nusIdStr);
-                boolean found = false;
-                for (Person p : addressBook.getPersonList()) {
-                    if (p.getNusnetid().equals(modelNusnetid)) {
-                        modelGroup.addStudent(p);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    throw new IllegalValueException(MESSAGE_GROUP_REFERENCES_UNKNOWN_PERSON);
-                }
-            }
             modelGroups.add(modelGroup);
         }
 
