@@ -69,7 +69,11 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'soctassist.jar'
+}
+
+run {
+    enableAssertions = true
 }
 
  run{
