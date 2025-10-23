@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -41,5 +42,18 @@ public class FindGroupCommandTest {
         command.execute(expectedModel);
         assertEquals(2, model.getFilteredPersonList().size());
         assertTrue(expectedModel.hasPerson(model.getFilteredPersonList().get(0)));
+    }
+    @Test
+    public void execute_invalidGroupId() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> new GroupId("X01"));
+        assertEquals(GroupId.MESSAGE_CONSTRAINTS, ex.getMessage());
+    }
+    @Test
+    public void execute_nonExistentGroupId_noPersonFound() {
+        FindGroupCommand command = new FindGroupCommand(new GroupId("T99"));
+        // no person in T99 group
+        command.execute(model);
+        command.execute(expectedModel);
+        assertEquals(0, model.getFilteredPersonList().size());
     }
 }
