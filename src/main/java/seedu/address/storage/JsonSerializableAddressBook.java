@@ -74,6 +74,7 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+        // Convert and add all students so that groups can refer to existing students
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -81,6 +82,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        // Convert and add all consultations
         for (JsonAdaptedConsultation jsonAdaptedConsultation : consultations) {
             Consultation consultation = jsonAdaptedConsultation.toModelType();
             if (addressBook.hasConsultation(consultation)) {
@@ -88,6 +90,8 @@ class JsonSerializableAddressBook {
             }
             addressBook.addConsultation(consultation);
         }
+        // Convert and add all groups after students have been added so that
+        // we can validate that each nus net id in group refers to an existing student
         List<Group> modelGroups = new ArrayList<>();
         for (JsonAdaptedGroup jsonAdaptedGroup : groups) {
             // validate and build Group object from one JsonAdaptedGroup

@@ -56,4 +56,10 @@ public class FindGroupCommandTest {
         command.execute(expectedModel);
         assertEquals(0, model.getFilteredPersonList().size());
     }
+    @Test
+    public void toStringMethod() {
+        FindGroupCommand command = new FindGroupCommand(new GroupId("T01"));
+        String expectedString = "FindGroupCommand{groupId=T01}";
+        assertEquals(expectedString, command.toString());
+    }
 }

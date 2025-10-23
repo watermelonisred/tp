@@ -131,4 +131,8 @@ public class Group {
     public int hashCode() {
         return groupId.hashCode();
     }
+    @Override
+    public String toString() {
+        return String.format("Group: %s", groupId);
+    }
 }
