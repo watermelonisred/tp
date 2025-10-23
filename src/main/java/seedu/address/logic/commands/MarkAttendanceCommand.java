@@ -59,7 +59,6 @@ public class MarkAttendanceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (week < 2 || week > 13) {
             throw new CommandException(MESSAGE_INVALID_WEEK);
         }

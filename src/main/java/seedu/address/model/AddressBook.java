@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -147,8 +148,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
+    }
+
+    /**
+     * Retrieves a person by their nusnetId. Assumes that the person exists.
+     * @param nusnetId the nusnetId of the person to be retrieved
+     * @return the person with the specified nusnetId
+     */
+    public Person getPersonByNusnetId(Nusnetid nusnetId) {
+        requireNonNull(nusnetId);
+        assert hasPerson(nusnetId) : "Person with given nusnetId should exist in the address book.";
+        return StreamSupport.stream(persons.spliterator(), false)
+                .filter(p -> p.getNusnetid().equals(nusnetId))
+                .findFirst().orElse(null);
     }
 
     /**
@@ -228,7 +241,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public List<Person> getUniquePersonList() {
         return persons.toList();
     }
-
     @Override
     public ObservableList<Consultation> getConsultationList() {
         return consultations.asUnmodifiableObservableList();

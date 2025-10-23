@@ -345,7 +345,7 @@ Action     | Format, Examples
 **EditStudent**   | `edit_student INDEX [n/NAME] [i/NUSNETID] [t/TELEGRAM] [p/PHONE_NUMBER] [e/EMAIL]  [s/SLOT]`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
 **AddHomework**  | `add_hw i/NUSNETID (all for all students) a/ASSIGNMENT` <br> e.g., `add_hw i/E1234567 a/1`
 **MarkHomework**  | `mark_hw i/NUSNETID  a/ASSIGNMENT status/STATUS(complete incomplete late)` <br> e.g., `mark_hw i/E1234567 a/1 complete`
-**DeleteHomework**  | `delete_hw i/NUSNETID ('all' for all students) a/ASSIGNMENT` <br> e.g., `delete_hw i/E1234567 a/1`
+**DeleteHomework**  | `delete_hw i/NUSNETID (all for all students) a/ASSIGNMENT` <br> e.g., `delete_hw i/E1234567 a/1`
 **MarkAttendance**  | `mark_attendance i/NUSNETID w/WEEK status/STATUS(present absent excused)` <br> e.g., `mark_attendance i/E1234567 w/3 status/present`
 **MarkAllAttendance**  | `mark_all_attendance g/GROUPID w/WEEK status/STATUS(present absent excused)` <br> e.g., `mark_all_attendance g/T01 w/3 status/present`
 **AddConsultation**  | `add_consult i/NUSNETID from/DATE_TIME to/DATE_TIME` <br> e.g., `add_consult i/E1234567 from/2024-09-15 14:00 to/2024-09-15 15:00`
