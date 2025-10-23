@@ -17,6 +17,7 @@ import seedu.address.model.event.Consultation;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -126,6 +127,28 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         addressBook.setPerson(target, editedPerson);
+    }
+    /**
+     * Updates the group information when a person is added.
+     * @param person the person that was added
+     * @throws CommandException if duplicate person exception occurs
+     */
+    @Override
+    public void updateGroupWhenAddPerson(Person person) throws CommandException {
+        requireNonNull(person);
+        try {
+            if (!this.hasGroup(person.getGroupId())) {
+                Group newGroup = new Group(person.getGroupId());
+                this.addGroup(newGroup);
+                newGroup.addStudent(person);
+            } else {
+                Group group = this.getGroup(person.getGroupId());
+                group.addStudent(person);
+            }
+        } catch (DuplicatePersonException e) {
+            // This should not normally happen for a newly added person, but wrap just in case
+            throw new CommandException(e.getMessage());
+        }
     }
 
     /**
