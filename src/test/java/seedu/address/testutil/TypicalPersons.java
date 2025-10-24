@@ -32,7 +32,7 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withNusnetid("E1234568")
             .withEmail("johnd@u.nus.edu").withPhone("98765432")
-            .withTelegram("@benson").withGroup("T02").build();
+            .withTelegram("@benson").withGroup("T01").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@u.nus.edu").withNusnetid("E1234569").withTelegram("@carllll").withGroup("T15").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
@@ -71,6 +71,7 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
+            ab.updateGroupWhenAddPerson(person);
         }
         return ab;
     }

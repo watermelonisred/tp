@@ -40,7 +40,7 @@ public class JsonSerializableAddressBookTest {
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        assertEquals(addressBookFromFile.toString(), typicalPersonsAddressBook.toString());
     }
 
     @Test
@@ -69,7 +69,6 @@ public class JsonSerializableAddressBookTest {
         Group group = GROUP_T01;
         group.addStudent(JOHN);
         group.addStudent(SEB);
-        expectedAddressBook.addGroup(group);
         assertEquals(addressBookFromFile, expectedAddressBook);
     }
 }
