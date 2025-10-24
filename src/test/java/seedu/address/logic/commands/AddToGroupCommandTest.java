@@ -49,7 +49,7 @@ public class AddToGroupCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that have all the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -168,6 +168,10 @@ public class AddToGroupCommandTest {
         public Person getPersonByNusnetId(Nusnetid nusnetid) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void updateGroupWhenAddPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
     private class ModelStubWithGroup extends ModelStub {
         private static final String MESSAGE_STUDENT_NOT_FOUND = "Student not found.";
@@ -215,7 +219,7 @@ public class AddToGroupCommandTest {
         @Override
         public Person getPersonByNusnetId(Nusnetid nusnetId) throws CommandException {
             requireNonNull(nusnetId);
-            assert hasPerson(nusnetId) : "Person with given nusnetId should exist in the address book.";
+            assert hasPerson(nusnetId) : "Person with given nus net Id should exist in the address book.";
             Person target = this.getFilteredPersonList()
                     .stream().filter(p -> p.getNusnetid().equals(nusnetId))
                     .findFirst().orElseThrow(() -> new CommandException(MESSAGE_STUDENT_NOT_FOUND));

@@ -28,6 +28,7 @@ import seedu.address.model.event.Consultation;
 import seedu.address.model.person.GroupId;
 import seedu.address.model.person.Nusnetid;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -172,6 +173,10 @@ public class AddCommandTest {
         public Consultation deleteConsultationFromPerson(Nusnetid nusnetid) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void updateGroupWhenAddPerson(Person person) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
@@ -298,6 +303,24 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             filteredPersons.setPredicate(predicate);
+        }
+        @Override
+        public void updateGroupWhenAddPerson(Person person) throws CommandException {
+            requireNonNull(person);
+            try {
+                if (!this.hasGroup(person.getGroupId())) {
+                    Group newGroup = new Group(person.getGroupId());
+                    this.addGroup(newGroup);
+                    newGroup.addStudent(person);
+                } else {
+                    Group group = this.getGroup(person.getGroupId());
+                    assert group != null;
+                    group.addStudent(person);
+                }
+            } catch (DuplicatePersonException e) {
+                // This should not normally happen for a newly added person, but wrap just in case
+                throw new CommandException(e.getMessage());
+            }
         }
     }
 }

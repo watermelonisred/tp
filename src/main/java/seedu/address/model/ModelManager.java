@@ -139,7 +139,16 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
         addressBook.setPerson(target, editedPerson);
     }
-
+    /**
+     * Updates the group information when a person is added.
+     * @param person the person that was added
+     * @throws CommandException if duplicate person exception occurs
+     */
+    @Override
+    public void updateGroupWhenAddPerson(Person person) {
+        requireNonNull(person);
+        this.addressBook.updateGroupWhenAddPerson(person);
+    }
     /**
      * Retrieves a person by their nusnetId.
      * @param nusnetId the nusnetId of the person to be retrieved

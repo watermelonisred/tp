@@ -110,6 +110,11 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+    /**
+     * Updates the groups to include the newly added person.
+     * @param person the person that was added
+     */
+    void updateGroupWhenAddPerson(Person person) throws CommandException;
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
