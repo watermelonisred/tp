@@ -193,8 +193,7 @@ public class ModelManager implements Model {
     public void addConsultationToPerson(Nusnetid nusnetid, Consultation consultation) {
         requireAllNonNull(nusnetid, consultation);
         addressBook.addConsultationToPerson(nusnetid, consultation);
-        Predicate<Person> predicate = person -> person.hasSameNusnetId(nusnetid);
-        updateFilteredPersonList(predicate);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
